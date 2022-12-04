@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>회원 삭제</title>
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/userDelete.css}" href="../static/css/userDelete.css"></head>
+<body>
+<div class="container">
+    <header class="common">
+        <div class="subtitle">
+            <h1><a href="/admin">HOME</a></h1>
+        </div>
+        <div class="topnav">
+            <ul>
+                <li>&#10217;</li>
+                <li><a src="#">회원 삭제</a></li>
+            </ul>
+        </div>
+    </header>
+    <form action="/delete" method="GET">
+        <label class="label-margin">회원 번호</label>
+        <input name="id" type="text" placeholder="제거 할 회원의 번호를 입력하세요."/>
+        <br>
+        <input class="submit" name="delete" type="submit" value="회원 삭제" onclick="deletecomplete()"/>
+    </form>
+</div> <!-- /container -->
+</body>
+<script>
+    function deletecomplete() {
+        alert("회원삭제가 완료되었습니다.")
+    }
+</script>
+</html>

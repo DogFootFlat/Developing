@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>관리자 메인 페이지 - 시작</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/eBook.css}" href="../../static/css/eBook.css">
+</head>
+
+<body>
+<h3><a class="awhite" href="/books/cmpReset">》 책 위치 초기화</a></h3>
+<section id="main">
+    <table>
+        <tr th:each="member : ${members}" th:href=@{${'/ebook/'+member.id}}>
+            <td th:if="${member.bookCmp} and ${member.bookFloor}==2" class="errorBook">
+                <form th:action="@{'/book/edit'}" method="GET">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <input th:type="submit" th:value="${member.id}" />
+                </form>
+            </td>
+
+            <td th:if="!${member.bookCmp} and ${member.bookFloor}==2">
+                <form th:action="@{'/book/edit'}" method="GET">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <input th:type="submit" th:value="${member.id}" />
+                </form>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr th:each="member : ${members}" th:href=@{${'/ebook/'+member.id}}>
+            <td th:if="${member.bookCmp} and ${member.bookFloor}==1" class="errorBook">
+                <form th:action="@{'/book/edit'}" method="GET">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <input th:type="submit" th:value="${member.id}" />
+                </form>
+            </td>
+
+            <td th:if="!${member.bookCmp} and ${member.bookFloor}==1">
+                <form th:action="@{'/book/edit'}" method="GET">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <input th:type="submit" th:value="${member.id}" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

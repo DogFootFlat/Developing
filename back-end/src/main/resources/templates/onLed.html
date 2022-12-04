@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>관리자 메인 페이지 - 시작</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+</head>
+<body>
+<section id="main">
+
+    <form action="/returnBook/${id}" method="get">
+        <h2 th:text="${name}"></h2>
+        <h2 th:text="${num}"></h2>
+        <button type="submit">확인</button>
+
+    </form>
+    <button th:href=@{${'/'}}>취소</button>
+</section>
+</body>
+</html>

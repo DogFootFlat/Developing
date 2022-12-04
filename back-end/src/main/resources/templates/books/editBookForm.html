@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/createMemberForm.css}" href="../../static/css/createMemberForm.css"></head>
+<body>
+<div class="container">
+    <header class="common">
+        <div class="subtitle">
+            <h2><a th:href=@{${'/'}}>HOME</a></h2>
+        </div>
+        <div class="topnav">
+            <ul>
+                <li>&#10217;</li>
+                <li><a src="#">도서 정보</a></li>
+            </ul>
+        </div>
+    </header>.
+    <form action="/book/edit" method="post">
+        <div class="form-group">
+            <label for="name">아이디</label>
+            <input type="text" id="id" name="id" th:value="${member.get().getId()}" readonly>
+            <label for="name">도서 제목</label>
+            <input type="text" id="name" name="name" th:value="${member.get().getName()}">
+            <label for="bookNum">도서 번호</label>
+            <input type="text" id="bookNum" name="bookNum" th:value="${member.get().getBookNum()}">
+            <label for="borrower">빌린 사람</label>
+            <input type="text" id="borrower" name="borrower" th:value="${member.get().getBorrower()}">
+            <label for="bookFloor">책 위치</label>
+            <input type="text" id="bookFloor" name="bookFloor" th:value="${member.get().getBookFloor()}">
+            <label for="bookCmp">정위치</label>
+            <input type="text" id="bookCmp" name="bookCmp" th:value="${member.get().getBookCmp()}">
+            <label for="uid">UID</label>
+            <input type="text" id="uid" name="uid" th:value="${member.get().getUid()}">
+            <label for="uid">기부 하신 분</label>
+            <input type="text" id="bonor" name="bonor" th:value="${member.get().getDonor()}">
+        </div>
+        <button class="subbtn" type="submit">등록</button>
+    </form>
+    <button class="dltbtn" th:onclick="|location.href='@{delete(uid=${member.get().getId()})}'|">삭제</button>
+</div> <!-- /container -->
+</body>
+</html>

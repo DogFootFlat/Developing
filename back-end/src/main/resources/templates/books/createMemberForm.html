@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/createMemberForm.css}" href="../../static/css/createMemberForm.css"></head>
+<body>
+<div class="container">
+    <header class="common">
+        <div class="subtitle">
+            <h2><a th:href=@{${'/'}}>HOME</a></h2>
+        </div>
+        <div class="topnav">
+            <ul>
+                <li>&#10217;</li>
+                <li><a src="#">도서 추가</a></li>
+            </ul>
+        </div>
+    </header>.
+    <form action="/members/new" method="post">
+        <div class="form-group">
+            <label for="name">도서 제목</label>
+            <input type="text" id="name" name="name" placeholder="제목을
+입력하세요">
+            <label for="bookNum">도서 번호</label>
+            <input type="text" id="bookNum" name="bookNum" placeholder="번호를 입력하세요">
+            <label for="borrower">빌린 사람</label>
+            <input type="text" id="borrower" name="borrower" placeholder="이름을
+입력하세요">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
