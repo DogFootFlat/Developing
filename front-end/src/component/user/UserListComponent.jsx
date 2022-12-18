@@ -76,11 +76,11 @@ class UserListComponent extends Component {
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell>FistName</TableCell>
-              <TableCell align="right">LastName</TableCell>
+              <TableCell align="right">pw</TableCell>
+              <TableCell align="right">name</TableCell>
               <TableCell align="right">UserName</TableCell>
-              <TableCell align="right">Age</TableCell>
-              <TableCell align="right">Salary</TableCell>
+              <TableCell align="right">donate</TableCell>
+              <TableCell align="right">borrow1</TableCell>
               <TableCell align="right">Edit</TableCell>
               <TableCell align="right">Delete</TableCell>
             </TableRow>
@@ -91,11 +91,10 @@ class UserListComponent extends Component {
                 <TableCell component="th" scope="user">
                   {user.id}
                 </TableCell>
-                <TableCell align="right">{user.firstName}</TableCell>
-                <TableCell align="right">{user.lastName}</TableCell>
-                <TableCell align="right">{user.username}</TableCell>
-                <TableCell align="right">{user.age}</TableCell>
-                <TableCell align="right">{user.salary}</TableCell>
+                <TableCell align="right">{user.pw}</TableCell>
+                <TableCell align="right">{user.name}</TableCell>
+                <TableCell align="right">{user.donate}</TableCell>
+                <TableCell align="right">{user.borrow1}</TableCell>
                 <TableCell align="right" onClick={() => this.editUser(user.id)}>
                   <CreateIcon />
                 </TableCell>
