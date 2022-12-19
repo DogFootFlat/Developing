@@ -1,6 +1,8 @@
 package mit.shelf.Controller;
 
 import io.swagger.annotations.Api;
+import mit.shelf.Form.MemberForm;
+import mit.shelf.Form.UserForm;
 import mit.shelf.domain.Member;
 import mit.shelf.domain.User;
 import mit.shelf.repository.LibUserRepository;
@@ -31,11 +33,52 @@ public class apiController {
     UserRepository userRepository;
 
     @GetMapping(value = "/users")
-    public List<User> apiUserList() {
+    public List<User> UserList() {
         return libUserRepository.findAll(); }
 
+    @PutMapping("/users/edit")
+    public Map<String, String> updateUser(UserForm form) {
+        Optional<User> updateUser = libUserRepository.findById(form.getId());
+        updateUser.ifPresent(user -> {
+            user.setName(form.getName());
+            user.setUid(form.getUid());
+            user.setPw(form.getPw());
+            libUserRepository.save(user);
+        });
+        Map<String, String> list = new HashMap<>();
+        list.put("result", "success");
+        return list;
+    }
+
+    @PostMapping(value = "/users/new")
+    public Map<String, String> createUser(UserForm form) {
+        User member = new User();
+        member.setName(form.getName());
+        member.setPw(form.getPw());
+        member.setUid(form.getUid());
+        libUserRepository.save(member);
+        Map<String, String> list = new HashMap<>();
+        list.put("result", "success");
+        return list;
+    }
+
     @GetMapping(value = "/books")
-    public List<Member> apiBookList() {
+    public List<Member> BookList() {
         return memberService.findMembers();
+    }
+
+    @PutMapping("/books/edit")
+    public String updateBook(MemberForm form) {
+        Optional<Member> updateUser = memberRepository.findById(form.getId());
+        updateUser.ifPresent(book -> {
+            book.setName(form.getName());
+            book.setBookNum(form.getBookNum());
+            book.setBorrower(form.getBorrower());
+            book.setUid(form.getUid());
+            book.setBookFloor(form.getBookFloor());
+            book.setBookCmp(form.getBookCmp());
+            memberRepository.save(book);
+        });
+        return "redirect:/";
     }
 }
