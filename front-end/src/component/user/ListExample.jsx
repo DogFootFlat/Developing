@@ -74,7 +74,7 @@ class UserListComponent extends Component {
         </Button>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow class="th">
               <TableCell>ID</TableCell>
               <TableCell align="right">pw</TableCell>
               <TableCell align="right">name</TableCell>
