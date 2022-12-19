@@ -9,24 +9,28 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 const NavBar = () => {
   return (
-    <div>
+    <>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" style={style}>
-            React User Application
+            <a href="http://localhost:8081/" style={color}>HOME</a>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">로그인</Button>
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 };
 
 const style = {
   flexGrow: 1,
+};
+
+const color = {
+  color: "white",
 };
 
 export default NavBar;

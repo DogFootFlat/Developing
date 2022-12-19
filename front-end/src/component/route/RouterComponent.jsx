@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UserListComponent from "../user/UserListComponent";
-import AddUserComponent from "../user/AddUserComponent";
-import EditUserComponent from "../user/EditUserComponent";
+import BookList from "../user/BookList";
+import UserList from "../user/UserList";
+import ListExample from "../user/ListExample";
+import AddExample from "../user/AddExample";
+import EditExample from "../user/EditExample";
 
 const AppRouter = () => {
   return (
@@ -10,10 +12,12 @@ const AppRouter = () => {
       <BrowserRouter>
         <div style={style}>
           <Routes>
-            <Route exact path="/" element={<UserListComponent />} />
-            <Route path="/users" element={<UserListComponent />} />
-            <Route path="/add-user" element={<AddUserComponent />} />
-            <Route path="/edit-user" element={<EditUserComponent />} />
+            <Route exact path="/" element={<UserList />} />
+            {/* <Route path="/books" element={<BookList />} /> */}
+            <Route path="/users" element={<UserList />} />
+            <Route path="/examples" element={<ListExample />} />
+            <Route path="/add-example" element={<AddExample />} />
+            <Route path="/edit-example" element={<EditExample />} />
           </Routes>
         </div>
       </BrowserRouter>
