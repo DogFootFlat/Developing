@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -11,13 +10,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
+import userscss from "./css/users.module.css";
 
 const UserList = (props) => {
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState([]);
 
-  const fetchBooksHandler = useCallback(() => {
-    ApiService.fetchUsers()
+  const fetchBooksHandler = useCallback(async () => {
+    await ApiService.fetchUsers()
       .then((res) => {
         setUsers(res.data);
       })
@@ -30,42 +30,27 @@ const UserList = (props) => {
     fetchBooksHandler();
   }, [fetchBooksHandler]);
 
-  // deleteUser = (userID) => {
-  //   ApiService.deleteUser(userID)
-  //     .then((res) => {
-  //       this.setState({
-  //         message: "User Deleted Successfully.",
-  //       });
-  //       this.setState({
-  //         users: this.state.users.filter((user) => user.id !== userID),
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log("deleteUser() Error!", err);
-  //     });
-  // };
-
-  // editUser = (ID) => {
-  //   window.localStorage.setItem("userID", ID);
-  //   props.history.push("/edit-user");
-  // };
-
-  // addUser = () => {
-  //   window.localStorage.removeItem("userID");
-  //   props.history.push("/add-user");
-  // };
+  async function deleteUser(userID) {
+    ApiService.deleteUser(userID)
+      .then((res) => {
+        setMessage("User Deleted Successfully.");
+        setUsers(users.filter((user) => user.id !== userID));
+      })
+      .catch((err) => {
+        console.log("deleteUser() Error!", err);
+      });
+  }
 
   return (
     <>
-      <Typography variant="h4" style={style}>
-        <Link to={'/users'}>회원 목록</Link>
+      <Typography className={userscss.typo} variant="h6">
+        버튼을 클릭하여 회원 추가
       </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        // onClick={addUser}
-      >
-        {" "}회원 추가{" "}
+      <Button className={userscss.addbtn} variant="contained" color="primary">
+        <Link to={"/add-user"} className={userscss.link}>
+          {" "}
+          회원 추가{" "}
+        </Link>
       </Button>
       <Table>
         <TableHead>
@@ -91,15 +76,15 @@ const UserList = (props) => {
               <TableCell align="right">{user.name}</TableCell>
               <TableCell align="right">{user.donate}</TableCell>
               <TableCell align="right">{user.borrow1}</TableCell>
-              <TableCell
-                align="right"
-                // onClick={() => editUser(user.id)}
-              >
-                <CreateIcon />
+              <TableCell align="right">
+                <Link to={"/edit-user"}>
+                  <CreateIcon />
+                </Link>
               </TableCell>
               <TableCell
                 align="right"
-                // onClick={() => deleteUser(user.id)}
+                className={userscss.delicon}
+                onClick={() => deleteUser(user.id)}
               >
                 <DeleteIcon />
               </TableCell>
@@ -109,11 +94,6 @@ const UserList = (props) => {
       </Table>
     </>
   );
-}
-
-const style = {
-  display: "flex",
-  justifyContent: "center",
 };
 
 export default UserList;

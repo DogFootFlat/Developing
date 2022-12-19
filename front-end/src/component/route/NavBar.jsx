@@ -1,36 +1,48 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import ArrowForwardIosSharpIcon from "@material-ui/icons/ArrowForwardIosSharp";
+import navcss from "./css/navcss.module.css";
 
 const NavBar = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="Menu">
-            <MenuIcon />
+        <Toolbar className={navcss.nav}>
+          <div className={navcss.homearea}>
+            <IconButton
+              className={navcss.homebtn}
+              edge="start"
+              color="inherit"
+              aria-label="Home"
+            >
+              <Link to={"/"} style={color}>
+                HOME
+              </Link>
+            </IconButton>
+          </div>
+          <IconButton className={navcss.arrowicon} color="inherit">
+            <ArrowForwardIosSharpIcon />
           </IconButton>
-          <Typography variant="h6" style={style}>
-            <a href="http://localhost:8081/" style={color}>HOME</a>
+          <Typography className={navcss.typobtn} variant="h6">
+            {/* 조건부 컨텐츠 사용 */}
+            <Link to={"/users"} style={color}>
+              회원 목록
+            </Link>
           </Typography>
-          <Button color="inherit">로그인</Button>
+          {/* 조건부 컨텐츠 사용 */}
+          <Button className={navcss.loginbtn} color="inherit">
+            로그인
+          </Button>
         </Toolbar>
       </AppBar>
     </>
   );
 };
 
-const style = {
-  flexGrow: 1,
-};
-
-const color = {
-  color: "white",
-};
-
+const color = { color: "white" };
 export default NavBar;

@@ -95,7 +95,6 @@ header {
 .table {
     font-size: 15px;
     color: white;
-    /* border: 3px outset white; */
     background: url(../img/cellwood.jpg);
     /* background-color: #CCCCCC; */
     border-spacing: 5px;
