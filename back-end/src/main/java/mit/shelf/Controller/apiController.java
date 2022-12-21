@@ -36,9 +36,9 @@ public class apiController {
     public List<User> UserList() {
         return libUserRepository.findAll(); }
 
-    @PutMapping("/users/edit")
-    public Map<String, String> updateUser(UserForm form) {
-        Optional<User> updateUser = libUserRepository.findById(form.getId());
+    @PutMapping("/users/{id}")
+    public Map<String, String> updateUser(UserForm form, @PathVariable Long id) {
+        Optional<User> updateUser = libUserRepository.findById(id);
         updateUser.ifPresent(user -> {
             user.setName(form.getName());
             user.setUid(form.getUid());
@@ -50,7 +50,7 @@ public class apiController {
         return list;
     }
 
-    @PostMapping(value = "/users/new")
+    @PostMapping(value = "/users")
     public Map<String, String> createUser(UserForm form) {
         User member = new User();
         member.setName(form.getName());
