@@ -5,5 +5,5 @@ SHELF-ER의 웹 페이지 with Spring Boot&React.js \
 [SHELF-ER 요구사항 분석서.pptx](https://bonjenny.notion.site/SHELF-ER-35d94ec8e2cf45be9289499002658a5f)
 
 ## [API GitBook](https://woogi.gitbook.io/sherfer-api-docs/)
-- api/books
+-Resource api/books
 - api/users
