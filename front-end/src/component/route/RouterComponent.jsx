@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import BookList from "../user/BookList";
+import BookList from "../book/BookList";
+import EditBook from "../book/EditBook";
 import UserList from "../user/UserList";
 import ListExample from "../user/ListExample";
 import AddExample from "../user/AddExample";
@@ -13,7 +14,7 @@ const AppRouter = () => {
         <Route exact path="/" element={<UserList />} />
         <Route path="/books" element={<BookList />} />
         <Route path="/add-book" element={<AddExample />} />
-        <Route path="/edit-book" element={<EditExample />} />
+        <Route path="/edit-book" element={<EditBook />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/add-user" element={<AddExample />} />
         <Route path="/edit-user" element={<EditExample />} />
