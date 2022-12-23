@@ -54,7 +54,7 @@ public class UserApiController {
         return result;
     }
 
-    @DeleteMapping(value = "/books/{id}")
+    @DeleteMapping(value = "/users/{id}")
     public JSONObject deleteBook(@PathVariable Long id) {
         libUserRepository.deleteById(id);
         result.put("result", "success");
