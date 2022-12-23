@@ -1,5 +1,6 @@
 package mit.shelf.repository;
 
+import mit.shelf.domain.Book;
 import mit.shelf.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ public class JpaUserRepository implements LibUserRepository{
 
     @Override
     public Optional<User> findByUid(String uid) {
-        List<User> result = em.createQuery("select m from Member m where m.uid = :uid", User.class)
+        List<User> result = em.createQuery("select m from Book m where m.uid = :uid", User.class)
                 .setParameter("uid", uid)
                 .getResultList();
         return result.stream().findAny();
@@ -85,5 +86,11 @@ public class JpaUserRepository implements LibUserRepository{
                 .setParameter("name", name)
                 .getResultList();
         return result.stream().findAny();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        em.createQuery("delete from User m where m.id = :id", User.class)
+                .setParameter("id", id);
     }
 }

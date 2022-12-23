@@ -1,8 +1,6 @@
 package mit.shelf.repository;
 
-import mit.shelf.domain.Member;
 import mit.shelf.domain.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +22,6 @@ public interface LibUserRepository {
     Optional<User> findByUserName(String name);
 
     Optional<User> findByUidU(String uid);
+
+    void deleteById(Long id);
 }

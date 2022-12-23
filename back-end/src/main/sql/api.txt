@@ -1,5 +1,5 @@
 멤버 정보 받기
-http://localhost:8080/member/{uid}
+http://localhost:8080/book/{uid}
 결과- result:true
 
 책 반납 하기
@@ -8,5 +8,5 @@ http://localhost:8080/book/return/{사용자id : uid}
 
 책 기부
 /book/donate - post
-request - member(id, name)
+request - book(id, name)
 response -

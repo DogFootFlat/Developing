@@ -1,6 +1,6 @@
 package mit.shelf.Controller;
 
-import mit.shelf.domain.Member;
+import mit.shelf.domain.Book;
 import mit.shelf.repository.RecommendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ public class RecommendController {
     RecommendRepository recommendRepository;
 
     @GetMapping(value = "/bookRecommend") public String recommend(Model model) {
-        List<Member> result = recommendRepository.recommendBook();
+        List<Book> result = recommendRepository.recommendBook();
         model.addAttribute("recommends", result);
         return "/books/recommendList";
     }
