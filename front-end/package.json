@@ -17,6 +17,7 @@
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.6",
     "use-history": "^1.4.1",
+    "use-location": "^0.0.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {

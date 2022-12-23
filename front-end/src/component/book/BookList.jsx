@@ -107,12 +107,7 @@ const BookList = (props) => {
               <TableCell align="right">{book.writer}</TableCell>
               <TableCell align="right">{book.count}</TableCell>
               <TableCell align="right">
-                <Link to={{
-                  pathname: "/edit-book",
-                  state: {
-                    id: book.id
-                  }
-                }}>
+                <Link to="/edit-book" state={{ id: book.id }}>
                   <CreateIcon />
                 </Link>
               </TableCell>

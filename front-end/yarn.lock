@@ -9055,6 +9055,11 @@
     "react" "^16.8.6"
     "reactn" "^1.0.0"
 
+"use-location@^0.0.1":
+  "integrity" "sha512-dXNucbz+ORXc799moK1IyX2iiwggoIt3dJfac8epMRT/p6Xse4A+R+I5ORbJQaHVCagTZMt5RIlDBdSWuJQg0w=="
+  "resolved" "https://registry.npmjs.org/use-location/-/use-location-0.0.1.tgz"
+  "version" "0.0.1"
+
 "util-deprecate@^1.0.1", "util-deprecate@^1.0.2", "util-deprecate@~1.0.1":
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
   "resolved" "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"

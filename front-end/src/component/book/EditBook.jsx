@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../ApiService";
 import {
   TextField,
@@ -9,8 +9,10 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const EditBook = ({ props, location }) => {
+const EditBook = (props) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [books, setBooks] = useState({
     id: "",
     uid: null,
@@ -54,12 +56,13 @@ const EditBook = ({ props, location }) => {
 
   useEffect(() => {
     fetchBookByIDHandler();
-  }, [fetchBookByIDHandler]);
+  }, [fetchBookByIDHandler, location]);
 
   const onChangeHandler = (e) => {
     setBooks({
       [e.target.name]: e.target.value,
     });
+    console.log(books[e.target.name]);
   };
 
   const editBookHandler = (e) => {
@@ -80,6 +83,7 @@ const EditBook = ({ props, location }) => {
       count: books.count,
       img: books.img,
     };
+    console.log(books.id);
 
     ApiService.editBook(book)
       .then((res) => {
@@ -98,6 +102,38 @@ const EditBook = ({ props, location }) => {
       </Typography>
 
       <form>
+        <TextField
+          type="number"
+          placeholder="Edit your book ID"
+          name="id"
+          fullWidth
+          margin="normal"
+          value={books.id}
+          onChange={onChangeHandler}
+        />
+
+        <TextField
+          type="text"
+          placeholder="Edit your book's RFID value"
+          name="uid"
+          readOnly={true}
+          fullWidth
+          margin="normal"
+          value={books.uid}
+          onChange={onChangeHandler}
+        />
+
+        <TextField
+          type="text"
+          placeholder="Edit your book's RFID value for robot"
+          name="smartUid"
+          readOnly={true}
+          fullWidth
+          margin="normal"
+          value={books.smartUid}
+          onChange={onChangeHandler}
+        />
+
         <TextField
           type="text"
           placeholder="Edit your book Title"
@@ -126,6 +162,16 @@ const EditBook = ({ props, location }) => {
           fullWidth
           margin="normal"
           value={books.borrower}
+          onChange={onChangeHandler}
+        />
+
+        <TextField
+          type="number"
+          placeholder="Edit your book compare result"
+          name="bookCmp"
+          fullWidth
+          margin="normal"
+          value={books.bookCmp}
           onChange={onChangeHandler}
         />
 
