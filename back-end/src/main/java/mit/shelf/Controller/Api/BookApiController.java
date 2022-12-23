@@ -6,10 +6,9 @@ import mit.shelf.repository.BookRepository;
 import mit.shelf.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.json.simple.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -23,19 +22,20 @@ public class BookApiController {
     @Autowired
     BookRepository bookRepository;
 
+    JSONObject result = new JSONObject();
+
     @GetMapping(value = "/books")
     public List<Book> bookList() {
         return bookService.findMembers();
     }
 
     @GetMapping(value = "/books/{id}")
-    public Optional<Book> book(@RequestParam("id") Long id) {
-        Optional<Book> member = bookRepository.findById(id);
-        return member;
+    public Optional<Book> book(@PathVariable Long id) {
+        return bookRepository.findById(id);
     }
 
     @PutMapping("/books/{id}")
-    public Map<String, String> edit(MemberForm form, @PathVariable Long id) {
+    public JSONObject edit(MemberForm form, @PathVariable Long id) {
         Optional<Book> Book = bookRepository.findById(id);
         Book.ifPresent(book -> {
             book.setName(form.getName());
@@ -46,13 +46,12 @@ public class BookApiController {
             book.setBookCmp(form.getBookCmp());
             bookRepository.save(book);
         });
-        Map<String, String> list = new HashMap<>();
-        list.put("result", "success");
-        return list;
+        result.put("result", "success");
+        return result;
     }
 
     @PostMapping(value = "/books")
-    public Map<String, String> create(MemberForm form) {
+    public JSONObject create(MemberForm form) {
         Book book = new Book();
         book.setName(form.getName());
         book.setBookNum(form.getBookNum());
@@ -61,8 +60,14 @@ public class BookApiController {
         book.setBookFloor(form.getBookFloor());
         book.setBookCmp(form.getBookCmp());
         bookService.join(book);
-        Map<String, String> list = new HashMap<>();
-        list.put("result", "success");
-        return list;
+        result.put("result", "success");
+        return result;
+    }
+
+    @PostMapping(value = "/books/{id}")
+    public JSONObject deleteBook(@PathVariable Long id) {
+        bookRepository.deleteById(id);
+        result.put("result", "success");
+        return result;
     }
 }
