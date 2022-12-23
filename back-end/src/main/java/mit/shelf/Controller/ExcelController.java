@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mit.shelf.domain.Book;
 import mit.shelf.domain.ExcelData;
-import mit.shelf.domain.Member;
-import mit.shelf.service.MemberService;
+import mit.shelf.service.BookService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ExcelController {
 
     @Autowired
-    MemberService memberService;
+    BookService bookService;
 
     //책 번호, 대출자, 책 제목
     @GetMapping("/excel")
@@ -56,11 +56,11 @@ public class ExcelController {
 
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Row row = worksheet.getRow(i);
-            Member member = new Member();
-            member.setBookNum((int) row.getCell(0).getNumericCellValue());
-            member.setBorrower(row.getCell(1).getStringCellValue());
-            member.setName(row.getCell(2).getStringCellValue());
-            memberService.join(member);
+            Book book = new Book();
+            book.setBookNum((int) row.getCell(0).getNumericCellValue());
+            book.setBorrower(row.getCell(1).getStringCellValue());
+            book.setName(row.getCell(2).getStringCellValue());
+            bookService.join(book);
         }
         model.addAttribute("datas", dataList);
         return "home";

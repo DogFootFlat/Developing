@@ -1,12 +1,12 @@
 package mit.shelf.repository;
 
-import mit.shelf.domain.Member;
+import mit.shelf.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<Member,String> {
+public interface UserRepository extends JpaRepository<Book,String> {
     @Query(value = "SELECT uid FROM Member",nativeQuery = true)
     List<String> selectAllUid();
 

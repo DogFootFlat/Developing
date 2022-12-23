@@ -1,10 +1,10 @@
 package mit.shelf.Controller;
 
-import mit.shelf.domain.Member;
+import mit.shelf.domain.Book;
 import mit.shelf.domain.User;
 import mit.shelf.repository.BookLocationRepository;
 import mit.shelf.repository.LoginRepository;
-import mit.shelf.repository.MemberRepository;
+import mit.shelf.repository.BookRepository;
 import mit.shelf.repository.bookLendingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.util.List;
 public class UserPageController {
 
     @Autowired
-    MemberRepository memberRepository;
+    BookRepository bookRepository;
 
     @Autowired
     LoginRepository loginRepository;
@@ -44,21 +44,21 @@ public class UserPageController {
         }
 
         if (filter.equals("0")) {
-            List<Member> searchs = memberRepository.findByName(keyword);
+            List<Book> searchs = bookRepository.findByName(keyword);
             model.addAttribute("searchs", searchs);
 
         }
         if (filter.equals("1")) {
-            List<Member> searchs = memberRepository.findByWriter(keyword);
+            List<Book> searchs = bookRepository.findByWriter(keyword);
             model.addAttribute("searchs", searchs);
         }
 
         if (categoryfilter.equals("1")){
-            List<Member> searchs = memberRepository.findAll();
+            List<Book> searchs = bookRepository.findAll();
             model.addAttribute("searchs", searchs);
         }
         if (categoryfilter.equals("2")||categoryfilter.equals("3")||categoryfilter.equals("4")) {
-            List<Member> searchs = memberRepository.findByCategory(category);
+            List<Book> searchs = bookRepository.findByCategory(category);
             model.addAttribute("searchs", searchs);
         }
         User result = loginRepository.userNameIdSharing(id);
@@ -70,7 +70,7 @@ public class UserPageController {
     @GetMapping(value = "/search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
 
-        List<Member> search = memberRepository.findByName(keyword);
+        List<Book> search = bookRepository.findByName(keyword);
         model.addAttribute("search", search);
         return "borrow";
 
@@ -175,7 +175,7 @@ public class UserPageController {
     }
 
     @GetMapping(value = "/bookLending") public String bookLending(@RequestParam(value = "name") String name,  @RequestParam(value = "id") Long id ,Model model) {
-        List<Member> result = bookLendingRepository.findByBookLending(name);
+        List<Book> result = bookLendingRepository.findByBookLending(name);
         User result1 = loginRepository.userNameIdSharing(id);
         model.addAttribute("lendingList", result);
         model.addAttribute("loginGo", result1.getName());

@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @DynamicUpdate
 @Entity
-public class Member {
+public class Book {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

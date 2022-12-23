@@ -29,7 +29,7 @@ public class JpaUserRepository implements LibUserRepository{
 
     @Override
     public Optional<User> findByUid(String uid) {
-        List<User> result = em.createQuery("select m from Member m where m.uid = :uid", User.class)
+        List<User> result = em.createQuery("select m from Book m where m.uid = :uid", User.class)
                 .setParameter("uid", uid)
                 .getResultList();
         return result.stream().findAny();
