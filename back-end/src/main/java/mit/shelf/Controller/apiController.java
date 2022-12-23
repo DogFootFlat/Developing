@@ -26,7 +26,4 @@ public class apiController {
     @Autowired
     UserRepository userRepository;
 
-
-
-
 }
