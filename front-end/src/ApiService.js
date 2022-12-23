@@ -21,7 +21,7 @@ class ApiService {
   }
 
   editBook(book) {
-    return axios.put(BOOK_API_BASE_URL + "/" + book.id, book);
+    return axios.put(BOOK_API_BASE_URL + "/" + book.get("id"), book);
   }
 
   fetchUsers() {

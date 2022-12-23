@@ -15,17 +15,17 @@ const EditBook = (props) => {
 
   const [books, setBooks] = useState({
     id: "",
-    uid: null,
-    smartUid: null,
+    uid: "",
+    smartUid: "",
     name: "",
-    bookNum: "",
+    bookNum: 0,
     borrower: "",
-    bookCmp: null,
-    bookFloor: "",
+    bookCmp: 0,
+    bookFloor: 0,
     donor: "",
     category: "",
     writer: "",
-    count: "",
+    count: 0,
     img: "",
   });
 
@@ -52,7 +52,7 @@ const EditBook = (props) => {
       .catch((err) => {
         console.log("fetchBookByIDHandler() Error!", err);
       });
-  }, []);
+  }, [location.state.id]);
 
   useEffect(() => {
     fetchBookByIDHandler();
@@ -60,34 +60,25 @@ const EditBook = (props) => {
 
   const onChangeHandler = (e) => {
     setBooks({
+      ...books,
       [e.target.name]: e.target.value,
     });
-    console.log(books[e.target.name]);
+    console.log(books);
+    console.log(e.target.name, books[e.target.name]);
   };
 
   const editBookHandler = (e) => {
     e.preventDefault();
+    var formData = new FormData();
+    for (var key in books) {
+      if (books[key] !== undefined) {
+        formData.append(key, books[key]);
+      }
+    }
 
-    let book = {
-      id: books.id,
-      uid: books.uid,
-      smartUid: books.smartUid,
-      name: books.name,
-      bookNum: books.bookNum,
-      borrower: books.borrower,
-      bookCmp: books.bookCmp,
-      bookFloor: books.bookFloor,
-      donor: books.donor,
-      category: books.category,
-      writer: books.writer,
-      count: books.count,
-      img: books.img,
-    };
-    console.log(books.id);
-
-    ApiService.editBook(book)
+    ApiService.editBook(formData)
       .then((res) => {
-        console.log(book.name + "의 정보가 수정되었습니다.");
+        console.log(formData.get("name") + "의 정보가 수정되었습니다.");
         navigate("/books");
       })
       .catch((err) => {
@@ -106,10 +97,10 @@ const EditBook = (props) => {
           type="number"
           placeholder="Edit your book ID"
           name="id"
+          readOnly
           fullWidth
           margin="normal"
           value={books.id}
-          onChange={onChangeHandler}
         />
 
         <TextField
