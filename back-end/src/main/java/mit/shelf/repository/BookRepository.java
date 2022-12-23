@@ -23,7 +23,7 @@ public interface BookRepository {
 
     List<Book> findByCategory(String category);
 
-    void deleteById(Long uid);
+    void deleteById(Long id);
 
     List<Book> findAllByBookFloor(int bookFloor);
 

@@ -22,4 +22,6 @@ public interface LibUserRepository {
     Optional<User> findByUserName(String name);
 
     Optional<User> findByUidU(String uid);
+
+    void deleteById(Long id);
 }

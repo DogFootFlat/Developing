@@ -64,7 +64,7 @@ public class BookApiController {
         return result;
     }
 
-    @PostMapping(value = "/books/{id}")
+    @DeleteMapping(value = "/books/{id}")
     public JSONObject deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
         result.put("result", "success");
