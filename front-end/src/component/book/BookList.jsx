@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
 import { Table, TableBody, TableCell, TableHead, TableRow, Button, Typography } from "@material-ui/core";
-import { CreateIcon, DeleteIcon } from "@material-ui/icons";
+import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
 import bookscss from "./css/books.module.css";
 
 const BookList = (props) => {
-  const [books, setBooks] = useState({});
+  const [books, setBooks] = useState([]);
   const [fileName, setFileName] = useState([]);
 
   const fetchBooksHandler = useCallback(async () => {
@@ -34,8 +35,8 @@ const BookList = (props) => {
       });
   }
 
-  const onChangeSelectedValueHandler = (event) => {
-    setFileName(event.target.value);
+  const onChangeHandler = (e) => {
+    setFileName(e.target.value);
   };
 
   return (
@@ -43,6 +44,7 @@ const BookList = (props) => {
       <Typography className={bookscss.typo} variant="h6">
         엑셀파일로 업로드
       </Typography>
+
       <form enctype="multipart/form-data">
         <div className={bookscss.filebox}>
           <label for="file">파일찾기</label>
@@ -55,7 +57,7 @@ const BookList = (props) => {
           <input
             id="file"
             type="file"
-            onChange={onChangeSelectedValueHandler}
+            onChange={onChangeHandler}
           />
           <Button
             className={bookscss.submit}
@@ -67,6 +69,7 @@ const BookList = (props) => {
           </Button>
         </div>
       </form>
+
       <Table>
         <TableHead>
           <TableRow>
@@ -104,7 +107,12 @@ const BookList = (props) => {
               <TableCell align="right">{book.writer}</TableCell>
               <TableCell align="right">{book.count}</TableCell>
               <TableCell align="right">
-                <Link to={"/edit-book"}>
+                <Link to={{
+                  pathname: "/edit-book",
+                  state: {
+                    id: book.id
+                  }
+                }}>
                   <CreateIcon />
                 </Link>
               </TableCell>
