@@ -16,7 +16,7 @@ public class MemberForm {
     private String borrower;
     private int bookFloor;
     private Long bookCmp;
-    private String bonor;
+    private String donor;
 
     private Long count;
 
@@ -30,12 +30,12 @@ public class MemberForm {
         this.smartUid = smartUid;
     }
 
-    public String getBonor() {
-        return bonor;
+    public String getDonor() {
+        return donor;
     }
 
-    public void setBonor(String bonor) {
-        this.bonor = bonor;
+    public void setDonor(String donor) {
+        this.donor = donor;
     }
 
     public Long getBookCmp() {

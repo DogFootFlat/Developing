@@ -42,8 +42,14 @@ public class BookApiController {
             book.setBookNum(form.getBookNum());
             book.setBorrower(form.getBorrower());
             book.setUid(form.getUid());
+            book.setRUid(form.getSmartUid());
+            book.setDonor(form.getDonor());
             book.setBookFloor(form.getBookFloor());
             book.setBookCmp(form.getBookCmp());
+            book.setCategory(form.getCategory());
+            book.setImg(form.getImg());
+            book.setWriter(form.getWriter());
+            book.setCount(form.getCount());
             bookRepository.save(book);
         });
         result.put("result", "success");
@@ -57,8 +63,15 @@ public class BookApiController {
         book.setBookNum(form.getBookNum());
         book.setBorrower(form.getBorrower());
         book.setUid(form.getUid());
+        book.setRUid(form.getSmartUid());
+        book.setDonor(form.getDonor());
         book.setBookFloor(form.getBookFloor());
         book.setBookCmp(form.getBookCmp());
+        book.setCategory(form.getCategory());
+        book.setImg(form.getImg());
+        book.setWriter(form.getWriter());
+        book.setCount(form.getCount());
+
         bookService.join(book);
         result.put("result", "success");
         return result;
