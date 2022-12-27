@@ -49,13 +49,15 @@ public class UserApiController {
         user.setName(form.getName());
         user.setPw(form.getPw());
         user.setUid(form.getUid());
+        user.setDonate(form.getDonate());
+        user.setBorrow1(form.getBorrow1());
         libUserRepository.save(user);
         result.put("result", "success");
         return result;
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public JSONObject deleteBook(@PathVariable Long id) {
+    public JSONObject deleteUser(@PathVariable Long id) {
         libUserRepository.deleteById(id);
         result.put("result", "success");
         return result;

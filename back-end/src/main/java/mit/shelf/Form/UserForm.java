@@ -10,7 +10,10 @@ public class UserForm {
 
     private String donate;
 
-    private String borrow;
+    private String borrow1;
+    private String borrow2;
+
+    private String borrow3;
 
     private String uid;
 
@@ -54,11 +57,27 @@ public class UserForm {
         this.donate = donate;
     }
 
-    public String getBorrow() {
-        return borrow;
+    public String getBorrow1() {
+        return borrow1;
     }
 
-    public void setBorrow(String borrow) {
-        this.borrow = borrow;
+    public void setBorrow1(String borrow1) {
+        this.borrow1 = borrow1;
+    }
+
+    public String getBorrow2() {
+        return borrow2;
+    }
+
+    public void setBorrow2(String borrow2) {
+        this.borrow2 = borrow2;
+    }
+
+    public String getBorrow3() {
+        return borrow3;
+    }
+
+    public void setBorrow3(String borrow3) {
+        this.borrow3 = borrow3;
     }
 }
