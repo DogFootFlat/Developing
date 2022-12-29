@@ -35,8 +35,12 @@ public class UserApiController {
         Optional<User> User = libUserRepository.findById(id);
         User.ifPresent(user -> {
             user.setName(form.getName());
-            user.setUid(form.getUid());
             user.setPw(form.getPw());
+            user.setUid(form.getUid());
+            user.setDonate(form.getDonate());
+            user.setBorrow1(form.getBorrow1());
+            user.setBorrow2(form.getBorrow2());
+            user.setBorrow3(form.getBorrow3());
             libUserRepository.save(user);
         });
         result.put("result", "success");
@@ -51,6 +55,8 @@ public class UserApiController {
         user.setUid(form.getUid());
         user.setDonate(form.getDonate());
         user.setBorrow1(form.getBorrow1());
+        user.setBorrow2(form.getBorrow2());
+        user.setBorrow3(form.getBorrow3());
         libUserRepository.save(user);
         result.put("result", "success");
         return result;
