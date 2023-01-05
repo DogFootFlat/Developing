@@ -1,49 +1,64 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, Typography } from "@material-ui/core";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import userscss from "./css/users.module.css";
 
 const UserList = (props) => {
   const [users, setUsers] = useState([]);
-  const fetchBooksHandler = useCallback(async () => {
-    await ApiService.fetchUsers()
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log("fetchBooksHandler() Error!", err);
-      });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchUsersHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ApiService.fetchUsers();
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.data;
+      setUsers(data);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    fetchBooksHandler();
-  }, [fetchBooksHandler]);
+    fetchUsersHandler();
+  }, [fetchUsersHandler]);
 
-  async function deleteUser(userID) {
-    ApiService.deleteUser(userID)
-      .then((res) => {
-        console.log("User Deleted Successfully.");
-        setUsers(users.filter((user) => user.id !== userID));
-      })
-      .catch((err) => {
-        console.log("deleteUser() Error!", err);
-      });
-  }
+  const deleteUserHandler = useCallback(async (userID) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ApiService.deleteUser(userID);
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.data;
+      setUsers(users.filter((user) => user.id !== userID));
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  });
 
-  return (
-    <>
-      <Typography className={userscss.typo} variant="h6">
-        버튼을 클릭하여 회원 추가
-      </Typography>
-      <Button className={userscss.addbtn} variant="contained" color="primary">
-        <Link to={"/add-user"} className={userscss.link}>
-          {" "}
-          회원 추가{" "}
-        </Link>
-      </Button>
+  let content = <h5>현재 회원 목록이 비어있습니다.</h5>;
+  if (users.length > 0) {
+    content = (
       <Table>
         <TableHead>
           <TableRow>
@@ -76,7 +91,7 @@ const UserList = (props) => {
               <TableCell
                 align="right"
                 className={userscss.delicon}
-                onClick={() => deleteUser(user.id)}
+                onClick={() => deleteUserHandler(user.id)}
               >
                 <DeleteIcon />
               </TableCell>
@@ -84,6 +99,35 @@ const UserList = (props) => {
           ))}
         </TableBody>
       </Table>
+    );
+  }
+  if (error) {
+    content = (
+      <div>
+        <p>{error}</p>
+      </div>
+    );
+  }
+  if (isLoading) {
+    content = (
+      <div style={{ marginTop: "10em" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Typography className={userscss.typo} variant="h6">
+        버튼을 클릭하여 회원 추가
+      </Typography>
+      <Button className={userscss.addbtn} variant="contained" color="primary">
+        <Link to={"/add-user"} className={userscss.link}>
+          {" "}
+          회원 추가{" "}
+        </Link>
+      </Button>
+      {content}
     </>
   );
 };
