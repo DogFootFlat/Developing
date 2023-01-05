@@ -90,7 +90,7 @@ public class JpaUserRepository implements LibUserRepository{
 
     @Override
     public void deleteById(Long id) {
-        em.createQuery("delete from User m where m.id = :id", User.class)
+        em.createQuery("delete from User m where m.id = :id")
                 .setParameter("id", id);
     }
 }
