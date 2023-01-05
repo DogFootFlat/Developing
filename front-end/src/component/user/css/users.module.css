@@ -24,6 +24,12 @@ button.addbtn:hover {
   background-color: #4c609b;
 }
 
-td.delicon:hover {
+.throw td {
+  text-align: left;
+  table-layout: auto;
+  background-color: red;
+}
+
+.hover:hover {
   cursor: pointer;
 }

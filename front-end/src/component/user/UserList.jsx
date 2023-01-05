@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
 import {
@@ -15,7 +16,8 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import userscss from "./css/users.module.css";
 
-const UserList = (props) => {
+const UserList = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,20 +58,26 @@ const UserList = (props) => {
     setIsLoading(false);
   };
 
+  const moveToEditUserHandler = (userId) => {
+    navigate("/edit-user", {
+      state: {
+        id: userId,
+      },
+    });
+  };
+
   let content = <h5>현재 회원 목록이 비어있습니다.</h5>;
   if (users.length > 0) {
     content = (
       <Table>
         <TableHead>
-          <TableRow>
+          <TableRow className={userscss.throw}>
             <TableCell>ID</TableCell>
-            <TableCell align="right">UserID</TableCell>
-            <TableCell align="right">PW</TableCell>
-            <TableCell align="right">UserName</TableCell>
-            <TableCell align="right">donate</TableCell>
-            <TableCell align="right">borrow1</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>비밀번호</TableCell>
+            <TableCell>빌린 책</TableCell>
+            <TableCell>편집</TableCell>
+            <TableCell>삭제</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -78,22 +86,14 @@ const UserList = (props) => {
               <TableCell component="th" scope="user">
                 {user.id}
               </TableCell>
-              <TableCell align="right">{user.uid}</TableCell>
-              <TableCell align="right">{user.pw}</TableCell>
-              <TableCell align="right">{user.name}</TableCell>
-              <TableCell align="right">{user.donate}</TableCell>
-              <TableCell align="right">{user.borrow1}</TableCell>
-              <TableCell align="right">
-                <Link to={"/edit-user"}>
-                  <CreateIcon />
-                </Link>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.pw}</TableCell>
+              <TableCell>{user.borrow1}</TableCell>
+              <TableCell onClick={() => moveToEditUserHandler(user.id)}>
+                <CreateIcon className={userscss.hover} />
               </TableCell>
-              <TableCell
-                align="right"
-                className={userscss.delicon}
-                onClick={() => deleteUserHandler(user.id)}
-              >
-                <DeleteIcon />
+              <TableCell onClick={() => deleteUserHandler(user.id)}>
+                <DeleteIcon className={userscss.hover} />
               </TableCell>
             </TableRow>
           ))}

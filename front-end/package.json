@@ -18,6 +18,8 @@
     "react-router": "^6.4.4",
     "react-router-dom": "^6.4.4",
     "react-scripts": "^5.0.1",
+    "react-use-location": "^0.0.1",
+    "react-use-navigate": "^0.1.1",
     "styled-components": "^5.3.6",
     "use-history": "^1.4.1",
     "use-location": "^0.0.1",
@@ -28,12 +30,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
