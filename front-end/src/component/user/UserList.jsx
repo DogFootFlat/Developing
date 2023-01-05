@@ -46,9 +46,11 @@ const UserList = (props) => {
     try {
       const response = await ApiService.deleteUser(userID);
       if (response.status < 200 || response.status > 299) {
+        console.log("Something went wrong!");
         throw new Error("Something went wrong!");
       }
       const data = await response.data;
+      console.log(data);
       setUsers(users.filter((user) => user.id !== userID));
     } catch (error) {
       setError(error.message);
