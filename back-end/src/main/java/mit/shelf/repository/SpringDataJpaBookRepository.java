@@ -20,8 +20,5 @@ public interface SpringDataJpaBookRepository extends JpaRepository<Book,
 
     List<Book> findByCategory(String category);
 
-    @Override
-    default void deleteById(Long aLong) {
-
-    }
+    void deleteById(Long id);
 }
