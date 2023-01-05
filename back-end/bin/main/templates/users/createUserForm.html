@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/createMemberForm.css}" href="../../static/css/createMemberForm.css"></head>
+<body>
+<div class="container">
+    <header class="common">
+        <div class="subtitle">
+            <h2><a th:href=@{${'/user'}}>HOME</a></h2>
+        </div>
+        <div class="topnav">
+            <ul>
+                <li>&#10217;</li>
+                <li><a src="#">회원 가입</a></li>
+            </ul>
+        </div>
+    </header>.
+    <form action="/users/new" method="post">
+        <div class="form-group">
+            <label for="name">회원 이름</label>
+            <input type="text" id="name" name="name" placeholder="회원 이름">
+            <label for="pw">회원 비밀번호</label>
+            <input type="password" id="pw" name="pw" placeholder="비밀번호">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

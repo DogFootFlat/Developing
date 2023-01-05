@@ -1,0 +1,198 @@
+/* 공통 css */
+/* 초기화 시작 */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li { list-style: none; }
+a {
+    text-decoration: none;
+    color: black;
+}
+img { border: 0; }
+button {
+    width: 109px;
+    height: 40px;
+    border: 1px solid #5e5e5e38;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+    color: #404040;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #efefef99;
+}
+.btncolor { color: #7f7f7f; }
+
+html {
+    width: 980px;
+    margin: 0 auto;
+}
+
+/* 초기화 끝 */
+/* header 시작 */
+
+header {
+    width: 980px;
+    height: 49.1px;
+    margin: 37px 0;
+    background-color: #e0e0e0;
+}
+
+#subtitle {
+    float: left;
+    position: relative;
+    margin-top: -34px;
+    margin-left: 24px;
+    width: 140px;
+    height: 120px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 120px;
+    background-color: #4266b180;
+}
+
+#subtitle h2 {
+    margin: 0;
+    font-size: 29px;
+    color: white;
+    font-weight: bold;
+}
+
+#topnav {
+    float: left;
+    margin: 0;
+    margin-left: 30px;
+    padding-top: 4px;
+    vertical-align: middle;
+}
+
+#topnav li {
+    float: left;
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#topnav li a {
+    font-weight: bolder;
+    vertical-align: middle;
+    color: #1a1a1a;
+}
+#topnav li a:hover { color: #6485cd; }
+
+#topnav img {
+    margin-top: 4px;
+    width: 24px;
+    height: 26px;
+}
+#topnav img:hover {
+    cursor: pointer;
+}
+
+#loginnav {
+    float: right;
+    width: 200px;
+    padding-right: 10px;
+}
+
+#loginnav li {
+    float: left;
+    margin-right: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 49px;
+}
+
+#loginnav li a {
+    color:#282828;
+    font-size: 12px;
+}
+#loginnav li a:hover { color: #fffc; }
+
+#loginnav img {
+    float: left;
+    width: 38px;
+    height: 38px;
+    padding: 6px 0;
+}
+
+/* header 끝 */
+/* left 시작 */
+
+#left {
+    float: left;
+    display: block;
+    margin-left: 24px;
+    width: 140px;
+    line-height: 31px;
+    background-color: #efefef99;
+    font-size: 16px;
+}
+
+#menu_01 { margin-top: 16px; }
+.menu { background-color: #efefef99; }
+
+.menu_title {
+    padding-left: 17px;
+    height: 46px;
+    line-height: 46px;
+    background-color: white;
+    border-top: 1px solid #5e5e5e29;
+}
+
+.menu_title:hover {
+    cursor: pointer;
+    background-color: #4266b11c;
+}
+
+.menu ul { padding: 10px 0; }
+.menu li {
+    font-size: 14px;
+    padding-left: 17px;
+}
+.menu li a:hover { color: #6485cd; }
+
+#userNameSharing, #userNameSharing2{
+    float: left;
+    border: none;
+    background-color: #efefef99;
+}
+
+#userNameSharing:hover, #userNameSharing2:hover{
+    color: #6485cd;
+    cursor: pointer;
+}
+
+#userNameSharingMenu, #userNameSharingMenu2{
+    float: left;
+    border: none;
+    background-color: transparent;
+    font-size: 17px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+#backPage{
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    background-color: #7196DB;
+    margin-top: 300px;
+}
+
+#backPage:hover{
+    color: #D8CCAD;
+}
+
+#userNameSharingMenu:hover, #userNameSharingMenu2:hover{
+    background-color: transparent;
+
+}
+
+/* left 끝 */

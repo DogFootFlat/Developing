@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/createMemberForm.css}" href="../../static/css/createMemberForm.css"></head>
+<body>
+<div class="container">
+
+    <header class="common">
+        <div class="subtitle">
+            <h2><a th:href=@{${'/'}}>HOME</a></h2>
+        </div>
+        <div class="topnav">
+            <ul>
+                <li>&#10217;</li>
+                <li><a src="#">도서 기부</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <form action="/book/donate" method="post">
+        <div class="form-group">
+            <label for="name">도서 제목</label>
+            <input type="text" id="name" name="name" placeholder="제목을
+입력하세요">
+            <label for="bonor">기부 하시는 분</label>
+            <input type="text" id="bonor" name="bonor" placeholder="성함을
+입력해주세요.">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+
+</div>
+</body>
+</html>

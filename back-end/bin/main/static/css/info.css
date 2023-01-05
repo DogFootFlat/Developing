@@ -1,0 +1,277 @@
+@charset "UTF-8";
+
+#main {
+    width: 760px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    text-align: center;
+}
+#category1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    line-height: 100px;
+    margin-bottom: 30px;
+}
+
+#head { height: 100px; }
+#head h3 {
+    font-size: 25px;
+    width: 100px;
+    height: 100%;
+    float: left;
+}
+
+#switch {
+    position: relative;
+    float: left;
+    width: 66px;
+    height: 33px;
+    padding: 3px;
+    margin: 30px 13px;
+    vertical-align: middle;
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    background-image: -webkit-linear-gradient(top, #EEE, white 25px);
+    background-image: -moz-linear-gradient(top, #EEE, white 25px);
+    background-image: -o-linear-gradient(top, #EEE, white 25px);
+    background-image: linear-gradient(to bottom, #EEE, white 25px);
+}
+#switch-input {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    opacity: 0;
+}
+#switch-input input {
+    width: 100%;
+    height: 100%;
+}
+#switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #ECEEEF;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px #0000001F, inset 0 0 2px #00000026;
+    -webkit-transition: 0.15s ease-out;
+    -moz-transition: 0.15s ease-out;
+    -o-transition: 0.15s ease-out;
+    transition: 0.15s ease-out;
+    -webkit-transition-property: opacity background;
+    -moz-transition-property: opacity background;
+    -o-transition-property: opacity background;
+    transition-property: opacity background;
+}
+#switch-label:before, #switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    font-size: 11px;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+}
+#switch-label:before {
+    content: attr(data-off);
+    right: 11px;
+    color: #AAA;
+    text-shadow: 0 1px #FFFFFF80;
+}
+#switch-label:after {
+    content: attr(data-on);
+    left: 11px;
+    color: white;
+    text-shadow: 0 1px #00000033;
+    opacity: 0;
+}
+#switch-input:checked ~ #switch-label {
+    background: #4FB845;
+    box-shadow: inset 0 1px 2px #00000026, inset 0 0 3px #00000033;
+}
+#switch-input:checked ~ #switch-label:before {  opacity: 0; }
+#switch-input:checked ~ #switch-label:after { opacity: 1; }
+#switch-handle {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px #00000033;
+    background-image: -webkit-linear-gradient(top, white 40%, #F0F0F0);
+    background-image: -moz-linear-gradient(top, white 40%, #F0F0F0);
+    background-image: -o-linear-gradient(top, white 40%, #F0F0F0);
+    background-image: linear-gradient(to bottom, white 40%, #F0F0F0);
+    -webkit-transition: left 0.15s ease-out;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
+}
+#switch-handle:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: inset 0 1px #00000005;
+    background-image: -webkit-linear-gradient(top, #EEE, white);
+    background-image: -moz-linear-gradient(top, #EEE, white);
+    background-image: -o-linear-gradient(top, #EEE, white);
+    background-image: linear-gradient(to bottom, #EEE, white);
+}
+#switch-input:checked ~ #switch-handle {
+    left: 40px;
+    box-shadow: -1px 1px 5px #00000033;
+}
+
+#category1 ul {	
+	text-align: center;
+    line-height: 30px;
+    height: 30px;
+}
+#category1 ul li {
+    margin: 0 20px;
+    font-size: 18px;
+}
+#category1 ul li:hover {
+    cursor: pointer;
+    color: #6897D3;
+    border-bottom: 1px solid #1A4275;
+}
+
+select, input, #search {
+	height: 30x;
+    padding: 5px 12px;
+    border: 1px solid lightgray;
+    /* border: none; */
+}
+#category1 select { width: 222px; }
+#search { width: 400px; }
+
+#ct1, #ct2 { margin-top: 30px; }
+#cr1, #cr2 { margin-bottom: 30px; }
+.category2_title {
+    width: 677px;
+    height: 76px;
+    line-height: 50px;
+    margin: 0;
+    padding: 10px 40px;
+}
+#ct1 {
+    color: white;
+    border: 1px solid #208F2C;
+    background-color: #208F2C99;
+}
+#ct2 {
+    color: white;
+    border: 1px solid #1D709C;
+    background-color: #1D709C99;
+}
+.category2_title h3 {
+    width: 120px;
+    height: 43px;
+    margin: 0;
+    padding: 0;
+    font-size: 27px;
+    font-weight: bolder;
+    text-align: left;
+}
+.category2_title h4 {
+    width: 300px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    text-align: left;
+    line-height: 25px;
+}
+
+.category2_travel {
+    width: 760px;
+    height: 320px;
+    background-color: #eee;
+}
+.category2_travel .items {
+    height: 266px;
+    display: inline-block;
+    text-align: center;
+    margin: 20px 0;
+    padding: 7px;
+}
+.category2_travel .items:hover { padding: 5px; }
+#cr1 .items:hover { border: 2px solid #208F2C; }
+#cr2 .items:hover { border: 2px solid #1D709C; }
+
+.category2_travel .items img { width: 200px; }
+.category2_travel .items a {
+    position: relative;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    width: 200px;
+}
+
+.category2_travel .itemp {
+    position: relative;
+    z-index: 1;
+    width: 186px;
+    height: 52px;
+    top: -3px;
+    left: 0px;
+    margin: 0;
+    padding: 7px;
+    background-color: white;
+}
+#cr1 .items:hover .itemp { background-color: #208F2C55; }
+#cr2 .items:hover .itemp { background-color: #1D709C55; }
+
+.category2_travel .itemp p {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+}
+.category2_travel .items:hover .itemp p { color: white; }
+.category2_travel .itemp .title {
+    float: left;
+    width: 117px;
+    height: 24.5px;
+    color: black;
+    font-size: 18px;
+}
+.category2_travel .itemp .rating {
+    float: right;
+    height: 24.5px;
+    font-size: 14px;
+}
+.category2_travel .itemp .comment {
+    color: black;
+    line-height: 13px;
+    font-weight: lighter;
+    font-size: 12px;
+}
+
+.updown {
+    width: 0px;
+    height: 70px;
+    margin: 0 auto;
+    border: 0.5px solid lightgray;
+}
