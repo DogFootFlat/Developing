@@ -13,12 +13,12 @@ const AppRouter = () => {
     <div style={style}>
       <Routes>
         <Route exact path="/" element={<UserList />} />
-        <Route path="/books" element={<BookList />} />
-        <Route path="/add-book" element={<AddExample />} />
-        <Route path="/edit-book" element={<EditBook />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/add-user" element={<AddExample />} />
         <Route path="/edit-user" element={<EditUser />} />
+        <Route path="/books" element={<BookList />} />
+        <Route path="/add-book" element={<AddExample />} />
+        <Route path="/edit-book" element={<EditBook />} />
         <Route path="/examples" element={<ListExample />} />
         <Route path="/add-example" element={<AddExample />} />
         <Route path="/edit-example" element={<EditExample />} />

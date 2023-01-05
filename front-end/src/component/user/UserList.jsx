@@ -71,29 +71,45 @@ const UserList = () => {
     content = (
       <Table>
         <TableHead>
-          <TableRow className={userscss.throw}>
-            <TableCell>ID</TableCell>
-            <TableCell>이름</TableCell>
+          <TableRow>
+            <TableCell className={userscss.idcell}>ID</TableCell>
+            <TableCell>회원명</TableCell>
             <TableCell>비밀번호</TableCell>
-            <TableCell>빌린 책</TableCell>
-            <TableCell>편집</TableCell>
-            <TableCell>삭제</TableCell>
+            <TableCell>빌린 책(1)</TableCell>
+            <TableCell>빌린 책(2)</TableCell>
+            <TableCell>빌린 책(3)</TableCell>
+            <TableCell>RFID</TableCell>
+            <TableCell align="center">편집</TableCell>
+            <TableCell align="center">삭제</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell component="th" scope="user">
+              <TableCell
+                className={userscss.idcell}
+                component="th"
+                scope="user"
+              >
                 {user.id}
               </TableCell>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.pw}</TableCell>
               <TableCell>{user.borrow1}</TableCell>
-              <TableCell onClick={() => moveToEditUserHandler(user.id)}>
-                <CreateIcon className={userscss.hover} />
+              <TableCell>{user.borrow2}</TableCell>
+              <TableCell>{user.borrow3}</TableCell>
+              <TableCell>{user.uid}</TableCell>
+              <TableCell className={userscss.iconcell}>
+                <CreateIcon
+                  className={userscss.hover}
+                  onClick={() => moveToEditUserHandler(user.id)}
+                />
               </TableCell>
-              <TableCell onClick={() => deleteUserHandler(user.id)}>
-                <DeleteIcon className={userscss.hover} />
+              <TableCell className={userscss.iconcell}>
+                <DeleteIcon
+                  className={userscss.hover}
+                  onClick={() => deleteUserHandler(user.id)}
+                />
               </TableCell>
             </TableRow>
           ))}

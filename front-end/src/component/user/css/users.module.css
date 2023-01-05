@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* NavBar css */
+/* users css */
 
 a.link {
   color: white;
@@ -24,10 +24,14 @@ button.addbtn:hover {
   background-color: #4c609b;
 }
 
-.throw td {
-  text-align: left;
-  table-layout: auto;
-  background-color: red;
+td.iconcell {
+  width: 1.3em;
+  text-align: center;
+}
+
+.idcell {
+  width: 0.5em;
+  text-align: center;
 }
 
 .hover:hover {
