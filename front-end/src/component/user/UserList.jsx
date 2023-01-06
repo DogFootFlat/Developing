@@ -77,6 +77,7 @@ const UserList = () => {
             <TableCell>빌린 책(1)</TableCell>
             <TableCell>빌린 책(2)</TableCell>
             <TableCell>빌린 책(3)</TableCell>
+            <TableCell>기부한 책</TableCell>
             <TableCell>RFID</TableCell>
             <TableCell align="center">편집</TableCell>
             <TableCell align="center">삭제</TableCell>
@@ -97,6 +98,7 @@ const UserList = () => {
               <TableCell>{user.borrow1}</TableCell>
               <TableCell>{user.borrow2}</TableCell>
               <TableCell>{user.borrow3}</TableCell>
+              <TableCell>{user.donate}</TableCell>
               <TableCell>{user.uid}</TableCell>
               <TableCell className={userscss.iconCell}>
                 <CreateIcon

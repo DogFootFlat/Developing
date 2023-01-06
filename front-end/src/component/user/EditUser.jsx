@@ -7,13 +7,13 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  Button,
 } from "@mui/material";
-import { Button } from "@material-ui/core";
 import { Box } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import eusercss from "./css/euser.module.css";
 
-const EditUser = (props) => {
+const EditUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,9 +49,11 @@ const EditUser = (props) => {
 
     const formData = new FormData();
     for (const key in user) {
-      if (user[key] === "" && ["borrow1", "borrow2", "borrow3"].includes(key)) {
+      if (user[key] === "" && ["borrow1", "borrow2", "borrow3", "donate"].includes(key)) {
         user[key] = "X";
-        console.log("borrow입니다.");
+      }
+      if (user[key] === "" && key === "uid") {
+        user[key] = "00 00 00 00";
       }
       if (user[key] !== undefined) {
         formData.append(key, user[key]);
@@ -181,6 +183,17 @@ const EditUser = (props) => {
         <div>
           <TextField
             type="text"
+            name="donate"
+            label="기부한 책"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={user.donate || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
             name="uid"
             label="RFID"
             sx={{ m: 1, width: "45ch" }}
@@ -199,7 +212,7 @@ const EditUser = (props) => {
           variant="contained"
           onClick={editUserHandler}
         >
-          Save
+          저장
         </Button>
       </form>
     );

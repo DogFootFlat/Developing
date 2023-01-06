@@ -1,5 +1,6 @@
-INSERT INTO `testdb`.`user` (`id`, `borrow1`, `borrow2`, `borrow3`, `donate`, `name`, `pw`, `uid`) VALUES ('1', '컴퓨터공학개론', '차라투스트라는 이렇게 말했다.', 'X', 'null', 'jihee', '1234', '1j ka nv ma');
-INSERT INTO `testdb`.`user` (`id`, `borrow1`, `borrow2`, `borrow3`, `name`, `pw`, `uid`) VALUES ('2', '난중일기', 'X', 'X', 'jenny', '1234', '2j ka nv ma');
+INSERT INTO `testdb`.`user` (`id`, `borrow1`, `borrow2`, `borrow3`, `donate`, `name`, `pw`, `uid`) VALUES ('1', '컴퓨터공학개론', '차라투스트라는 이렇게 말했다.', 'X', 'X', 'jihee', '1234', '1j ka nv ma');
+INSERT INTO `testdb`.`user` (`id`, `borrow1`, `borrow2`, `borrow3`, `donate`, `name`, `pw`, `uid`) VALUES ('2', '난중일기', 'X', 'X', 'X', 'jenny', '1234', '2j ka nv ma');
+
 INSERT INTO `testdb`.`book` (`id`, `bookCmp`, `bookFloor`, `bookNum`, `borrower`, `category`, `count`, `donor`, `img`, `name`, `smartUid`, `uid`, `writer`) VALUES ('1', '0', '1', '100', 'jihee', 'IT-전자', '1', 'jenny', 'https://placeimg.com/480/480/tech', '컴퓨터공학개론', '4h 1o oa nj', '3h 1o oa nj', '박형수');
 INSERT INTO `testdb`.`book` (`id`, `bookCmp`, `bookFloor`, `bookNum`, `borrower`, `category`, `count`, `donor`, `img`, `name`, `smartUid`, `uid`, `writer`) VALUES ('2', '0', '2', '200', 'jihee', '철학', '2', 'jenny', 'https://placeimg.com/480/480/people', '차라투스트라는 이렇게 말했다', '4h 2o oa nj', '3h 2o oa nj', '니체');
 INSERT INTO `testdb`.`book` (`id`, `bookCmp`, `bookFloor`, `bookNum`, `borrower`, `category`, `count`, `donor`, `img`, `name`, `smartUid`, `uid`, `writer`) VALUES ('3', '1', '3', '300', 'jenny', '역사', '1', 'jenny', 'https://placeimg.com/480/480/nature', '난중일기', '4h 3o oa nj', '3h 3o oa nj', '이순신');

@@ -9187,10 +9187,6 @@
   dependencies:
     "is-typedarray" "^1.0.0"
 
-"typescript@file:C:/Users/Eom/AppData/Roaming/npm/node_modules/typescript":
-  "resolved" "file:C:/Users/Eom/AppData/Roaming/npm/node_modules/typescript"
-  "version" "4.9.4"
-
 "unbox-primitive@^1.0.2":
   "integrity" "sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw=="
   "resolved" "https://registry.npmjs.org/unbox-primitive/-/unbox-primitive-1.0.2.tgz"
@@ -9296,6 +9292,11 @@
   "integrity" "sha512-dXNucbz+ORXc799moK1IyX2iiwggoIt3dJfac8epMRT/p6Xse4A+R+I5ORbJQaHVCagTZMt5RIlDBdSWuJQg0w=="
   "resolved" "https://registry.npmjs.org/use-location/-/use-location-0.0.1.tgz"
   "version" "0.0.1"
+
+"useref@^1.4.4":
+  "integrity" "sha512-Hcr9SSq1OsLSa9VAVtA28j8HrpFB2AdbRAkFPbBArDe6y54jQmgulQRxphdi5TAjVPj0mmEJfjBUuZArsmfsqQ=="
+  "resolved" "https://registry.npmjs.org/useref/-/useref-1.4.4.tgz"
+  "version" "1.4.4"
 
 "util-deprecate@^1.0.1", "util-deprecate@^1.0.2", "util-deprecate@~1.0.1":
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
