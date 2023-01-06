@@ -26,12 +26,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ColumnDefault("'00 00 00 00'")
     private String uid;
 
     private String pw;
 
     private String name;
 
+    @ColumnDefault("'X'")
     private String donate;
 
     @ColumnDefault("'X'")
