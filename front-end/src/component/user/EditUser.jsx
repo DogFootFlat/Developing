@@ -47,8 +47,12 @@ const EditUser = (props) => {
     setIsLoading(true);
     setError(null);
 
-    var formData = new FormData();
-    for (var key in user) {
+    const formData = new FormData();
+    for (const key in user) {
+      if (user[key] === "" && ["borrow1", "borrow2", "borrow3"].includes(key)) {
+        user[key] = "X";
+        console.log("borrow입니다.");
+      }
       if (user[key] !== undefined) {
         formData.append(key, user[key]);
       }
@@ -59,8 +63,8 @@ const EditUser = (props) => {
         throw new Error("Something went wrong!");
       }
       navigate("/users");
-    } catch (err) {
-      setError(false);
+    } catch (error) {
+      setError(error.message);
     }
     setIsLoading(false);
   };
