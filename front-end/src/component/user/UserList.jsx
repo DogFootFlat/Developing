@@ -50,6 +50,7 @@ const UserList = () => {
       if (response.status < 200 || response.status > 299) {
         throw new Error("Something went wrong!");
       }
+        setUsers(users.filter((user) => user.id !== userID));
     } catch (error) {
       setError(error.message);
     }
