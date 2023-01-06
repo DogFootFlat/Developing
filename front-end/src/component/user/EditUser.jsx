@@ -46,28 +46,20 @@ const EditUser = (props) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
-    try {
-      var formData = new FormData();
-      for (var key in user) {
-        if (user[key] !== undefined) {
-          formData.append(key, user[key]);
-        }
+
+    var formData = new FormData();
+    for (var key in user) {
+      if (user[key] !== undefined) {
+        formData.append(key, user[key]);
       }
-      console.log(formData.get(id));
-      console.log(formData.get(name));
-      console.log(formData.get(pw));
-      console.log(formData.get(borrow1));
-      console.log(formData.get(borrow2));
-      console.log(formData.get(borrow3));
-      console.log(formData.get(uid));
-      console.log(formData.get(donate));
-      const response = await editUser(formData);
-      console.log(formData.get("name") + "의 정보가 수정되었습니다.");
+    }
+    try {
+      const response = await ApiService.editUser(formData);
       if (response.status < 200 || response.status > 299) {
         throw new Error("Something went wrong!");
       }
       navigate("/users");
-    } catch (error) {
+    } catch (err) {
       setError(false);
     }
     setIsLoading(false);
@@ -88,8 +80,9 @@ const EditUser = (props) => {
   const isEmptyObj = (obj) => {
     if (obj.constructor === Object && Object.keys(obj).length === 0) {
       return true;
-    } return false;
-  }
+    }
+    return false;
+  };
 
   let content = <h5>회원 정보를 가져오지 못했습니다.</h5>;
   if (!isEmptyObj(user)) {
