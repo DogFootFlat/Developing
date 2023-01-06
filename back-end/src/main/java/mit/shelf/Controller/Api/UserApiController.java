@@ -1,5 +1,10 @@
 package mit.shelf.Controller.Api;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.firebase.cloud.FirestoreClient;
 import mit.shelf.Form.UserForm;
 import mit.shelf.domain.User;
 import mit.shelf.repository.LibUserRepository;
@@ -7,9 +12,11 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api")
@@ -70,10 +77,10 @@ public class UserApiController {
     }
 
     @GetMapping(value = "/users/test")
-    public Optional<User> test() {
+    public List<User> test() throws ExecutionException, InterruptedException {
         List<User> list = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> future = db.collection(COLLECTION_NAME).get();
+        ApiFuture<QuerySnapshot> future = db.collection("user").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         for (QueryDocumentSnapshot document : documents) {
             list.add(document.toObject(User.class));
