@@ -5,6 +5,7 @@ import mit.shelf.domain.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -88,9 +89,11 @@ public class JpaUserRepository implements LibUserRepository{
         return result.stream().findAny();
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
-        em.createQuery("delete from User m where m.id = :id")
+        Query query = em.createQuery("delete from User m where m.id = :id")
                 .setParameter("id", id);
+        query.executeUpdate();
     }
 }

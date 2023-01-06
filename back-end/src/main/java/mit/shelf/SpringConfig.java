@@ -1,7 +1,9 @@
 package mit.shelf;
 
 import mit.shelf.repository.BookRepository;
+import mit.shelf.repository.LibUserRepository;
 import mit.shelf.service.BookService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
