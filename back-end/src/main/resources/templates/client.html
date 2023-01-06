@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" href="../static/css/common.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/client.css}" href="../static/css/client.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <title>mypage</title>
+</head>
+<body>
+<!-- header 시작 -->
+<header>
+  <div id="subtitle">
+    <h2>전자책</h2>
+  </div>
+  <div id="topnav">
+    <ul>
+      <li><a href="/"><img th:src="@{/img/home.png}" /></a></li>
+      <li>&#10217;</li>
+      <li><a href="/client">나의 도서관</a></li>
+      <li>&#10217;</li>
+      <li><a href="/client">내 정보</a></li>
+    </ul>
+  </div>
+  <div id="loginnav">
+    <ul>
+      <li th:text="${loginGo}"></li>
+      <li><a href="/main">로그아웃</a></li>
+    </ul>
+    <a href="/client"><img th:src="@{/img/loginicon.png}"/></a>
+  </div>
+</header><!-- header 끝 -->
+
+<!-- section main 시작 -->
+<section id="main">
+  <!-- left 시작 -->
+  <div id="left">
+    <div id="menu_01" class="menu">
+      <div class="menu_title">
+        <form action="/nameSharing" method="GET">
+          <input id="userNameSharingMenu" name="Sharing" type="submit" value="자료검색"/>
+          <input name="id" type="hidden" th:value="${loginGo2}"/>
+          <input name="num" type="hidden" value="2"/>
+        </form>
+      </div>
+    </div>
+    <div id="menu_02" class="menu">
+      <a href="#"><div class="menu_title">인기신간</div></a>
+      <ul>
+        <li><a href="#">&#8226; 가정과 생활</a></li>
+        <li><a href="#">&#8226; 경제/비즈니스</a></li>
+        <li><a href="#">&#8226; 인문/사회</a></li>
+        <li><a href="#">&#8226; 역사</a></li>
+        <li><a href="#">&#8226; 자연/과학</a></li>
+        <li><a href="#">&#8226; 취미/건강/여행</a></li>
+        <li><a href="#">&#8226; 문화예술</a></li>
+      </ul>
+    </div>
+    <div id="menu_03" class="menu">
+      <div class="menu_title">
+        <form action="/bookLending" method="GET">
+          <input id="userNameSharingMenu2" name="Sharing" type="submit" value="나의도서관"/>
+          <input name="name" type="hidden" th:value="${loginGo}"/>
+          <input name="id" type="hidden" th:value="${loginGo2}"/>
+          <input name="num" type="hidden" value="0"/>
+        </form>
+      </div>
+      <ul>
+        <form action="/nameSharing" method="GET">
+          <li><input id="userNameSharing" name="Sharing" type="submit" value="내정보"/></li>
+          <input name="id" type="hidden" th:value="${loginGo2}"/>
+          <input name="num" type="hidden" value="0"/>
+        </form>
+        <br>
+        <form action="/bookLending" method="GET">
+          <li><input id="userNameSharing2" name="Sharing" type="submit" value="대출현황"/></li>
+          <input name="name" type="hidden" th:value="${loginGo}"/>
+          <input name="id" type="hidden" th:value="${loginGo2}"/>
+        </form>
+        <br>
+      </ul>
+    </div>
+  </div><!-- left 끝 -->
+
+  <!-- content 시작 -->
+  <div id="content">
+    <h1>내 정보</h1><hr>
+    <table id="profile">
+      <tr>
+        <th>프로필 사진</th>
+        <td>
+          <div class="img"><img th:src="@{/img/profileicon.png}"/></div>
+          <button>사진 변경</button><br>
+          <button class="btncolor">삭  제</button>
+        </td>
+      </tr>
+      <tr>
+        <th>별명</th>
+        <td><input type="text" placeholder="내용을 입력해주세요"></td>
+      </tr>
+    </table>
+  </div><!-- content 끝 -->
+  <!-- button 시작 -->
+  <div id="button">
+    <button>적  용</button>
+    <button class="btncolor">취  소</button>
+  </div><!-- button 끝 -->
+</section><!-- section main 끝 -->
+</body>
+</html>

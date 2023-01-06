@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/* NavBar css */
+
+a.link {
+  color: white;
+}
+a.link:link,
+a.link:visited,
+a.link:hover,
+a.link:active {
+  color: white;
+}
+
+div.nav {
+  background-color: #899cc8;
+}
+
+div.homearea {
+  padding: 11px 22px 11px 33px;
+  background-color: #5166ac83;
+}
+
+button.homebtn {
+  border-radius: 4px;
+}
+button.homebtn:hover {
+  background-color: #0000000a;
+}
+button.homebtn a {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+button.arrowicon {
+  width: 20px;
+  margin-left: 15px;
+  margin-right: -3px;
+  cursor: default;
+}
+button.arrowicon:hover {
+  background-color: transparent;
+}
+
+h6.typobtn {
+  flex-grow: 1;
+  text-align: left;
+}
+h6.typobtn a {
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+h6.typobtn:hover a {
+  background-color: #0000000a;
+}
+
+button.loginbtn:hover {
+  background-color: #0000000a;
+}
