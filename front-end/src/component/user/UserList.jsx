@@ -50,8 +50,6 @@ const UserList = () => {
       if (response.status < 200 || response.status > 299) {
         throw new Error("Something went wrong!");
       }
-      const data = await response.data;
-      setUsers(data);
     } catch (error) {
       setError(error.message);
     }
@@ -72,7 +70,7 @@ const UserList = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell className={userscss.idcell}>ID</TableCell>
+            <TableCell className={userscss.idCell}>ID</TableCell>
             <TableCell>회원명</TableCell>
             <TableCell>비밀번호</TableCell>
             <TableCell>빌린 책(1)</TableCell>
@@ -87,7 +85,7 @@ const UserList = () => {
           {users.map((user) => (
             <TableRow key={user.id}>
               <TableCell
-                className={userscss.idcell}
+                className={userscss.idCell}
                 component="th"
                 scope="user"
               >
@@ -99,13 +97,13 @@ const UserList = () => {
               <TableCell>{user.borrow2}</TableCell>
               <TableCell>{user.borrow3}</TableCell>
               <TableCell>{user.uid}</TableCell>
-              <TableCell className={userscss.iconcell}>
+              <TableCell className={userscss.iconCell}>
                 <CreateIcon
                   className={userscss.hover}
                   onClick={() => moveToEditUserHandler(user.id)}
                 />
               </TableCell>
-              <TableCell className={userscss.iconcell}>
+              <TableCell className={userscss.iconCell}>
                 <DeleteIcon
                   className={userscss.hover}
                   onClick={() => deleteUserHandler(user.id)}
@@ -137,7 +135,7 @@ const UserList = () => {
       <Typography className={userscss.typo} variant="h6">
         버튼을 클릭하여 회원 추가
       </Typography>
-      <Button className={userscss.addbtn} variant="contained" color="primary">
+      <Button className={userscss.addBtn} variant="contained" color="primary">
         <Link to={"/add-user"} className={userscss.link}>
           {" "}
           회원 추가{" "}

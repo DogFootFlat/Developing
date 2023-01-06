@@ -2,17 +2,16 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router";
 import ApiService from "../../ApiService";
 import {
-  FormControl,
-  FormHelperText,
+  CircularProgress,
   IconButton,
   InputAdornment,
-  InputLabel,
   TextField,
   Typography,
 } from "@mui/material";
-import { Button, Input } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { Box } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import eusercss from "./css/euser.module.css";
 
 const EditUser = (props) => {
   const navigate = useNavigate();
@@ -37,35 +36,47 @@ const EditUser = (props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [location.state.id]);
 
   useEffect(() => {
     fetchUserByIDHandler();
-  }, [fetchUserByIDHandler]);
+  }, [fetchUserByIDHandler, location]);
 
-  const editUserHandler = (e) => {
-    e.preventDefault();
-    var formData = new FormData();
-    for (var key in user) {
-      if (user[key] !== undefined) {
-        formData.append(key, user[key]);
+  const editUserHandler = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    try {
+      var formData = new FormData();
+      for (var key in user) {
+        if (user[key] !== undefined) {
+          formData.append(key, user[key]);
+        }
       }
+      console.log(formData.get(id));
+      console.log(formData.get(name));
+      console.log(formData.get(pw));
+      console.log(formData.get(borrow1));
+      console.log(formData.get(borrow2));
+      console.log(formData.get(borrow3));
+      console.log(formData.get(uid));
+      console.log(formData.get(donate));
+      const response = await editUser(formData);
+      console.log(formData.get("name") + "의 정보가 수정되었습니다.");
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      navigate("/users");
+    } catch (error) {
+      setError(false);
     }
-
-    ApiService.editUser(formData)
-      .then((res) => {
-        console.log(formData.get("name") + "의 정보가 수정되었습니다.");
-        navigate("/users");
-      })
-      .catch((err) => {
-        console.log("editBookHandler() Error!", err);
-      });
+    setIsLoading(false);
   };
 
-  const onChangeHandler = (e) => {
+  const onChangeHandler = (event) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -74,27 +85,31 @@ const EditUser = (props) => {
     event.preventDefault();
   };
 
-  return (
-    <>
-      <Typography variant="h6" style={style}>
-        <Box sx={{ textTransform: "uppercase" }}>{user.name}</Box>의 회원 정보
-        수정
-      </Typography>
-      <form style={{ marginTop: "3em" }}>
+  const isEmptyObj = (obj) => {
+    if (obj.constructor === Object && Object.keys(obj).length === 0) {
+      return true;
+    } return false;
+  }
+
+  let content = <h5>회원 정보를 가져오지 못했습니다.</h5>;
+  if (!isEmptyObj(user)) {
+    content = (
+      <form className={eusercss.form}>
         <div>
           <TextField
             type="text"
-            name="name"
+            name="id"
             label="구분 아이디"
             sx={{ m: 1, width: "45ch" }}
-            readOnly={true}
             InputProps={{
+              readOnly: true,
               startAdornment: (
-                <InputAdornment position="start">ID</InputAdornment>
+                <InputAdornment position="start">ID: </InputAdornment>
               ),
             }}
             variant="standard"
-            value={user.username}
+            value={user.id || ""}
+            onChange={onChangeHandler}
           />
         </div>
         <div>
@@ -104,6 +119,8 @@ const EditUser = (props) => {
             label="회원명"
             sx={{ m: 1, width: "45ch" }}
             variant="standard"
+            value={user.name || ""}
+            onChange={onChangeHandler}
           />
         </div>
         <div>
@@ -116,7 +133,7 @@ const EditUser = (props) => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    sx={{ width: "3ch" }}
+                    className={eusercss.iconCell}
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
@@ -127,21 +144,92 @@ const EditUser = (props) => {
               ),
             }}
             variant="standard"
+            value={user.pw || ""}
+            onChange={onChangeHandler}
           />
         </div>
         <div>
-          <Button variant="contained" color="primary" style={{ marginTop: "2.5em" }} onClick={editUserHandler}>
-            Save
-          </Button>
+          <TextField
+            type="text"
+            name="borrow1"
+            label="빌린 책(1)"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={user.borrow1 || ""}
+            onChange={onChangeHandler}
+          />
         </div>
+        <div>
+          <TextField
+            type="text"
+            name="borrow2"
+            label="빌린 책(2)"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={user.borrow2 || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="borrow3"
+            label="빌린 책(3)"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={user.borrow3 || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="uid"
+            label="RFID"
+            sx={{ m: 1, width: "45ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">RFID: </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={user.uid || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <Button
+          className={eusercss.editBtn}
+          variant="contained"
+          onClick={editUserHandler}
+        >
+          Save
+        </Button>
       </form>
+    );
+  }
+  if (error) {
+    content = (
+      <div>
+        <p>{error}</p>
+      </div>
+    );
+  }
+  if (isLoading) {
+    content = (
+      <div style={{ marginTop: "10em" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Typography className={eusercss.typo} variant="h6">
+        <Box className={eusercss.typoBox}>{user.name}</Box>의 회원 정보 수정
+      </Typography>
+      {content}
     </>
   );
-};
-
-const style = {
-  display: "flex",
-  justifyContent: "center",
 };
 
 export default EditUser;

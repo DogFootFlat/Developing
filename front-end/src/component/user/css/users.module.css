@@ -17,19 +17,19 @@ h5.typo {
   margin: 10px 0;
 }
 
-button.addbtn {
+button.addBtn {
   background-color: #5165a1;
 }
-button.addbtn:hover {
+button.addBtn:hover {
   background-color: #4c609b;
 }
 
-td.iconcell {
+td.iconCell {
   width: 1.3em;
   text-align: center;
 }
 
-.idcell {
+.idCell {
   width: 0.5em;
   text-align: center;
 }

@@ -4,25 +4,6 @@ const BOOK_API_BASE_URL = "http://localhost:8080/api/books";
 const USER_API_BASE_URL = "http://localhost:8080/api/users";
 
 class ApiService {
-  fetchBooks() {
-    return axios.get(BOOK_API_BASE_URL);
-  }
-
-  fetchBookByID(bookID) {
-    return axios.get(BOOK_API_BASE_URL + "/" + bookID);
-  }
-
-  deleteBook(bookID) {
-    return axios.delete(BOOK_API_BASE_URL + "/" + bookID);
-  }
-
-  addBook(book) {
-    return axios.post(BOOK_API_BASE_URL, book);
-  }
-
-  editBook(book) {
-    return axios.put(BOOK_API_BASE_URL + "/" + book.get("id"), book);
-  }
 
   fetchUsers() {
     return axios.get(USER_API_BASE_URL);
@@ -41,7 +22,27 @@ class ApiService {
   }
 
   editUser(user) {
-    return axios.put(USER_API_BASE_URL + "/" + user.id, user);
+    return axios.put(USER_API_BASE_URL + "/" + user.get("id"), user);
+  }
+
+  fetchBooks() {
+    return axios.get(BOOK_API_BASE_URL);
+  }
+
+  fetchBookByID(bookID) {
+    return axios.get(BOOK_API_BASE_URL + "/" + bookID);
+  }
+
+  deleteBook(bookID) {
+    return axios.delete(BOOK_API_BASE_URL + "/" + bookID);
+  }
+
+  addBook(book) {
+    return axios.post(BOOK_API_BASE_URL, book);
+  }
+
+  editBook(book) {
+    return axios.put(BOOK_API_BASE_URL + "/" + book.get("id"), book);
   }
 }
 
