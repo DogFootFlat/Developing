@@ -1,7 +1,7 @@
 package mit.shelf.Controller;
 
 import mit.shelf.domain.Book;
-import mit.shelf.repository.RecommendRepository;
+import mit.shelf.repository.book.RecommendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

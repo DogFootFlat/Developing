@@ -2,10 +2,10 @@ package mit.shelf.Controller;
 
 import mit.shelf.domain.Book;
 import mit.shelf.domain.User;
-import mit.shelf.repository.BookLocationRepository;
-import mit.shelf.repository.LoginRepository;
+import mit.shelf.repository.book.BookLocationRepository;
+import mit.shelf.repository.user.LoginRepository;
 import mit.shelf.repository.BookRepository;
-import mit.shelf.repository.bookLendingRepository;
+import mit.shelf.repository.book.bookLendingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

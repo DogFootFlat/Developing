@@ -1,7 +1,7 @@
 package mit.shelf.service;
 
 import mit.shelf.domain.User;
-import mit.shelf.repository.LoginRepository;
+import mit.shelf.repository.user.LoginRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

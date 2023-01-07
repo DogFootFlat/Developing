@@ -1,6 +1,7 @@
-package mit.shelf.repository;
+package mit.shelf.repository.book;
 
 import mit.shelf.domain.BookRank;
+import mit.shelf.repository.book.BookRankRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

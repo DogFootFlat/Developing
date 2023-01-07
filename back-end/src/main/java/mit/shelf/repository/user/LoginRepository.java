@@ -1,4 +1,4 @@
-package mit.shelf.repository;
+package mit.shelf.repository.user;
 
 import mit.shelf.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

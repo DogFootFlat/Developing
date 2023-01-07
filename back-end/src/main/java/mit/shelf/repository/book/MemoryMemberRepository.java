@@ -1,4 +1,4 @@
-package mit.shelf.repository;
+package mit.shelf.repository.book;
 
 /*
 public class MemoryMemberRepository implements BookRepository {

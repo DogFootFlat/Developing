@@ -1,4 +1,4 @@
-package mit.shelf.repository;
+package mit.shelf.repository.user;
 
 import mit.shelf.domain.Book;
 import mit.shelf.domain.User;

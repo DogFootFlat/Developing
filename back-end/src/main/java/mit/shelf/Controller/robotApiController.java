@@ -6,7 +6,7 @@ import mit.shelf.domain.Book;
 import mit.shelf.domain.User;
 import mit.shelf.repository.LibUserRepository;
 import mit.shelf.repository.BookRepository;
-import mit.shelf.repository.UserRepository;
+import mit.shelf.repository.user.UserRepository;
 import mit.shelf.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

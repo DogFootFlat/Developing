@@ -1,7 +1,7 @@
 package mit.shelf.Controller;
 
 import mit.shelf.domain.User;
-import mit.shelf.repository.LoginRepository;
+import mit.shelf.repository.user.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
