@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
   Button,
+  FormHelperText,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ausercss from "./css/auser.module.css";
@@ -16,24 +17,40 @@ const AddUser = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [nameIsValid, setNameIsValid] = useState(true);
+  const [pwIsValid, setPwIsValid] = useState(true);
+  const [formIsValid, setFormIsValid] = useState(true);
+
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [nameError, setNameError] = useState(false);
-  const [pwError, setPwError] = useState(false);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(nameIsValid && pwIsValid);
+    }, 500)
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [nameIsValid, pwIsValid])
 
   const onChangeHandler = (event) => {
-    if (event.target.name === "name") {
-      setNameError(false);
-    }
-    if (event.target.name === "pw") {
-      setPwError(false);
-    }
     setUser({
       ...user,
       [event.target.name]: event.target.value,
     });
+  };
+  const validateNameHandler = () => {
+    setNameIsValid(user.name !== "");
+  };
+  const validatePwHandler = () => {
+    setPwIsValid(user.pw !== "");
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const nameInputRef = useRef();
@@ -44,7 +61,7 @@ const AddUser = () => {
     setIsLoading(true);
     setError(null);
 
-    if (!nameError && !pwError) {
+    if (formIsValid) {
       const formData = new FormData();
       for (const key in user) {
         if (
@@ -70,20 +87,15 @@ const AddUser = () => {
         setError(error.message);
       }
       setIsLoading(false);
-    } else if (nameError) {
+    } else if (!nameIsValid) {
       nameInputRef.current.focus();
     } else {
       pwInputRef.current.focus();
     }
   };
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   let content = (
-    <form className={ausercss.form}>
+    <form className={ausercss.form} onSubmit={addUserHandler}>
       <div>
         <TextField
           type="text"
@@ -105,24 +117,27 @@ const AddUser = () => {
         <TextField
           autoFocus
           required
-          error={nameError}
+          error={!nameIsValid}
           type="text"
           name="name"
           label="회원명"
+          helperText={nameIsValid ? "" : "필수 작성란입니다."}
           ref={nameInputRef}
           sx={{ m: 1, width: "45ch" }}
           variant="standard"
           value={user.name || ""}
           onChange={onChangeHandler}
+          onBlur={validateNameHandler}
         />
       </div>
       <div>
         <TextField
           required
-          error={pwError}
+          error={!pwIsValid}
           type={showPassword ? "text" : "password"}
           name="pw"
           label="비밀번호"
+          helperText={pwIsValid ? "" : "필수 작성란입니다."}
           lef={pwInputRef}
           sx={{ m: 1, width: "45ch" }}
           InputProps={{
@@ -142,6 +157,7 @@ const AddUser = () => {
           variant="standard"
           value={user.pw || ""}
           onChange={onChangeHandler}
+          onBlur={validatePwHandler}
         />
       </div>
       <div>
@@ -205,10 +221,10 @@ const AddUser = () => {
         />
       </div>
       <Button
+        type="submit"
         className={ausercss.addBtn}
         variant="contained"
-        disabled={!nameError && !pwError}
-        onClick={addUserHandler}
+        // disabled={!formIsValid}
       >
         저장
       </Button>
