@@ -1,265 +1,337 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../ApiService";
 import {
-  TextField,
-  Button,
-  Typography,
   Select,
   MenuItem,
-} from "@material-ui/core";
+  CircularProgress,
+  InputAdornment,
+  TextField,
+  Typography,
+  Button,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import ebookcss from "./css/ebook.module.css";
 
-const EditBook = (props) => {
+const EditBook = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [books, setBooks] = useState({
-    id: "",
-    uid: "",
-    smartUid: "",
-    name: "",
-    bookNum: 0,
-    borrower: "",
-    bookCmp: 0,
-    bookFloor: 0,
-    donor: "",
-    category: "",
-    writer: "",
-    count: 0,
-    img: "",
-  });
+  const [book, setBook] = useState({});
+  const [nameIsValid, setNameIsValid] = useState(true);
+  const [formIsValid, setFormIsValid] = useState(true);
+
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBookByIDHandler = useCallback(async () => {
-    await ApiService.fetchBookByID(location.state.id)
-      .then((res) => {
-        let book = res.data;
-        setBooks({
-          id: book.id,
-          uid: book.uid,
-          smartUid: book.smartUid,
-          name: book.name,
-          bookNum: book.bookNum,
-          borrower: book.borrower,
-          bookCmp: book.bookCmp,
-          bookFloor: book.bookFloor,
-          donor: book.donor,
-          category: book.category,
-          writer: book.writer,
-          count: book.count,
-          img: book.img,
-        });
-      })
-      .catch((err) => {
-        console.log("fetchBookByIDHandler() Error!", err);
-      });
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ApiService.fetchBookByID(location.state.id);
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.data;
+      setBook(data);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
   }, [location.state.id]);
 
   useEffect(() => {
     fetchBookByIDHandler();
   }, [fetchBookByIDHandler, location]);
 
-  const onChangeHandler = (e) => {
-    setBooks({
-      ...books,
-      [e.target.name]: e.target.value,
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(nameIsValid);
+    }, 500)
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [nameIsValid]);
+
+  const onChangeHandler = (event) => {
+    setBook({
+      ...book,
+      [event.target.name]: event.target.value,
     });
-    console.log(books);
-    console.log(e.target.name, books[e.target.name]);
+  };
+  const validateNameHandler = () => {
+    setNameIsValid(book.name !== "");
   };
 
-  const editBookHandler = (e) => {
-    e.preventDefault();
-    var formData = new FormData();
-    for (var key in books) {
-      if (books[key] !== undefined) {
-        formData.append(key, books[key]);
+  const nameInputRef = useRef();
+
+  const editBookHandler = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    if (formIsValid) {
+      const formData = new FormData();
+      for (const key in book) {
+        if (key === "bookCmp" && book[key] === "" ) {
+          book[key] = 0;
+        }
+        if (book[key] !== undefined) {
+          formData.append(key, book[key]);
+        }
       }
-    }
-
-    ApiService.editBook(formData)
-      .then((res) => {
-        console.log(formData.get("name") + "의 정보가 수정되었습니다.");
+      try {
+        const response = await ApiService.editBook(formData);
+        if (response.status < 200 || response.status > 299) {
+          throw new Error("Something went wrong!");
+        }
         navigate("/books");
-      })
-      .catch((err) => {
-        console.log("editBookHandler() Error!", err);
-      });
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    } else {
+      nameInputRef.current.focus();
+    }
   };
 
-  return (
-    <>
-      <Typography variant="h6" style={style}>
-        도서 편집
-      </Typography>
+  const isEmptyObj = (obj) => {
+    if (obj.constructor === Object && Object.keys(obj).length === 0) {
+      return true;
+    }
+    return false;
+  };
 
-      <form>
-        <TextField
-          type="number"
-          placeholder="Edit your book ID"
-          name="id"
-          readOnly
-          fullWidth
-          margin="normal"
-          value={books.id}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book's RFID value"
-          name="uid"
-          readOnly={true}
-          fullWidth
-          margin="normal"
-          value={books.uid}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book's RFID value for robot"
-          name="smartUid"
-          readOnly={true}
-          fullWidth
-          margin="normal"
-          value={books.smartUid}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book Title"
-          name="name"
-          readOnly={true}
-          fullWidth
-          margin="normal"
-          value={books.name}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="number"
-          placeholder="Edit your book Number"
-          name="bookNum"
-          fullWidth
-          margin="normal"
-          value={books.bookNum}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book borrower"
-          name="borrower"
-          fullWidth
-          margin="normal"
-          value={books.borrower}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="number"
-          placeholder="Edit your book compare result"
-          name="bookCmp"
-          fullWidth
-          margin="normal"
-          value={books.bookCmp}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="number"
-          placeholder="Edit your book Floor"
-          name="bookFloor"
-          fullWidth
-          margin="normal"
-          value={books.bookFloor}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book donor name"
-          name="donor"
-          fullWidth
-          margin="normal"
-          value={books.donor}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book category"
-          name="category"
-          fullWidth
-          margin="normal"
-          value={books.category}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book writer"
-          name="writer"
-          fullWidth
-          margin="normal"
-          value={books.writer}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="number"
-          placeholder="Edit your book volume"
-          name="count"
-          fullWidth
-          margin="normal"
-          value={books.count}
-          onChange={onChangeHandler}
-        />
-
-        <TextField
-          type="text"
-          placeholder="Edit your book img"
-          name="img"
-          fullWidth
-          margin="normal"
-          value={books.img}
-          onChange={onChangeHandler}
-        />
-
-        <Select
-          name="img"
-          fullWidth
-          margin="normal"
-          value={books.img}
-          onChange={onChangeHandler}
-        >
-          <MenuItem value={`https://placeimg.com/480/480/any`}>Any</MenuItem>
-          <MenuItem value={`https://placeimg.com/480/480/animals`}>
-            Animals
-          </MenuItem>
-          <MenuItem value={`https://placeimg.com/480/480/arch`}>
-            Architecture
-          </MenuItem>
-          <MenuItem value={`https://placeimg.com/480/480/nature`}>
-            Nature
-          </MenuItem>
-          <MenuItem value={`https://placeimg.com/480/480/people`}>
-            People
-          </MenuItem>
-          <MenuItem value={`https://placeimg.com/480/480/tech`}>Tech</MenuItem>
-        </Select>
-
-        <Button variant="contained" color="primary" onClick={editBookHandler}>
+  let content = <h5>도서 정보를 가져오지 못했습니다.</h5>;
+  if (!isEmptyObj(book)) {
+    content = (
+      <form className={ebookcss.form} onSubmit={editBookHandler}>
+        <div>
+          <TextField
+            type="number"
+            name="id"
+            label="구분 아이디"
+            sx={{ m: 1, width: "45ch" }}
+            InputProps={{
+              readOnly: true,
+              startAdornment: (
+                <InputAdornment position="start">ID: </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={book.id || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="uid"
+            label="RFID"
+            sx={{ m: 1, width: "45ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">RFID: </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={book.uid || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="smartUid"
+            label="Robot UID"
+            sx={{ m: 1, width: "45ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">UID: </InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={book.smartUid}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            autoFocus
+            required
+            type="text"
+            name="name"
+            label="도서명"
+            error={!nameIsValid}
+            helperText={nameIsValid ? "" : "필수 작성란입니다."}
+            ref={nameInputRef}
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.name || ""}
+            onChange={onChangeHandler}
+            onBlur={validateNameHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="number"
+            name="bookNum"
+            label="도서번호"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.bookNum || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="borrower"
+            label="빌린 사람"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.borrower || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="number"
+            name="bookCmp"
+            label="비교 결과"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.bookCmp || 0}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="number"
+            name="bookFloor"
+            label="도서 위치"
+            sx={{ m: 1, width: "45ch" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">층</InputAdornment>
+              ),
+            }}
+            variant="standard"
+            value={book.bookFloor || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="donor"
+            label="기부자"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.donor || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="category"
+            label="장르"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.category || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="writer"
+            label="작가"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.writer || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="number"
+            name="count"
+            label="도서 수"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.count || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            name="img"
+            label="이미지"
+            sx={{ m: 1, width: "45ch" }}
+            variant="standard"
+            value={book.img || ""}
+            onChange={onChangeHandler}
+          />
+        </div>
+        <div>
+          <Select
+            name="img"
+            sx={{ m: 1, width: "35ch" }}
+            value={book.img}
+            onChange={onChangeHandler}
+          >
+            <MenuItem value={`https://placeimg.com/480/480/any`}>Any</MenuItem>
+            <MenuItem value={`https://placeimg.com/480/480/animals`}>
+              Animals
+            </MenuItem>
+            <MenuItem value={`https://placeimg.com/480/480/arch`}>
+              Architecture
+            </MenuItem>
+            <MenuItem value={`https://placeimg.com/480/480/nature`}>
+              Nature
+            </MenuItem>
+            <MenuItem value={`https://placeimg.com/480/480/people`}>
+              People
+            </MenuItem>
+            <MenuItem value={`https://placeimg.com/480/480/tech`}>Tech</MenuItem>
+          </Select>
+        </div>
+        <Button
+          type="submit"
+          className={ebookcss.editBtn}
+          variant="contained">
           저장
         </Button>
       </form>
+    );
+  }
+  if (error) {
+    content = (
+      <div>
+        <p>{error}</p>
+      </div>
+    );
+  }
+  if (isLoading) {
+    content = (
+      <div style={{ marginTop: "10em" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Typography className={ebookcss.typo} variant="h6">
+        <Box className={ebookcss.typoBox}>{`도서 "${book.name}"`}</Box>의 정보 수정
+      </Typography>
+      {content}
     </>
   );
-};
-
-const style = {
-  display: "flex",
-  justifyContent: "center",
 };
 
 export default EditBook;

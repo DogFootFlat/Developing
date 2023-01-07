@@ -1,43 +1,151 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, Typography } from "@material-ui/core";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Button,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import bookscss from "./css/books.module.css";
 
-const BookList = (props) => {
+const BookList = () => {
+  const navigate = useNavigate();
+  
   const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [fileName, setFileName] = useState([]);
 
   const fetchBooksHandler = useCallback(async () => {
-    await ApiService.fetchBooks()
-      .then((res) => {
-        setBooks(res.data);
-      })
-      .catch((err) => {
-        console.log("fetchBooksHandler() Error!", err);
-      });
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ApiService.fetchBooks();
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      const data = await response.data;
+      setBooks(data);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
     fetchBooksHandler();
   }, [fetchBooksHandler]);
 
-  async function deleteBook(bookID) {
-    ApiService.deleteBook(bookID)
-      .then((res) => {
-        console.log("Book Deleted Successfully.");
-        setBooks(books.filter((book) => book.id !== bookID));
-      })
-      .catch((err) => {
-        console.log("deleteBook() Error!", err);
-      });
-  }
+  const deleteBookHandler = async (bookID) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await ApiService.deleteBook(bookID);
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      setBooks(books.filter((book) => book.id !== bookID));
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  };
+
+  const moveToEditBookHandler = (bookId) => {
+    navigate("/edit-book", {
+      state: {
+        id: bookId,
+      },
+    });
+  };
 
   const onChangeHandler = (e) => {
     setFileName(e.target.value);
   };
+
+  let content = <h5>현재 도서 목록이 비어있습니다.</h5>;
+  if (books.length > 0) {
+    content = (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className={bookscss.idCell}>ID</TableCell>
+            <TableCell align="center">이미지</TableCell>
+            <TableCell>도서명</TableCell>
+            <TableCell>도서번호</TableCell>
+            <TableCell>빌린 사람</TableCell>
+            <TableCell>비교 결과</TableCell>
+            <TableCell>도서 위치</TableCell>
+            <TableCell>기부자</TableCell>
+            <TableCell>장르</TableCell>
+            <TableCell>작가</TableCell>
+            <TableCell>도서 수</TableCell>
+            <TableCell align="center">편집</TableCell>
+            <TableCell align="center">삭제</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {books.map((book) => (
+            <TableRow key={book.id}>
+              <TableCell
+                className={bookscss.idCell}
+                component="th"
+                scope="book"
+              >
+                {book.id}
+              </TableCell>
+              <TableCell>
+                <img className={bookscss.img} src={book.img} alt="Book Img" />
+              </TableCell>
+              <TableCell>{book.name}</TableCell>
+              <TableCell>{book.bookNum}</TableCell>
+              <TableCell>{book.borrower}</TableCell>
+              <TableCell>{book.bookCmp}</TableCell>
+              <TableCell>{book.bookFloor}</TableCell>
+              <TableCell>{book.donor}</TableCell>
+              <TableCell>{book.category}</TableCell>
+              <TableCell>{book.writer}</TableCell>
+              <TableCell>{book.count}</TableCell>
+              <TableCell className={bookscss.iconCell}>
+                <CreateIcon
+                  className={bookscss.hover}
+                  onClick={() => moveToEditBookHandler(book.id)}
+                />
+              </TableCell>
+              <TableCell className={bookscss.iconCell}>
+                <DeleteIcon
+                  className={bookscss.hover}
+                  onClick={() => deleteBookHandler(book.id)}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  }
+  if (error) {
+    content = (
+      <div>
+        <p>{error}</p>
+      </div>
+    );
+  }
+  if (isLoading) {
+    content = (
+      <div style={{ marginTop: "10em" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -45,20 +153,17 @@ const BookList = (props) => {
         엑셀파일로 업로드
       </Typography>
 
-      <form enctype="multipart/form-data">
+      <form encType="multipart/form-data">
         <div className={bookscss.filebox}>
-          <label for="file">파일찾기</label>
+          <label htmlFor="file">파일찾기</label>
           <input
             className={bookscss["upload-name"]}
             value={fileName}
             placeholder="첨부파일"
             style={{ padding: "0 7px" }}
-          />
-          <input
-            id="file"
-            type="file"
             onChange={onChangeHandler}
           />
+          <input id="file" type="file" onChange={onChangeHandler} />
           <Button
             className={bookscss.submit}
             type="submit"
@@ -69,59 +174,7 @@ const BookList = (props) => {
           </Button>
         </div>
       </form>
-
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="center">img</TableCell>
-            <TableCell align="right">BookName</TableCell>
-            <TableCell align="right">번호</TableCell>
-            <TableCell align="right">borrower</TableCell>
-            <TableCell align="right">비교</TableCell>
-            <TableCell align="right">층</TableCell>
-            <TableCell align="right">donor</TableCell>
-            <TableCell align="right">장르</TableCell>
-            <TableCell align="right">writer</TableCell>
-            <TableCell align="right">count</TableCell>
-            <TableCell align="right">Edit</TableCell>
-            <TableCell align="right">Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {books.map((book) => (
-            <TableRow key={book.id}>
-              <TableCell component="th" scope="book">
-                {book.id}
-              </TableCell>
-              <TableCell align="right">
-                <img className={bookscss.img} src={book.img} alt="Book Img" />
-              </TableCell>
-              <TableCell align="right">{book.name}</TableCell>
-              <TableCell align="right">{book.bookNum}</TableCell>
-              <TableCell align="right">{book.borrower}</TableCell>
-              <TableCell align="right">{book.bookCmp}</TableCell>
-              <TableCell align="right">{book.bookFloor}</TableCell>
-              <TableCell align="right">{book.donor}</TableCell>
-              <TableCell align="right">{book.category}</TableCell>
-              <TableCell align="right">{book.writer}</TableCell>
-              <TableCell align="right">{book.count}</TableCell>
-              <TableCell align="right">
-                <Link to="/edit-book" state={{ id: book.id }}>
-                  <CreateIcon />
-                </Link>
-              </TableCell>
-              <TableCell
-                align="right"
-                className={bookscss.delicon}
-                onClick={() => deleteBook(book.id)}
-              >
-                <DeleteIcon />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      {content}
     </>
   );
 };

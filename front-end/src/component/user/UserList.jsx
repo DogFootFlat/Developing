@@ -19,8 +19,8 @@ import userscss from "./css/users.module.css";
 const UserList = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchUsersHandler = useCallback(async () => {
     setIsLoading(true);
@@ -50,7 +50,7 @@ const UserList = () => {
       if (response.status < 200 || response.status > 299) {
         throw new Error("Something went wrong!");
       }
-        setUsers(users.filter((user) => user.id !== userID));
+      setUsers(users.filter((user) => user.id !== userID));
     } catch (error) {
       setError(error.message);
     }

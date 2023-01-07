@@ -8,7 +8,6 @@ import {
   TextField,
   Typography,
   Button,
-  FormHelperText,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ausercss from "./css/auser.module.css";
@@ -117,10 +116,10 @@ const AddUser = () => {
         <TextField
           autoFocus
           required
-          error={!nameIsValid}
           type="text"
           name="name"
           label="회원명"
+          error={!nameIsValid}
           helperText={nameIsValid ? "" : "필수 작성란입니다."}
           ref={nameInputRef}
           sx={{ m: 1, width: "45ch" }}
@@ -133,12 +132,12 @@ const AddUser = () => {
       <div>
         <TextField
           required
-          error={!pwIsValid}
           type={showPassword ? "text" : "password"}
           name="pw"
           label="비밀번호"
+          error={!pwIsValid}
           helperText={pwIsValid ? "" : "필수 작성란입니다."}
-          lef={pwInputRef}
+          ref={pwInputRef}
           sx={{ m: 1, width: "45ch" }}
           InputProps={{
             endAdornment: (
@@ -224,7 +223,6 @@ const AddUser = () => {
         type="submit"
         className={ausercss.addBtn}
         variant="contained"
-        // disabled={!formIsValid}
       >
         저장
       </Button>

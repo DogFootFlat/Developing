@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router";
 import ApiService from "../../ApiService";
 import {
@@ -18,8 +18,12 @@ const EditUser = () => {
   const location = useLocation();
 
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [nameIsValid, setNameIsValid] = useState(true);
+  const [pwIsValid, setPwIsValid] = useState(true);
+  const [formIsValid, setFormIsValid] = useState(true);
+
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const fetchUserByIDHandler = useCallback(async () => {
@@ -42,34 +46,15 @@ const EditUser = () => {
     fetchUserByIDHandler();
   }, [fetchUserByIDHandler, location]);
 
-  const editUserHandler = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(nameIsValid && pwIsValid);
+    }, 500)
 
-    const formData = new FormData();
-    for (const key in user) {
-      if (user[key] === "" && ["borrow1", "borrow2", "borrow3", "donate"].includes(key)) {
-        user[key] = "X";
-      }
-      if (user[key] === "" && key === "uid") {
-        user[key] = "00 00 00 00";
-      }
-      if (user[key] !== undefined) {
-        formData.append(key, user[key]);
-      }
-    }
-    try {
-      const response = await ApiService.editUser(formData);
-      if (response.status < 200 || response.status > 299) {
-        throw new Error("Something went wrong!");
-      }
-      navigate("/users");
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  };
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [nameIsValid, pwIsValid]);
 
   const onChangeHandler = (event) => {
     setUser({
@@ -77,10 +62,54 @@ const EditUser = () => {
       [event.target.name]: event.target.value,
     });
   };
+  const validateNameHandler = () => {
+    setNameIsValid(user.name !== "");
+  };
+  const validatePwHandler = () => {
+    setPwIsValid(user.pw !== "");
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const nameInputRef = useRef();
+  const pwInputRef = useRef();
+
+  const editUserHandler = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    if (formIsValid) {
+      const formData = new FormData();
+      for (const key in user) {
+        if (["borrow1", "borrow2", "borrow3", "donate"].includes(key) && user[key] === "") {
+          user[key] = "X";
+        }
+        if (key === "uid"&& user[key] === "") {
+          user[key] = "00 00 00 00";
+        }
+        if (user[key] !== undefined) {
+          formData.append(key, user[key]);
+        }
+      }
+      try {
+        const response = await ApiService.editUser(formData);
+        if (response.status < 200 || response.status > 299) {
+          throw new Error("Something went wrong!");
+        }
+        navigate("/users");
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    } else if (!nameIsValid) {
+      nameInputRef.current.focus();
+    } else {
+      pwInputRef.current.focus();
+    }
   };
 
   const isEmptyObj = (obj) => {
@@ -93,10 +122,10 @@ const EditUser = () => {
   let content = <h5>회원 정보를 가져오지 못했습니다.</h5>;
   if (!isEmptyObj(user)) {
     content = (
-      <form className={eusercss.form}>
+      <form className={eusercss.form} onSubmit={editUserHandler}>
         <div>
           <TextField
-            type="text"
+            type="number"
             name="id"
             label="구분 아이디"
             sx={{ m: 1, width: "45ch" }}
@@ -113,20 +142,30 @@ const EditUser = () => {
         </div>
         <div>
           <TextField
+            autoFocus
+            required
             type="text"
             name="name"
             label="회원명"
+            error={!nameIsValid}
+            helperText={nameIsValid ? "" : "필수 작성란입니다."}
+            ref={nameInputRef}
             sx={{ m: 1, width: "45ch" }}
             variant="standard"
             value={user.name || ""}
             onChange={onChangeHandler}
+            onBlur={validateNameHandler}
           />
         </div>
         <div>
           <TextField
+            required
             type={showPassword ? "text" : "password"}
             name="pw"
             label="비밀번호"
+            error={!pwIsValid}
+            helperText={pwIsValid ? "" : "필수 작성란입니다."}
+            ref={pwInputRef}
             sx={{ m: 1, width: "45ch" }}
             InputProps={{
               endAdornment: (
@@ -145,6 +184,7 @@ const EditUser = () => {
             variant="standard"
             value={user.pw || ""}
             onChange={onChangeHandler}
+            onBlur={validatePwHandler}
           />
         </div>
         <div>
@@ -208,9 +248,9 @@ const EditUser = () => {
           />
         </div>
         <Button
+          type="submit"
           className={eusercss.editBtn}
           variant="contained"
-          onClick={editUserHandler}
         >
           저장
         </Button>

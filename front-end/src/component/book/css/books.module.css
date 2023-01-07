@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* NavBar css */
+/* books css */
 
 a.link {
   color: white;
@@ -89,6 +89,16 @@ img.img {
   width: 100px;
 }
 
-td.delicon:hover {
+td.iconCell {
+  width: 1.3em;
+  text-align: center;
+}
+
+.idCell {
+  width: 0.5em;
+  text-align: center;
+}
+
+.hover:hover {
   cursor: pointer;
 }
