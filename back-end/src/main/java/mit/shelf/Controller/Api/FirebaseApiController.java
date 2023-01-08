@@ -44,7 +44,20 @@ public class FirebaseApiController {
 
 
     @GetMapping("/updateMember")
-    public String updateMember(@RequestParam Book book) throws Exception {
+    public String updateMember(MemberForm form) throws Exception {
+        Book book = new Book();
+        book.setName(form.getName());
+        book.setBookNum(form.getBookNum());
+        book.setBorrower(form.getBorrower());
+        book.setUid(form.getUid());
+        book.setRUid(form.getSmartUid());
+        book.setDonor(form.getDonor());
+        book.setBookFloor(form.getBookFloor());
+        book.setBookCmp(form.getBookCmp());
+        book.setCategory(form.getCategory());
+        book.setImg(form.getImg());
+        book.setWriter(form.getWriter());
+        book.setCount(form.getCount());
         return firebaseService.updateBook(book);
     }
 

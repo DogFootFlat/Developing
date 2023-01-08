@@ -15,9 +15,9 @@ public class FirebaseServiceImpl implements FirebaseService{
     @Override
     public String insertBook(Book book) throws Exception {
         Firestore firestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> apiFuture =
-                firestore.collection("book").document(String.valueOf(book.getId())).set(book);
-        return apiFuture.get().getUpdateTime().toString();
+        ApiFuture<DocumentReference> apiFuture =
+                firestore.collection("book").add(book);
+        return apiFuture.get().getId();
     }
 
     @Override
