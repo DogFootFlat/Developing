@@ -4,12 +4,12 @@ import mit.shelf.Form.MemberForm;
 import mit.shelf.domain.Book;
 import mit.shelf.repository.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/firebase")
 public class FirebaseApiController {
 
     @Autowired
@@ -34,7 +34,10 @@ public class FirebaseApiController {
         return firebaseService.insertBook(book);
     }
 
-
+    @GetMapping("/bookList")
+    public List<Book> bookList() throws Exception {
+        return firebaseService.getBookList();
+    }
 
     @GetMapping("/getMemberDetail")
     public Book getMemberDetail(@RequestParam Long id) throws Exception {

@@ -1,13 +1,13 @@
 package mit.shelf.repository;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import mit.shelf.domain.Book;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FirebaseServiceImpl implements FirebaseService{
@@ -21,6 +21,19 @@ public class FirebaseServiceImpl implements FirebaseService{
     }
 
     @Override
+    public List<Book> getBookList() throws Exception {
+        Firestore firestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> apiFuture = firestore.collection("book").get();
+        List<QueryDocumentSnapshot> documents = apiFuture.get().getDocuments();
+        List<Book> bookList = new ArrayList<>();
+        for (QueryDocumentSnapshot document : documents) {
+            bookList.add(document.toObject(Book.class));
+//            System.out.println(document.getId() + " => " + document.toObject(Book.class));
+        }
+        return bookList;
+    }
+
+    @Override
     public Book getBookDetail(Long id) throws Exception {
         Firestore firestore = FirestoreClient.getFirestore();
 
@@ -30,11 +43,8 @@ public class FirebaseServiceImpl implements FirebaseService{
 
         DocumentSnapshot documentSnapshot = apiFuture.get();
 
-        Book book = null;
-
         if(documentSnapshot.exists()) {
-            book = documentSnapshot.toObject(Book.class);
-            return book;
+            return documentSnapshot.toObject(Book.class);
         } else {
             return null;
         }
