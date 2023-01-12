@@ -65,4 +65,20 @@ public class FirebaseServiceImpl implements FirebaseService{
                 firestore.collection("book").document(String.valueOf(id)).delete();
         return "Document id :" + id + " delete";
     }
+
+    @Override
+    public List<Book> getBookId() throws Exception {
+        Firestore firestore = FirestoreClient.getFirestore();
+        String[] arr = {};
+        ApiFuture<QuerySnapshot> apiFuture =
+                firestore.collection("book").select(arr).get();
+
+        List<QueryDocumentSnapshot> documents = apiFuture.get().getDocuments();
+        List<Book> bookList = new ArrayList<>();
+        for (QueryDocumentSnapshot document : documents) {
+            bookList.add(document.toObject(Book.class));
+//            System.out.println(document.getId() + " => " + document.toObject(Book.class));
+        }
+        return bookList;
+    }
 }

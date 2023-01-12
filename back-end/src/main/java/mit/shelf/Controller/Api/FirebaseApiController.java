@@ -34,9 +34,15 @@ public class FirebaseApiController {
         return firebaseService.insertBook(book);
     }
 
+    //id 확인이 안됨
     @GetMapping("/bookList")
     public List<Book> bookList() throws Exception {
         return firebaseService.getBookList();
+    }
+
+    @GetMapping("/bookId")
+    public List<Book> bookId() throws Exception {
+        return firebaseService.getBookId();
     }
 
     @GetMapping("/getMemberDetail")

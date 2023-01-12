@@ -15,4 +15,6 @@ public interface FirebaseService {
     public String updateBook(Book book) throws Exception;
 
     public String deleteBook(Long id) throws Exception;
+
+    List<Book> getBookId() throws Exception;
 }
