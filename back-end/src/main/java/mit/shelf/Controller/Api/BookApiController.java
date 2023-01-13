@@ -96,23 +96,23 @@ public class BookApiController {
     }
 
     @PostMapping("/books/excel")
-    public String readExcel(@RequestParam("file") MultipartFile file, Model model)
+    public String readExcel(@RequestParam("file") String fileName)
             throws IOException {
 
-        List<ExcelData> dataList = new ArrayList<>();
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-
-        if (!extension.equals("xlsx") && !extension.equals("xls")) {
-            throw new IOException("엑셀파일만 업로드 해주세요.");
-        }
+//        List<ExcelData> dataList = new ArrayList<>();
+//        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+//
+//        if (!extension.equals("xlsx") && !extension.equals("xls")) {
+//            throw new IOException("엑셀파일만 업로드 해주세요.");
+//        }
 
         Workbook workbook = null;
-
-        if (extension.equals("xlsx")) {
-            workbook = new XSSFWorkbook(file.getInputStream());
-        } else if (extension.equals("xls")) {
-            workbook = new HSSFWorkbook(file.getInputStream());
-        }
+        workbook = new XSSFWorkbook(fileName);
+//        if (extension.equals("xlsx")) {
+//            workbook = new XSSFWorkbook(file.getInputStream());
+//        } else if (extension.equals("xls")) {
+//            workbook = new HSSFWorkbook(file.getInputStream());
+//        }
 
         Sheet worksheet = workbook.getSheetAt(0);
 
@@ -124,8 +124,8 @@ public class BookApiController {
             book.setName(row.getCell(2).getStringCellValue());
             bookService.join(book);
         }
-        model.addAttribute("datas", dataList);
-        return "home";
+//        model.addAttribute("datas", dataList);
+        return "success";
 
     }
 }
