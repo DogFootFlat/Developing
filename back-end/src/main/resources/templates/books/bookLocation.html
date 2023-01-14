@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>도서 위치 검색</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" href="../../static/css/common.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bookLocation.css}" href="../../static/css/bookLocation.css">
+</head>
+<body>
+<form action="/nameSharing" method="GET">
+    <input id="backPage" name="Sharing" type="submit" value="이전 페이지로" style="width: 100px;"/>
+    <input name="id" type="hidden" th:value="${loginGo2}"/>
+    <input name="num" type="hidden" value="2"/>
+</form>
+<section id="main">
+    <table>
+        <tr>
+            <td th:if="${color8}==8" class="color">
+                <input th:type="submit" th:value="${bookId8}" />
+            </td>
+            <td th:unless="${color8}">
+                <input th:type="submit" th:value="${bookId8}" />
+            </td>
+            <td th:if="${color9}==9" class="color">
+                <input th:type="submit" th:value="${bookId9}" />
+            </td>
+            <td th:unless="${color9}">
+                <input th:type="submit" th:value="${bookId9}" />
+            </td>
+            <td th:if="${color10}==10" class="color">
+                <input th:type="submit" th:value="${bookId10}" />
+            </td>
+            <td th:unless="${color10}">
+                <input th:type="submit" th:value="${bookId10}" />
+            </td>
+            <td th:if="${color11}==11" class="color">
+                <input th:type="submit" th:value="${bookId11}" />
+            </td>
+            <td th:unless="${color11}">
+                <input th:type="submit" th:value="${bookId11}" />
+            </td>
+            <td th:if="${color12}==12" class="color">
+                <input th:type="submit" th:value="${bookId12}" />
+            </td>
+            <td th:unless="${color12}">
+                <input th:type="submit" th:value="${bookId12}" />
+            </td>
+            <td th:if="${color13}==13" class="color">
+                <input th:type="submit" th:value="${bookId13}" />
+            </td>
+            <td th:unless="${color13}">
+                <input th:type="submit" th:value="${bookId13}" />
+            <td th:if="${color14}==14" class="color">
+                <input th:type="submit" th:value="${bookId14}" />
+            </td>
+            <td th:unless="${color14}">
+                <input th:type="submit" th:value="${bookId14}" />
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td th:if="${color1}==1" class="color">
+                <input th:type="submit" th:value="${bookId1}" />
+            </td>
+            <td th:unless="${color1}">
+                <input th:type="submit" th:value="${bookId1}" />
+            </td>
+
+            <td th:if="${color2}==2" class="color">
+                <input th:type="submit" th:value="${bookId2}" />
+            </td>
+            <td th:unless="${color2}">
+                <input th:type="submit" th:value="${bookId2}" />
+            </td>
+
+            <td th:if="${color3}==3" class="color">
+                <input th:type="submit" th:value="${bookId3}" />
+            </td>
+            <td th:unless="${color3}">
+                <input th:type="submit" th:value="${bookId3}" />
+            </td>
+
+            <td th:if="${color4}==4" class="color">
+                <input th:type="submit" th:value="${bookId4}" />
+            </td>
+            <td th:unless="${color4}">
+                <input th:type="submit" th:value="${bookId4}" />
+            </td>
+
+            <td th:if="${color5}==5" class="color">
+                <input th:type="submit" th:value="${bookId5}" />
+            </td>
+            <td th:unless="${color5}">
+                <input th:type="submit" th:value="${bookId5}" />
+            </td>
+
+            <td th:if="${color6}==6" class="color">
+                <input th:type="submit" th:value="${bookId6}" />
+            </td>
+            <td th:unless="${color6}">
+                <input th:type="submit" th:value="${bookId6}" />
+            </td>
+            <td th:if="${color7}==7" class="color">
+                <input th:type="submit" th:value="${bookId7}" />
+            </td>
+            <td th:unless="${color7}">
+                <input th:type="submit" th:value="${bookId7}" />
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

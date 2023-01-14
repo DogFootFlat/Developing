@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/memberList.css}" href="../../static/css/memberList.css"></head>
+<body>
+<div class="container">
+  <header class="common">
+    <div class="subtitle">
+      <h2><a th:href=@{${'/user'}}>HOME</a></h2>
+    </div>
+    <div class="topnav">
+      <ul>
+        <li>&#10217;</li>
+        <li><a src="#">회원 목록</a></li>
+      </ul>
+    </div>
+  </header>
+<h2>엑셀파일로 업로드</h2>
+  <form th:action="@{'/excel/read'}" method="POST" enctype="multipart/form-data">
+    <div class="filebox">
+      <label for="file">파일찾기</label> 
+      <input class="upload-name" value="file.xlsx" placeholder="첨부파일" style="padding: 0 7px">
+      <input type="file" id="file" th:name="file" onchange="changeSelectedValue()">
+      <input class="submit" type="submit" th:type="submit" value="제출" />
+    </div>
+  </form>
+
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th style="width: 50px">#</th>
+        <th>회원명</th>
+        <th>회원 비밀번호</th>
+        <th>회원 UID</th>
+      </tr>
+      </thead>
+      <tbody>
+      <p class="important">id 클릭시 수정</p>
+      <tr th:each="user : ${users}">
+
+        <td>
+          <form th:action="@{'/user/edit'}" method="GET">
+            <input type="hidden" name="id" th:value="${user.id}">
+            <input class="input__id" th:type="submit" th:value="${user.id}" />
+          </form>
+        </td>
+        <td th:text="${user.name}">나</td>
+        <td th:text="${user.pw}">다</td>
+        <td th:text="${user.uid}">마</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+
+<script>
+  function changeSelectedValue() {
+    let file = document.getElementById("file");
+    let uploadName = document.getElementById("upload-name");
+    uploadName.value = file.value;
+  }
+</script>
+</html>

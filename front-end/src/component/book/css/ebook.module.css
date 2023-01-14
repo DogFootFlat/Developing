@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/* edit book css */
+
+.form {
+  margin-top: 3em;
+}
+
+.typoBox {
+  text-transform: uppercase;
+}
+
+h6.typo {
+  display: flex;
+  margin-top: 2em;
+  font-weight: bold;
+  justify-content: center;
+}
+
+button.editBtn {
+  margin: 2.5em 0;
+  color: white;
+  background-color: #5165a1;
+}
+button.editBtn:hover {
+  background-color: #4c609b;
+}
+
+.iconCell {
+  width: 3ch;
+}

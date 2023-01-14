@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><link rel="stylesheet" type="text/css" th:href="@{/css/lendingList.css}" href="../../static/css/lendingList.css"></head>
+<body>
+<div class="container">
+  <header class="common">
+    <div class="topnav">
+      <ul>
+        <li>&#10217;</li>
+        <li><a src="#">대출내역</a></li>
+      </ul>
+    </div>
+  </header>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>이미지</th>
+        <th>책제목</th>
+        <th>빌린 사람</th>
+        <th>작가</th>
+        <th>카테고리</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="lending : ${lendingList}">
+        <td><img height="50px" width="50px" th:src="${lending.img}" /></td>
+        <td th:text="${lending.name}">나</td>
+        <td th:text="${lending.borrower}">다</td>
+        <td th:text="${lending.writer}">마</td>
+        <td th:text="${lending.category}">바</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
