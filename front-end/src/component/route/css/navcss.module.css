@@ -36,12 +36,18 @@ button.arrowicon {
   margin-left: 15px;
   margin-right: -3px;
   cursor: default;
+  color: white;
 }
 button.arrowicon:hover {
+  cursor: default;
   background-color: transparent;
+}
+button.arrowicon:disabled {
+  color: white;
 }
 
 h6.typobtn {
+  margin-left: 0.5em;
   flex-grow: 1;
   text-align: left;
 }
@@ -55,4 +61,8 @@ h6.typobtn:hover a {
 
 button.loginbtn:hover {
   background-color: #0000000a;
+}
+
+.color {
+  color: white;
 }

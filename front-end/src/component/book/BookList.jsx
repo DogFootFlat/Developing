@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
+import AuthContext from "../../store/auth-context";
 import {
   Table,
   TableBody,
@@ -18,7 +18,8 @@ import bookscss from "./css/books.module.css";
 
 const BookList = () => {
   const navigate = useNavigate();
-  
+  const ctx = useContext(AuthContext);
+
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -42,6 +43,7 @@ const BookList = () => {
 
   useEffect(() => {
     fetchBooksHandler();
+    ctx.setCurrentPage("book");
   }, [fetchBooksHandler]);
 
   const deleteBookHandler = async (bookID) => {

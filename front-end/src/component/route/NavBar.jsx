@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
+import AuthContext from "../../store/auth-context";
+import { AppBar, Toolbar, Typography, Button, IconButton } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@material-ui/icons/ArrowForwardIosSharp";
 import navcss from "./css/navcss.module.css";
 
 const NavBar = () => {
+  const ctx = useContext(AuthContext);
   return (
     <>
       <AppBar position="static">
@@ -20,21 +18,19 @@ const NavBar = () => {
               color="inherit"
               aria-label="Home"
             >
-              <Link to={"/"} style={color}>
-                HOME
+              <Link to={ctx.currentPage === "user" ? "/books" : "/users"} style={color}>
+                {ctx.currentPage === "user" && "BOOK"}
+                {ctx.currentPage === "book" && "USER"}
               </Link>
             </IconButton>
           </div>
-          <IconButton className={navcss.arrowicon} color="inherit">
+          <IconButton className={navcss.arrowicon} disabled={true}>
             <ArrowForwardIosSharpIcon />
           </IconButton>
           <Typography className={navcss.typobtn} variant="h6">
-            {/* 조건부 컨텐츠 사용 */}
-            <Link to={"/users"} style={color}>
-              회원 목록
-            </Link>
+            {ctx.currentPage === "user" && "회원 목록"}
+            {ctx.currentPage === "book" && "도서 목록"}
           </Typography>
-          {/* 조건부 컨텐츠 사용 */}
           <Button className={navcss.loginbtn} color="inherit">
             로그인
           </Button>
