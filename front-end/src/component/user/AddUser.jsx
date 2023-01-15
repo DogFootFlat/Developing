@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router";
 import ApiService from "../../ApiService";
+import AuthContext from "../../store/auth-context";
 import {
   CircularProgress,
   IconButton,
@@ -14,6 +15,7 @@ import ausercss from "./css/auser.module.css";
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const ctx = useContext(AuthContext);
 
   const [user, setUser] = useState({});
   const [nameIsValid, setNameIsValid] = useState(true);
@@ -23,6 +25,10 @@ const AddUser = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    ctx.setCurrentPage("add-user");
+  }, []);
 
   useEffect(() => {
     const identifier = setTimeout(() => {

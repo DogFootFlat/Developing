@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useContext, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router";
 import ApiService from "../../ApiService";
+import AuthContext from "../../store/auth-context";
 import {
   CircularProgress,
   IconButton,
@@ -16,6 +17,7 @@ import eusercss from "./css/euser.module.css";
 const EditUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const ctx = useContext(AuthContext);
 
   const [user, setUser] = useState({});
   const [nameIsValid, setNameIsValid] = useState(true);
@@ -44,6 +46,7 @@ const EditUser = () => {
 
   useEffect(() => {
     fetchUserByIDHandler();
+    ctx.setCurrentPage("edit-user");
   }, [fetchUserByIDHandler, location]);
 
   useEffect(() => {

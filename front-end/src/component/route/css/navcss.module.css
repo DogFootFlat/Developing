@@ -15,35 +15,22 @@ div.nav {
   background-color: #899cc8;
 }
 
-div.homearea {
-  padding: 11px 22px 11px 33px;
-  background-color: #5166ac83;
+.menu h6 a button {
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
 }
 
-button.homebtn {
-  border-radius: 4px;
+.list li {
+  font-size: 18px;
 }
-button.homebtn:hover {
-  background-color: #0000000a;
+.list li a {
+  color: black;
+  width: 100%;
 }
-button.homebtn a {
-  font-size: 32px;
-  font-weight: 600;
-}
-
-button.arrowicon {
-  width: 20px;
-  margin-left: 15px;
-  margin-right: -3px;
-  cursor: default;
-  color: white;
-}
-button.arrowicon:hover {
-  cursor: default;
-  background-color: transparent;
-}
-button.arrowicon:disabled {
-  color: white;
+.list li a div div {
+  width: fit-content;
+  margin: 0 auto;
 }
 
 h6.typobtn {

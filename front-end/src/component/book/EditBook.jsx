@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useContext, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../ApiService";
+import AuthContext from "../../store/auth-context";
 import {
   Select,
   MenuItem,
@@ -16,6 +17,7 @@ import ebookcss from "./css/ebook.module.css";
 const EditBook = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const ctx = useContext(AuthContext);
 
   const [book, setBook] = useState({});
   const [nameIsValid, setNameIsValid] = useState(true);
@@ -42,6 +44,7 @@ const EditBook = () => {
 
   useEffect(() => {
     fetchBookByIDHandler();
+    ctx.setCurrentPage("edit-book");
   }, [fetchBookByIDHandler, location]);
 
   useEffect(() => {

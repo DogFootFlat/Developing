@@ -43,7 +43,7 @@ const BookList = () => {
 
   useEffect(() => {
     fetchBooksHandler();
-    ctx.setCurrentPage("book");
+    ctx.setCurrentPage("books");
   }, [fetchBooksHandler]);
 
   const deleteBookHandler = async (bookID) => {

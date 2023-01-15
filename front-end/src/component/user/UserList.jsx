@@ -43,7 +43,7 @@ const UserList = () => {
 
   useEffect(() => {
     fetchUsersHandler();
-    ctx.setCurrentPage("user");
+    ctx.setCurrentPage("users");
   }, [fetchUsersHandler]);
 
   const deleteUserHandler = async (userID) => {
