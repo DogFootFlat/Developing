@@ -21,6 +21,7 @@ public class FirebaseConfig {
                     .build();
             FirebaseApp.initializeApp(options);
         }catch (Exception e){
+            System.out.println("FireBase Key가 없습니다. 정상 작동합니다.");
             e.printStackTrace();
         }
     }
