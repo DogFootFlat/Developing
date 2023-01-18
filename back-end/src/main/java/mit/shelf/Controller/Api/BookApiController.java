@@ -115,7 +115,7 @@ public class BookApiController {
 //        }
 
         Sheet worksheet = workbook.getSheetAt(0);
-
+        int count = 0;
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Row row = worksheet.getRow(i);
             Book book = new Book();
@@ -123,9 +123,10 @@ public class BookApiController {
             book.setBorrower(row.getCell(1).getStringCellValue());
             book.setName(row.getCell(2).getStringCellValue());
             bookService.join(book);
+            count++;
         }
 //        model.addAttribute("datas", dataList);
-        return "success";
+        return count + "권 성공";
 
     }
 }
