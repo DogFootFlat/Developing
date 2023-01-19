@@ -99,20 +99,7 @@ public class BookApiController {
     public String readExcel(@RequestParam("file") String fileName)
             throws IOException {
 
-//        List<ExcelData> dataList = new ArrayList<>();
-//        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-//
-//        if (!extension.equals("xlsx") && !extension.equals("xls")) {
-//            throw new IOException("엑셀파일만 업로드 해주세요.");
-//        }
-
-        Workbook workbook = null;
-        workbook = new XSSFWorkbook(fileName);
-//        if (extension.equals("xlsx")) {
-//            workbook = new XSSFWorkbook(file.getInputStream());
-//        } else if (extension.equals("xls")) {
-//            workbook = new HSSFWorkbook(file.getInputStream());
-//        }
+        Workbook workbook = new XSSFWorkbook(fileName);
 
         Sheet worksheet = workbook.getSheetAt(0);
         int count = 0;
@@ -125,7 +112,6 @@ public class BookApiController {
             bookService.join(book);
             count++;
         }
-//        model.addAttribute("datas", dataList);
         return count + "권 성공";
 
     }
