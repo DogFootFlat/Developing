@@ -95,8 +95,9 @@ public class BookApiController {
         return result;
     }
 
+    //첫번째 줄 읽고 매칭해서 입력되도록
     @PostMapping("/books/excel")
-    public String readExcel(@RequestParam("file") String fileName)
+    public ArrayList<String> readExcel(@RequestParam("file") String fileName)
             throws IOException {
 
         Workbook workbook = new XSSFWorkbook(fileName);
@@ -112,7 +113,14 @@ public class BookApiController {
             bookService.join(book);
             count++;
         }
-        return count + "권 성공";
+        Row rowTest = worksheet.getRow(0);
+        ArrayList<String> header = new ArrayList<>();
+        for (int i = 0; i< rowTest.getPhysicalNumberOfCells(); i++) {
+            header.add(rowTest.getCell(i).getStringCellValue());
+        }
+        return header;
+
+//        return count + "권 성공";
 
     }
 }
