@@ -2,20 +2,15 @@ package mit.shelf.Controller.Api;
 
 import mit.shelf.Form.MemberForm;
 import mit.shelf.domain.Book;
-import mit.shelf.domain.ExcelData;
 import mit.shelf.repository.BookRepository;
 import mit.shelf.service.BookService;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,7 +98,15 @@ public class BookApiController {
         Workbook workbook = new XSSFWorkbook(fileName);
 
         Sheet worksheet = workbook.getSheetAt(0);
-        int count = 0;
+
+        Row rowTest = worksheet.getRow(0);
+        ArrayList<String> header = new ArrayList<>();
+        for (int i = 0; i < rowTest.getPhysicalNumberOfCells() -1; i++) {
+            header.add(rowTest.getCell(i).getStringCellValue());
+        }
+        return header;
+
+        /*int count = 0;
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Row row = worksheet.getRow(i);
             Book book = new Book();
@@ -112,13 +115,8 @@ public class BookApiController {
             book.setName(row.getCell(2).getStringCellValue());
             bookService.join(book);
             count++;
-        }
-        Row rowTest = worksheet.getRow(0);
-        ArrayList<String> header = new ArrayList<>();
-        for (int i = 0; i< rowTest.getPhysicalNumberOfCells(); i++) {
-            header.add(rowTest.getCell(i).getStringCellValue());
-        }
-        return header;
+        }*/
+
 
 //        return count + "권 성공";
 
