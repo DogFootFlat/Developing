@@ -48,10 +48,11 @@ const Home = () => {
         <div className={homecss.list}>
           <p>회원 기능</p>
           <p>
+            <Link to={'/books'}>도 서 추 가</Link>
             <Link to={'/books'}>도 서 목 록</Link>
-            {/* <Link to={'/books'}>도 서 위 치</Link>
+            <Link to={'/books'}>도 서 위 치</Link>
             <Link to={'/books'}>도 서 기 부</Link>
-            <Link to={'/books'}>도 서 추 천</Link> */}
+            <Link to={'/books'}>도 서 추 천</Link>
             <Link to={'/'}>사용자 화면</Link>
           </p>
         </div>
