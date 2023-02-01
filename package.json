@@ -1,7 +1,0 @@
-{
-	"scripts": {
-		"start": "cd front-end && yarn start",
-		"add": "cd front-end && yarn add",
-		"install": "cd front-end && npm install"
-	}
-}

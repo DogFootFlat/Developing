@@ -1,133 +1,117 @@
 @charset "UTF-8";
 /* 공통 css */
-/* header 시작 */
+/* 초기화 시작 */
 
-header.common {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+html {
     width: 980px;
-    height: 49.1px;
-    margin: 37px 0;
-    background-color: #e0e0e0;
+    margin: 0 auto;
+}
+*/
+
+body {
+  user-select: none;
+  font-family: "Noto Sans KR", "맑은 고딕", "돋움", sans-serif;
+  font-size: 12px;
+  line-height: 40px;
+  color: #444444;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
 }
 
-.subtitle {
-    float: left;
-    position: relative;
-    margin-top: -34px;
-    margin-left: 24px;
-    width: 140px;
-    height: 120px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 120px;
-    background-color: #4266b180;
+ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+  text-align: left;
+  list-style: none;
+}
+li {
+  list-style: none;
 }
 
-.subtitle h2 {
-    margin: 0;
-    font-size: 29px;
-    color: white;
-    font-weight: bold;
+a {
+  text-decoration: none;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
 }
 
-.topnav {
-    float: left;
-    margin: 0;
-    margin-left: 30px;
-    padding-top: 3px;
-    vertical-align: middle;
-    list-style: 0px;
+link {
+  text-decoration: none;
+}
+link:link,
+link:visited,
+link:hover,
+link:active {
+  text-decoration: none;
 }
 
-.topnav li {
-    float: left;
-    margin-right: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    vertical-align: middle;
+img {
+  border: 0;
+}
+button {
+  width: 109px;
+  height: 40px;
+  border: 1px solid #5e5e5e38;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  color: #404040;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #efefef99;
 }
 
-.topnav li a {
-    font-weight: bolder;
-    vertical-align: middle;
-    color: #1a1a1a;
-}
-.topnav li a:hover { color: #6485cd; }
-
-.topnav img {
-    width: 24px;
-    height: 26px;
-    padding-top: 12px;
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-.loginnav {
-    float: right;
-    width: 200px;
-    padding-right: 10px;
+th,
+td {
+  margin: 0;
+  padding: 0px 10px;
+  vertical-align: top;
+  text-align: left;
+  border-top: 1px solid #5e5e5e29;
+  border-bottom: 1px solid #5e5e5e29;
 }
 
-.loginnav li {
-    float: left;
-    margin-right: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 49px;
+th {
+  width: 145px;
+  font-weight: normal;
+  background-color: #efefef99;
+  border-bottom: 3px double #5e5e5e29;
 }
 
-.loginnav li a {
-    color:#282828;
-    font-size: 12px;
-}
-.loginnav li a:hover { color: #6485cd; }
-
-.loginnav img {
-    float: left;
-    width: 38px;
-    height: 38px;
-    padding: 6px 0;
+td {
+  width: 567px;
+  vertical-align: middle;
 }
 
-/* header 끝 */
-/* left 시작 */
-
-.left {
-    float: left;
-    display: block;
-    margin-left: 24px;
-    width: 140px;
-    line-height: 31px;
-    background-color: #efefef99;
-    font-size: 16px;
+.btncolor {
+  color: #7f7f7f;
+}
+.clear {
+  clear: both;
+}
+.bdright {
+  border-right: 1px solid #aaa;
 }
 
-.menu_title {
-    padding-left: 17px;
-    text-align: left;
-    height: 46px;
-    line-height: 46px;
-    background-color: white;
-    border-top: 1px solid #5e5e5e29;
-}
-
-.menu_title:hover {
-    cursor: pointer;
-    background-color: #4266b11c;
-}
-
-.menu_margin { margin-top: 17px; }
-.menu { background-color: #efefef99; }
-.menu ul { padding: 10px 0; }
-.menu li {
-    font-size: 14px;
-    padding-left: 17px;
-    list-style: none;
-}
-.menu li a:hover { color: #6485cd; }
-
-/* left 끝 */
-
-/* 픽셀 줄어들 때 */
-@media ( max-width: 980px ) {
-    header {
-        width: 95%;
-    }
-}
+/* 초기화 끝 */
