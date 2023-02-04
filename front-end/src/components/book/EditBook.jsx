@@ -262,7 +262,7 @@ const EditBook = () => {
           <TextField
             type="number"
             name="count"
-            label="도서 수"
+            label="대출 누적 횟수"
             sx={{ m: 1, width: "45ch" }}
             variant="standard"
             value={book.count || ""}

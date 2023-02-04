@@ -24,7 +24,8 @@ const BookList = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [fileName, setFileName] = useState([]);
+  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState(null);
 
   const fetchBooksHandler = useCallback(async () => {
     setIsLoading(true);
@@ -41,6 +42,26 @@ const BookList = () => {
     }
     setIsLoading(false);
   }, []);
+
+  const fileUpload = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const response = await ApiService.fileUpLoad(formData);
+      if (response.status < 200 || response.status > 299) {
+        throw new Error("Something went wrong!");
+      }
+      alert(response.data + '권 추가되었습니다.');
+      console.log(response);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+    fetchBooksHandler();
+  };
 
   useEffect(() => {
     fetchBooksHandler();
@@ -72,6 +93,7 @@ const BookList = () => {
 
   const onChangeHandler = (e) => {
     setFileName(e.target.value);
+    setFile(e.target.files[0]);
   };
 
   let content = <h5>현재 도서 목록이 비어있습니다.</h5>;
@@ -90,7 +112,7 @@ const BookList = () => {
             <TableCell>기부자</TableCell>
             <TableCell>장르</TableCell>
             <TableCell>작가</TableCell>
-            <TableCell>도서 수</TableCell>
+            <TableCell>대출 누적</TableCell>
             <TableCell align="center">편집</TableCell>
             <TableCell align="center">삭제</TableCell>
           </TableRow>
@@ -156,7 +178,7 @@ const BookList = () => {
         <Typography className={bookscss.typo} variant="h6">
           엑셀파일로 업로드
         </Typography>
-        <form encType="multipart/form-data">
+        <form onSubmit={fileUpload}>
           <div className={bookscss.filebox}>
             <label htmlFor="file">파일찾기</label>
             <input
@@ -164,7 +186,6 @@ const BookList = () => {
               value={fileName}
               placeholder="첨부파일"
               style={{ padding: "0 7px" }}
-              onChange={onChangeHandler}
             />
             <input id="file" type="file" onChange={onChangeHandler} />
             <Button

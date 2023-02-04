@@ -4,6 +4,8 @@ import mit.shelf.Form.MemberForm;
 import mit.shelf.domain.Book;
 import mit.shelf.repository.BookRepository;
 import mit.shelf.service.BookService;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,8 +93,48 @@ public class BookApiController {
         return result;
     }
 
+    @PostMapping("books/excel")
+    public int read(@RequestParam("file") MultipartFile file) throws IOException {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+        if (!extension.equals("xlsx") && !extension.equals("xls")) {
+            throw new IOException("엑셀파일만 업로드 해주세요.");
+        }
+        Workbook workbook = null;
+
+        if (extension.equals("xlsx")) {
+            workbook = new XSSFWorkbook(file.getInputStream());
+        } else if (extension.equals("xls")) {
+            workbook = new HSSFWorkbook(file.getInputStream());
+        }
+
+        Sheet worksheet = workbook.getSheetAt(0);
+
+        Row rowTest = worksheet.getRow(0);
+        ArrayList<String> header = new ArrayList<>();
+        for (int i = 0; i < rowTest.getPhysicalNumberOfCells() -1; i++) {
+            header.add(rowTest.getCell(i).getStringCellValue());
+        }
+
+        int count = 0;
+        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            Row row = worksheet.getRow(i);
+            Book book = new Book();
+            book.setBookNum((int) row.getCell(0).getNumericCellValue());
+            book.setBorrower(row.getCell(1).getStringCellValue());
+            book.setName(row.getCell(2).getStringCellValue());
+            bookService.join(book);
+            count++;
+        }
+
+        return count;
+
+//        System.out.println(file.getName());
+//        return file.getName();
+    }
+
     //첫번째 줄 읽고 매칭해서 입력되도록
-    @PostMapping("/books/excel")
+    @PostMapping("/books/excelTest")
     public String readExcel(@RequestParam("file") String fileName)
             throws IOException {
 
