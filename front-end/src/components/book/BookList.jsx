@@ -55,7 +55,6 @@ const BookList = () => {
         throw new Error("Something went wrong!");
       }
       alert(response.data + '권 추가되었습니다.');
-      console.log(response);
     } catch (error) {
       setError(error.message);
     }

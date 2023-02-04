@@ -24,6 +24,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BookApiController {
+    public
 
     @Autowired
     BookService bookService;
@@ -93,8 +94,9 @@ public class BookApiController {
         return result;
     }
 
+    //첫번째 줄 읽고 매칭해서 입력되도록
     @PostMapping("books/excel")
-    public int read(@RequestParam("file") MultipartFile file) throws IOException {
+    public ArrayList<String> readExcel(@RequestParam("file") MultipartFile file) throws IOException {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
         if (!extension.equals("xlsx") && !extension.equals("xls")) {
@@ -111,8 +113,9 @@ public class BookApiController {
         Sheet worksheet = workbook.getSheetAt(0);
 
         Row rowTest = worksheet.getRow(0);
+        int cellCount = rowTest.getPhysicalNumberOfCells();
         ArrayList<String> header = new ArrayList<>();
-        for (int i = 0; i < rowTest.getPhysicalNumberOfCells() -1; i++) {
+        for (int i = 0; i < cellCount -1; i++) {
             header.add(rowTest.getCell(i).getStringCellValue());
         }
 
@@ -120,46 +123,50 @@ public class BookApiController {
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Row row = worksheet.getRow(i);
             Book book = new Book();
-            book.setBookNum((int) row.getCell(0).getNumericCellValue());
-            book.setBorrower(row.getCell(1).getStringCellValue());
-            book.setName(row.getCell(2).getStringCellValue());
-            bookService.join(book);
+//            book.setBookNum((int) row.getCell(0).getNumericCellValue());
+//            book.setBorrower(row.getCell(1).getStringCellValue());
+//            book.setName(row.getCell(2).getStringCellValue());
+
             count++;
+            for (int j=0; j < cellCount; j++) {
+                String cell = row.getCell(j).getStringCellValue();
+                switch (cell) {
+                    case ("도서명"):
+                        book.setName(cell);
+                        break;
+                    case ("도서번호"):
+                        book.setBookNum((int) row.getCell(j).getNumericCellValue());
+                        break;
+                    case ("빌린 사람"):
+                        book.setBorrower(cell);
+                        break;
+                    case ("비교 결과"):
+                        book.setBookCmp((long) row.getCell(j).getNumericCellValue());
+                        break;
+                    case ("도서 위치"):
+                        book.setBookFloor((int) row.getCell(j).getNumericCellValue());
+                        break;
+                    case ("기부자"):
+                        book.setDonor(cell);
+                        break;
+                    case ("장르"):
+                        book.setCategory(cell);
+                        break;
+                    case ("작가"):
+                        book.setWriter(cell);
+                        break;
+                    case ("대출 누적"):
+                        book.setCount((long) row.getCell(j).getNumericCellValue());
+                        break;
+                    case ("이미지"):
+                        book.setImg(cell);
+                        break;
+                }
+            }
+            bookService.join(book);
         }
-
-        return count;
-
-//        System.out.println(file.getName());
-//        return file.getName();
+        return header;
+//        return count;
     }
 
-    //첫번째 줄 읽고 매칭해서 입력되도록
-    @PostMapping("/books/excelTest")
-    public String readExcel(@RequestParam("file") String fileName)
-            throws IOException {
-
-        Workbook workbook = new XSSFWorkbook(fileName);
-
-        Sheet worksheet = workbook.getSheetAt(0);
-
-        Row rowTest = worksheet.getRow(0);
-        ArrayList<String> header = new ArrayList<>();
-        for (int i = 0; i < rowTest.getPhysicalNumberOfCells() -1; i++) {
-            header.add(rowTest.getCell(i).getStringCellValue());
-        }
-
-        int count = 0;
-        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
-            Row row = worksheet.getRow(i);
-            Book book = new Book();
-            book.setBookNum((int) row.getCell(0).getNumericCellValue());
-            book.setBorrower(row.getCell(1).getStringCellValue());
-            book.setName(row.getCell(2).getStringCellValue());
-            bookService.join(book);
-            count++;
-        }
-
-        return count + "권 성공";
-
-    }
 }
