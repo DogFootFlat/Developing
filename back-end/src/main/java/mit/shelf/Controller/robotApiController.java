@@ -175,7 +175,7 @@ public class robotApiController {
         if (book.isPresent() && user.isPresent()) {
             Book bookId = book.get();
             bookId.setBorrower(user.get().getName());
-            bookId.setCount(bookId.getCount()+1);
+            bookId.setLoanCount(bookId.getLoanCount()+1);
             bookRepository.save(bookId);
             User userId = user.get();
             if (userId.getBorrow1().equals("X") || (userId.getBorrow1().equals("대여가능"))) {

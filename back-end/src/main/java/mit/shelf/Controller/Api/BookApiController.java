@@ -55,7 +55,7 @@ public class BookApiController {
             book.setCategory(form.getCategory());
             book.setImg(form.getImg());
             book.setWriter(form.getWriter());
-            book.setCount(form.getCount());
+            book.setLoanCount(form.getCount());
             bookRepository.save(book);
         });
         result.put("result", "success");
@@ -76,7 +76,7 @@ public class BookApiController {
         book.setCategory(form.getCategory());
         book.setImg(form.getImg());
         book.setWriter(form.getWriter());
-        book.setCount(form.getCount());
+        book.setLoanCount(form.getCount());
 
         bookService.join(book);
         result.put("result", "success");

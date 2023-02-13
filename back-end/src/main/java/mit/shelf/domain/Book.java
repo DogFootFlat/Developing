@@ -44,7 +44,7 @@ public class Book {
 
     private String writer;
 
-    private Long count;
+    private Long loanCount;
 
     private String img;
 
@@ -143,12 +143,12 @@ public class Book {
         this.category = category;
     }
 
-    public Long getCount() {
-        return count;
+    public Long getLoanCount() {
+        return loanCount;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
+    public void setLoanCount(Long loanCount) {
+        this.loanCount = loanCount;
     }
 
     public String getImg() {
