@@ -44,6 +44,15 @@ class ApiService {
   editBook(book) {
     return axios.put(BOOK_API_BASE_URL + "/" + book.get("id"), book);
   }
+
+  fileUpLoad(file) {
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+    }
+    return axios.post(BOOK_API_BASE_URL + "/excel", file, config);
+  }
 }
 
 export default new ApiService();

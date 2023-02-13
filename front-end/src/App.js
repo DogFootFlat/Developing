@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AuthContext from "./store/auth-context";
-import NavBar from "./component/route/NavBar";
-import AppRouter from "./component/route/RouterComponent";
+import NavBar from "./components/route/NavBar";
+import AppRouter from "./components/route/RouterComponent";
 import Container from "@material-ui/core/Container";
-import style from "./css/common.css";
-import backimg from "./component/img/background.png";
+import style from "./css/common.module.css";
+import backimg from "./img/background.png";
 
 function App() {
   const ctx = useContext(AuthContext);
