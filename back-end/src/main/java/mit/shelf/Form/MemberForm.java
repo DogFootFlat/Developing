@@ -18,7 +18,7 @@ public class MemberForm {
     private Long bookCmp;
     private String donor;
 
-    private Long count;
+    private Long loanCount;
 
     private String img;
 
@@ -109,12 +109,12 @@ public class MemberForm {
         this.id = id;
     }
 
-    public Long getCount() {
-        return count;
+    public Long getLoanCount() {
+        return loanCount;
     }
 
-    public void setCount(Long count) {
-        this.count = count;
+    public void setLoanCount(Long loanCount) {
+        this.loanCount = loanCount;
     }
 
     public String getImg() {

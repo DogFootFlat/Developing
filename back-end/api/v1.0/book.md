@@ -26,7 +26,7 @@ parameter X
         "donor": "X",
         "category": null,
         "writer": null,
-        "count": null,
+        "loanCount": null,
         "img": null
     },
     {
@@ -41,7 +41,7 @@ parameter X
         "donor": "X",
         "category": null,
         "writer": null,
-        "count": null,
+        "loanCount": null,
         "img": null
     }
 ]

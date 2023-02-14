@@ -59,7 +59,7 @@ public class BookApiController {
             book.setCategory(form.getCategory());
             book.setImg(form.getImg());
             book.setWriter(form.getWriter());
-            book.setLoanCount(form.getCount());
+            book.setLoanCount(form.getLoanCount());
             bookRepository.save(book);
         });
         result.put("result", "success");
@@ -80,7 +80,7 @@ public class BookApiController {
         book.setCategory(form.getCategory());
         book.setImg(form.getImg());
         book.setWriter(form.getWriter());
-        book.setLoanCount(form.getCount());
+        book.setLoanCount(form.getLoanCount());
 
         bookService.join(book);
         result.put("result", "success");
@@ -96,7 +96,7 @@ public class BookApiController {
 
     //첫번째 줄 읽고 매칭해서 입력되도록
     @PostMapping("books/excel")
-    public ArrayList<String> readExcel(@RequestParam("file") MultipartFile file) throws IOException {
+    public int readExcel(@RequestParam("file") MultipartFile file) throws IOException {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
         if (!extension.equals("xlsx") && !extension.equals("xls")) {
@@ -123,9 +123,6 @@ public class BookApiController {
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             Row row = worksheet.getRow(i);
             Book book = new Book();
-//            book.setBookNum((int) row.getCell(0).getNumericCellValue());
-//            book.setBorrower(row.getCell(1).getStringCellValue());
-//            book.setName(row.getCell(2).getStringCellValue());
 
             count++;
             for (int j=0; j < cellCount; j++) {
@@ -156,7 +153,7 @@ public class BookApiController {
                         book.setWriter(cell);
                         break;
                     case ("대출 누적"):
-                        book.setCount((long) row.getCell(j).getNumericCellValue());
+                        book.setLoanCount((long) row.getCell(j).getNumericCellValue());
                         break;
                     case ("이미지"):
                         book.setImg(cell);
@@ -165,8 +162,7 @@ public class BookApiController {
             }
             bookService.join(book);
         }
-        return header;
-//        return count;
+        return count;
     }
 
 }

@@ -30,7 +30,7 @@ public class FirebaseApiController {
         book.setCategory(form.getCategory());
         book.setImg(form.getImg());
         book.setWriter(form.getWriter());
-        book.setLoanCount(form.getCount());
+        book.setLoanCount(form.getLoanCount());
         return firebaseService.insertBook(book);
     }
 
@@ -66,7 +66,7 @@ public class FirebaseApiController {
         book.setCategory(form.getCategory());
         book.setImg(form.getImg());
         book.setWriter(form.getWriter());
-        book.setLoanCount(form.getCount());
+        book.setLoanCount(form.getLoanCount());
         return firebaseService.updateBook(book);
     }
 
