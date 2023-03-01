@@ -5,6 +5,27 @@
     margin-top: 37vh;
 }
 
+.login {
+    position: absolute;
+    top: 5em;
+    right: 5em;
+}
+
+.login button {
+    border: 0;
+    background-color: #aabee6cc;
+    box-shadow: 0px 0px 20px 4px #aabee6cc;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px black;
+}
+
+.login button:hover {
+    background-color: #9ab2e3cc;
+    box-shadow: 0px 0px 20px 4px #9ab2e3cc;
+}
+
 .container__1 {
     position: absolute;
     width: 75em;

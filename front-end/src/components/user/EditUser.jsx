@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext, useCallback, useRef } from "rea
 import { useNavigate, useLocation } from "react-router";
 import ApiService from "../../ApiService";
 import AuthContext from "../../store/auth-context";
+import Loading from "../basic/Loading";
 import {
-  CircularProgress,
   IconButton,
   InputAdornment,
   TextField,
@@ -268,11 +268,7 @@ const EditUser = () => {
     );
   }
   if (isLoading) {
-    content = (
-      <div style={{ marginTop: "10em" }}>
-        <CircularProgress />
-      </div>
-    );
+    content = <Loading />;
   }
 
   return (

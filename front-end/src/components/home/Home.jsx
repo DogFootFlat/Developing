@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from 'react-router-dom';
 import AuthContext from "../../store/auth-context";
+import Login from "../login/Login";
 import useInterval from "../basic/useInterval";
 import homecss from './css/home.module.css';
 
 const Home = () => {
   const ctx = useContext(AuthContext);
+  const [loginIsShown, setLoginIsShown] = useState(false);
   const [caldrText, setCaldrText] = useState("2022년 00월 00일");
   const [timeText, setTimeText] = useState("00:00:00");
+
+  const showLoginHandler = () => {
+    setLoginIsShown(true);
+  }
+  const hideLoginHandler = () => {
+    setLoginIsShown(false);
+  }
 
   const getClock = () => {
     const date = new Date();
@@ -34,6 +43,10 @@ const Home = () => {
 
   return (
     <div className={homecss.home}>
+      <div className={homecss.login}>
+        {loginIsShown && <Login onClose={hideLoginHandler} />}
+        <button onClick={showLoginHandler}>로그인</button>
+      </div>
       <div className={homecss.container__1}>
         <h1>SHELF-ER</h1>
         <div className={homecss.title__link}>
@@ -50,6 +63,7 @@ const Home = () => {
           <p>
             <Link to={'/add-book'}>도 서 추 가</Link>
             <Link to={'/books'}>도 서 목 록</Link>
+            <Link to={'/loan-count'}>도 서 대 여 통 계</Link>
             <Link to={'/'}>사용자 화면</Link>
           </p>
         </div>

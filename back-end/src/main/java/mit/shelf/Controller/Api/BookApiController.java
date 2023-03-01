@@ -94,7 +94,6 @@ public class BookApiController {
         return result;
     }
 
-    //첫번째 줄 읽고 매칭해서 입력되도록
     @PostMapping("books/excel")
     public int readExcel(@RequestParam("file") MultipartFile file) throws IOException {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -114,6 +113,8 @@ public class BookApiController {
 
         Row rowTest = worksheet.getRow(0);
         int cellCount = rowTest.getPhysicalNumberOfCells();
+
+        //header사용여부 테스트 필요
         ArrayList<String> header = new ArrayList<>();
         for (int i = 0; i < cellCount -1; i++) {
             header.add(rowTest.getCell(i).getStringCellValue());

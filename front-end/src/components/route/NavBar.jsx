@@ -49,6 +49,13 @@ const NavBar = (props) => {
           </Link>
         </ListItem>
         <ListItem disablePadding>
+          <Link to={'/loan-count'}>
+            <ListItemButton>
+              <div>도 서 대 여 통 계</div>
+            </ListItemButton>
+          </Link>
+        </ListItem>
+        <ListItem disablePadding>
           <Link to={'/users'}>
             <ListItemButton>
               <div>회 원 목 록</div>
@@ -84,6 +91,7 @@ const NavBar = (props) => {
             {ctx.currentPage === "books" && "도서 목록"}
             {ctx.currentPage === "add-book" && "도서 추가"}
             {ctx.currentPage === "edit-book" && "도서 편집"}
+            {ctx.currentPage === "loan-count" && "도서 대여 통계"}
             {ctx.currentPage === "users" && "회원 목록"}
             {ctx.currentPage === "add-user" && "회원 추가"}
             {ctx.currentPage === "edit-user" && "회원 편집"}

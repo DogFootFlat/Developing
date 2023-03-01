@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext, useCallback, useRef } from "rea
 import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../ApiService";
 import AuthContext from "../../store/auth-context";
+import Loading from "../basic/Loading";
 import {
   Select,
   MenuItem,
-  CircularProgress,
   InputAdornment,
   TextField,
   Typography,
@@ -261,7 +261,7 @@ const EditBook = () => {
         <div>
           <TextField
             type="number"
-            name="count"
+            name="loanCount"
             label="대출 누적 횟수"
             sx={{ m: 1, width: "45ch" }}
             variant="standard"
@@ -320,11 +320,7 @@ const EditBook = () => {
     );
   }
   if (isLoading) {
-    content = (
-      <div style={{ marginTop: "10em" }}>
-        <CircularProgress />
-      </div>
-    );
+    content = <Loading />;
   }
 
   return (

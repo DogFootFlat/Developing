@@ -8,10 +8,7 @@ import mit.shelf.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"API 정보를 제공하는 Controller"})
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class apiController {
 
     @Autowired

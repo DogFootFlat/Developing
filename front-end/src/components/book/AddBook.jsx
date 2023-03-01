@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router";
 import ApiService from "../../ApiService";
 import AuthContext from "../../store/auth-context";
+import Loading from "../basic/Loading";
 import {
   Select,
   MenuItem,
-  CircularProgress,
   InputAdornment,
   TextField,
   Typography,
@@ -292,11 +292,7 @@ const AddBook = () => {
     );
   }
   if (isLoading) {
-    content = (
-      <div style={{ marginTop: "10em" }}>
-        <CircularProgress />
-      </div>
-    );
+    content = <Loading />;
   }
 
   return (

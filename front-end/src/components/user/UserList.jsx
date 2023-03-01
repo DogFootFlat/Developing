@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import ApiService from "../../ApiService";
 import AuthContext from "../../store/auth-context";
+import Loading from "../basic/Loading";
 import {
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
   TableRow,
   Button,
   Typography,
-  CircularProgress,
 } from "@mui/material";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -130,11 +130,7 @@ const UserList = () => {
     );
   }
   if (isLoading) {
-    content = (
-      <div style={{ marginTop: "10em" }}>
-        <CircularProgress />
-      </div>
-    );
+    content = <Loading />;
   }
 
   return (

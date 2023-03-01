@@ -78,7 +78,7 @@ public class UserApiController {
 
     @GetMapping(value = "/users/test")
     public List<User> test() throws ExecutionException, InterruptedException {
-        List<User> list = new ArrayList<>();
+        List<User> list = new ArrayList<User>();
         Firestore db = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future = db.collection("user").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
