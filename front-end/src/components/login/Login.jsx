@@ -1,24 +1,21 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { useNavigate } from "react-router";
-import ApiService from "../../ApiService";
-import AuthContext from "../../store/auth-context";
-import Loading from "../basic/Loading";
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-  Button,
-} from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import ausercss from "./css/auser.module.css";
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import ApiService from '../../ApiService';
+import AuthContext from '../../store/auth-context';
+import Loading from '../basic/Loading';
+import { IconButton, InputAdornment, TextField, Typography, Button, Box, Card, CardMedia } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ausercss from './css/auser.module.css';
+import logoLightImg from '../../img/OtPishAI_light.png';
 
 const Login = () => {
+  document.body.style.backgroundColor = '#f0f8f9';
+
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
 
   const [user, setUser] = useState({});
-  const [nameIsValid, setNameIsValid] = useState(true);
+  const [idIsValid, setIdIsValid] = useState(true);
   const [pwIsValid, setPwIsValid] = useState(true);
   const [formIsValid, setFormIsValid] = useState(true);
 
@@ -27,18 +24,18 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    ctx.setCurrentPage("add-user");
+    ctx.setCurrentPage('add-user');
   }, []);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      setFormIsValid(nameIsValid && pwIsValid);
-    }, 500)
+      setFormIsValid(idIsValid && pwIsValid);
+    }, 500);
 
     return () => {
       clearTimeout(identifier);
     };
-  }, [nameIsValid, pwIsValid])
+  }, [idIsValid, pwIsValid]);
 
   const onChangeHandler = (event) => {
     setUser({
@@ -46,11 +43,11 @@ const Login = () => {
       [event.target.name]: event.target.value,
     });
   };
-  const validateNameHandler = () => {
-    setNameIsValid(user.name !== "");
+  const validateIdHandler = () => {
+    setIdIsValid(user.id !== '');
   };
   const validatePwHandler = () => {
-    setPwIsValid(user.pw !== "");
+    setPwIsValid(user.pw !== '');
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -58,7 +55,7 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const nameInputRef = useRef();
+  const idInputRef = useRef();
   const pwInputRef = useRef();
 
   const addUserHandler = async (event) => {
@@ -69,14 +66,11 @@ const Login = () => {
     if (formIsValid) {
       const formData = new FormData();
       for (const key in user) {
-        if (
-          user[key] === "" &&
-          ["borrow1", "borrow2", "borrow3", "donate"].includes(key)
-        ) {
-          user[key] = "X";
+        if (user[key] === '' && ['borrow1', 'borrow2', 'borrow3', 'donate'].includes(key)) {
+          user[key] = 'X';
         }
-        if (user[key] === "" && key === "uid") {
-          user[key] = "00 00 00 00";
+        if (user[key] === '' && key === 'uid') {
+          user[key] = '00 00 00 00';
         }
         if (user[key] !== undefined) {
           formData.append(key, user[key]);
@@ -85,94 +79,97 @@ const Login = () => {
       try {
         const response = await ApiService.addUser(formData);
         if (response.status < 200 || response.status > 299) {
-          throw new Error("Something went wrong!");
+          throw new Error('Something went wrong!');
         }
-        navigate("/users");
+        navigate('/users');
       } catch (error) {
         setError(error.message);
       }
       setIsLoading(false);
-    } else if (!nameIsValid) {
-      nameInputRef.current.focus();
+    } else if (!idIsValid) {
+      idInputRef.current.focus();
     } else {
       pwInputRef.current.focus();
     }
   };
 
   let content = (
-    <form className={ausercss.form} onSubmit={addUserHandler}>
-      <div>
-        <TextField
-          type="text"
-          name="id"
-          label="구분 아이디"
-          sx={{ m: 1, width: "45ch" }}
-          InputProps={{
-            readOnly: true,
-            startAdornment: (
-              <InputAdornment position="start">ID: 자동생성</InputAdornment>
-            ),
-          }}
-          variant="standard"
-          value={user.id || ""}
-          onChange={onChangeHandler}
+    <Box className={ausercss.box}>
+      <form className={ausercss.form} onSubmit={addUserHandler}>
+      <Card className={`${ausercss.card} ${ausercss.cardHeader}`}>
+        <CardMedia
+          className={ausercss.logo}
+          component="img"
+          image={logoLightImg}
+          alt="OtpishAI Light Logo"
         />
-      </div>
-      <div>
-        <TextField
-          autoFocus
-          required
-          type="text"
-          name="name"
-          label="회원명"
-          error={!nameIsValid}
-          helperText={nameIsValid ? "" : "필수 작성란입니다."}
-          ref={nameInputRef}
-          sx={{ m: 1, width: "45ch" }}
-          variant="standard"
-          value={user.name || ""}
-          onChange={onChangeHandler}
-          onBlur={validateNameHandler}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          type={showPassword ? "text" : "password"}
-          name="pw"
-          label="비밀번호"
-          error={!pwIsValid}
-          helperText={pwIsValid ? "" : "필수 작성란입니다."}
-          ref={pwInputRef}
-          sx={{ m: 1, width: "45ch" }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  className={ausercss.iconCell}
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-          value={user.pw || ""}
-          onChange={onChangeHandler}
-          onBlur={validatePwHandler}
-        />
-      </div>
-      <Button
-        type="submit"
-        className={ausercss.addBtn}
-        variant="contained"
-      >
-        로그인
-      </Button>
-    </form>
+      </Card>
+      <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardLeft}`}>
+        <Typography className={ausercss.typo} variant="h4">
+          로그인
+        </Typography>
+        <Typography className={ausercss.typo} variant="h6">
+          Google 계정 사용
+        </Typography>
+      </Card>
+        <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
+          <div>
+            <TextField
+              autoFocus
+              type="text"
+              name="id"
+              label="아이디"
+              error={!idIsValid}
+              helperText={idIsValid ? '' : '필수 작성란입니다.'}
+              ref={idInputRef}
+              sx={{ m: 1, width: '55ch' }}
+              variant="outlined"
+              value={user.id || ''}
+              onChange={onChangeHandler}
+              onBlur={validateIdHandler}
+            />
+          </div>
+          <div>
+            <TextField
+              type={showPassword ? 'text' : 'password'}
+              name="pw"
+              label="비밀번호"
+              error={!pwIsValid}
+              helperText={pwIsValid ? '' : '필수 작성란입니다.'}
+              ref={pwInputRef}
+              sx={{ m: 1, width: '55ch' }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      className={ausercss.iconCell}
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              value={user.pw || ''}
+              onChange={onChangeHandler}
+              onBlur={validatePwHandler}
+            />
+          </div>
+        </Card>
+        <Card className={`${ausercss.card} ${ausercss.cardFooter}`}>
+          <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
+          </Card>
+          <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
+            <Button type="submit" className={ausercss.addBtn} variant="contained">
+              다음
+            </Button>
+          </Card>
+        </Card>
+      </form>
+    </Box>
   );
   if (error) {
     content = (
@@ -187,9 +184,6 @@ const Login = () => {
 
   return (
     <>
-      <Typography className={ausercss.typo} variant="h6">
-        로그인 페이지
-      </Typography>
       {content}
     </>
   );

@@ -1,24 +1,114 @@
 @charset "UTF-8";
 /* add user css */
 
-.form {
-  margin-top: 3em;
+.mild {
+  background-color: #f0f8f9;
+}
+
+.primary {
+  background-color: hsl(191, 85%, 71%);
+}
+
+.complemantary {
+  background-color: #f6f3e4;
+}
+
+.emphasis {
+  background-color: #fd6155;
+}
+
+div.box {
+  width: auto;
+  min-height: 384px;
+  margin: 0 auto;
+  padding: 36px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: table;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 28px;
+  background-color: white;
+}
+
+div.card {
+  display: table-cell;
+  vertical-align: middle;
+  box-shadow: none;
+}
+
+div.cardHeader {
+  display: table-header-group;
+}
+
+div.cardHalf {
+  flex-basis: 50%;
+  flex-grow: 1;
+  width: 50%;
+  min-width: 30em;
+}
+
+div.cardLeft {
+  padding-top: var(--wf-ps-t-bp3-l, 36px);
+  padding-right: var(--wf-gutw-hlf, 24px);
+  vertical-align: top;
+}
+
+div.cardRight {
+  padding-left: var(--wf-gutw-hlf, 24px);
+  text-align: right;
+}
+
+div.cardFooter {
+  display: table-footer-group;
+  text-align: right;
+}
+
+form.form {
+  display: table-cell;
+  width: fit-content;
+  text-align: center;
+  vertical-align: middle;
+}
+
+img.logo {
+  width: auto;
+  height: 80px;
+  text-align: left;
+  object-fit: contain;
+}
+
+.typo {
+  display: flex;
+}
+
+h4.typo {
+  font-size: 36px;
+  padding-bottom: 20px;
 }
 
 h6.typo {
-  display: flex;
-  margin-top: 2em;
-  font-weight: bold;
-  justify-content: center;
+  font-size: 16px;
+}
+
+button {
+  font-size: 14px;
 }
 
 button.addBtn {
+  width: 80px;
+  border-radius: 28px;
   margin-top: 2.5em;
   color: white;
-  background-color: #5165a1;
+  font-weight: 500;
+  background-color: hsl(191, 85%, 47%);
 }
 button.addBtn:hover {
-  background-color: #4c609b;
+  background-color: hsl(191, 85%, 45%);
 }
 
 .iconCell {
