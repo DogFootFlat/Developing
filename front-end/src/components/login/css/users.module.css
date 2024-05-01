@@ -1,0 +1,39 @@
+@charset "UTF-8";
+/* users css */
+
+a.link {
+  color: white;
+}
+a.link:link,
+a.link:visited,
+a.link:hover,
+a.link:active {
+  color: white;
+}
+
+h5.typo {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+button.addBtn {
+  background-color: #5165a1;
+}
+button.addBtn:hover {
+  background-color: #4c609b;
+}
+
+td.iconCell {
+  width: 1.3em;
+  text-align: center;
+}
+
+.idCell {
+  width: 0.5em;
+  text-align: center;
+}
+
+.hover:hover {
+  cursor: pointer;
+}

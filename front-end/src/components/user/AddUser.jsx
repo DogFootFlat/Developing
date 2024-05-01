@@ -165,66 +165,6 @@ const AddUser = () => {
           onBlur={validatePwHandler}
         />
       </div>
-      <div>
-        <TextField
-          type="text"
-          name="borrow1"
-          label="빌린 책(1)"
-          sx={{ m: 1, width: "45ch" }}
-          variant="standard"
-          value={user.borrow1 || ""}
-          onChange={onChangeHandler}
-        />
-      </div>
-      <div>
-        <TextField
-          type="text"
-          name="borrow2"
-          label="빌린 책(2)"
-          sx={{ m: 1, width: "45ch" }}
-          variant="standard"
-          value={user.borrow2 || ""}
-          onChange={onChangeHandler}
-        />
-      </div>
-      <div>
-        <TextField
-          type="text"
-          name="borrow3"
-          label="빌린 책(3)"
-          sx={{ m: 1, width: "45ch" }}
-          variant="standard"
-          value={user.borrow3 || ""}
-          onChange={onChangeHandler}
-        />
-      </div>
-      <div>
-        <TextField
-          type="text"
-          name="donate"
-          label="기부한 책"
-          sx={{ m: 1, width: "45ch" }}
-          variant="standard"
-          value={user.donate || ""}
-          onChange={onChangeHandler}
-        />
-      </div>
-      <div>
-        <TextField
-          type="text"
-          name="uid"
-          label="RFID"
-          sx={{ m: 1, width: "45ch" }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">RFID: </InputAdornment>
-            ),
-          }}
-          variant="standard"
-          value={user.uid || ""}
-          onChange={onChangeHandler}
-        />
-      </div>
       <Button
         type="submit"
         className={ausercss.addBtn}

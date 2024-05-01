@@ -76,7 +76,7 @@ const NavBar = (props) => {
 
   return (
     <>
-      <AppBar position="static">
+      {/* <AppBar position="static">
         <Toolbar className={navcss.nav} sx={{ height: "1em" }}>
           <IconButton
             edge="start"
@@ -114,7 +114,7 @@ const NavBar = (props) => {
         >
           {menu}
         </Drawer>
-      </Box>
+      </Box> */}
     </>
   );
 };

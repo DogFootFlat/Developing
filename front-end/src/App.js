@@ -10,7 +10,7 @@ import backimg from "./img/background.png";
 function App() {
   const ctx = useContext(AuthContext);
   if (["home", "user-home"].includes(ctx.currentPage)) {
-    document.body.style.backgroundImage = "url(" + backimg + ")";
+    // document.body.style.backgroundImage = "url(" + backimg + ")";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "top center";

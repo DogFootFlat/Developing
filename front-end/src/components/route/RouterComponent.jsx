@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../home/Home";
 import UserHome from "../home/UserHome";
 import Loading from "../basic/Loading";
+import Login from "../login/Login";
+import SNSLogin from "../login/SNSLogin";
 
 const BookList = React.lazy(() => import("../book/BookList"))
 const AddBook = React.lazy(() => import("../book/AddBook"))
@@ -25,6 +27,8 @@ const AppRouter = () => {
           <Route path="/edit-book" element={<EditBook />} />
           <Route path="/loan-count" element={<LoanCount />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<SNSLogin />} />
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user" element={<EditUser />} />
         </Routes>

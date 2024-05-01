@@ -17,7 +17,7 @@ body {
     color: white;
     text-align: center;
     line-height: 40px;
-    background-image: url('background.png');
+    /* background-image: url('background.png'); */
     background-size: cover;
 }
 

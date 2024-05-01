@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/* add user css */
+
+.form {
+  margin-top: 3em;
+}
+
+h6.typo {
+  display: flex;
+  margin-top: 2em;
+  font-weight: bold;
+  justify-content: center;
+}
+
+button.addBtn {
+  margin-top: 2.5em;
+  color: white;
+  background-color: #5165a1;
+}
+button.addBtn:hover {
+  background-color: #4c609b;
+}
+
+.iconCell {
+  width: 3ch;
+}
