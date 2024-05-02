@@ -6,15 +6,39 @@
 }
 
 .primary {
-  background-color: hsl(191, 85%, 71%);
+  background-color: #76ddf4
+}
+
+.primaryDark {
+  background-color: #12b8de
+}
+
+.primaryDarker {
+  background-color: #0f9dbd
+}
+
+.primaryDarkerFont {
+  color: #0f9dbd
 }
 
 .complemantary {
   background-color: #f6f3e4;
 }
 
+.warning {
+  background-color: #f6f3e4;
+}
+
+.warningFont {
+  color: #f8cf00;
+}
+
 .emphasis {
-  background-color: #fd6155;
+  background-color: #e57971;
+}
+
+.emphasisFont {
+  color: #fd5f53;
 }
 
 div.box {
@@ -33,6 +57,13 @@ div.box {
   vertical-align: middle;
   border-radius: 28px;
   background-color: white;
+}
+
+form.form {
+  display: table-cell;
+  width: fit-content;
+  text-align: center;
+  vertical-align: middle;
 }
 
 div.card {
@@ -64,15 +95,21 @@ div.cardRight {
 }
 
 div.cardFooter {
-  display: table-footer-group;
   text-align: right;
+  display: table-footer-group;
 }
 
-form.form {
-  display: table-cell;
-  width: fit-content;
-  text-align: center;
-  vertical-align: middle;
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 img.logo {
@@ -95,20 +132,30 @@ h6.typo {
   font-size: 16px;
 }
 
-button {
+div.linkDiv a {
   font-size: 14px;
+}
+
+div.cardFooter button {
+  font-size: 14px;
+  border-radius: 28px;
+}
+
+button.signupBtn {
+  width: fit-content;
+  color: white;
 }
 
 button.addBtn {
   width: 80px;
-  border-radius: 28px;
-  margin-top: 2.5em;
+  margin: 2em 0;
+  margin-left: 1em;
   color: white;
   font-weight: 500;
-  background-color: hsl(191, 85%, 47%);
+  background-color: #e57971;
 }
 button.addBtn:hover {
-  background-color: hsl(191, 85%, 45%);
+  background-color: #de544a;
 }
 
 .iconCell {

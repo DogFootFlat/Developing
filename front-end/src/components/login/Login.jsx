@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router';
 import ApiService from '../../ApiService';
 import AuthContext from '../../store/auth-context';
 import Loading from '../basic/Loading';
 import { IconButton, InputAdornment, TextField, Typography, Button, Box, Card, CardMedia } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { PaddingOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 import ausercss from './css/auser.module.css';
-import logoLightImg from '../../img/OtPishAI_light.png';
+import lightLogo from '../../img/OtPishAI_light.png';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const Login = () => {
   document.body.style.backgroundColor = '#f0f8f9';
@@ -100,7 +102,7 @@ const Login = () => {
         <CardMedia
           className={ausercss.logo}
           component="img"
-          image={logoLightImg}
+          image={lightLogo}
           alt="OtpishAI Light Logo"
         />
       </Card>
@@ -108,9 +110,21 @@ const Login = () => {
         <Typography className={ausercss.typo} variant="h4">
           로그인
         </Typography>
-        <Typography className={ausercss.typo} variant="h6">
-          Google 계정 사용
-        </Typography>
+        <Box
+          variant='outlined'
+          sx={{
+            padding: '0 1em',
+            width: 'fit-content',
+            height: 'fit-content',
+            borderColor: '#12b8de',
+            border: 'none',
+            borderLeft: '4px solid #12b9de6b',
+          }}
+        >
+          <Typography className={`${ausercss.typo} ${ausercss.primaryDarkerFont}`} variant="h6">
+            Google 계정 사용
+          </Typography>
+        </Box>
       </Card>
         <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
           <div>
@@ -158,12 +172,31 @@ const Login = () => {
               onBlur={validatePwHandler}
             />
           </div>
+          <div className={ausercss.linkDiv}>
+            <Link
+              className={ausercss.primaryDarkerFont}
+              to={'./sign-in'}
+            >
+              <div>아이디/비밀번호 찾기</div>
+            </Link>
+          </div>
         </Card>
         <Card className={`${ausercss.card} ${ausercss.cardFooter}`}>
           <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
           </Card>
           <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
-            <Button type="submit" className={ausercss.addBtn} variant="contained">
+            <Button
+              className={ausercss.signupBtn}
+              variant="contained"
+              startIcon={<GoogleIcon />}
+            >
+              구글로 회원가입
+            </Button>
+            <Button
+              className={ausercss.addBtn}
+              variant="contained"
+              type="submit"
+            >
               다음
             </Button>
           </Card>
