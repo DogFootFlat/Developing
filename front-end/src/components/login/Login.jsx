@@ -189,7 +189,7 @@ const Login = () => {
               className={ausercss.signupBtn}
               variant="contained"
               component={Link}
-              to={'./sign-up'}
+              to={'../sign-up'}
               startIcon={<GoogleIcon />}
             >
               구글로 회원가입 / 로그인
