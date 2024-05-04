@@ -5,7 +5,7 @@ import ApiService from '../../ApiService';
 import AuthContext from '../../store/auth-context';
 import Loading from '../basic/Loading';
 import { IconButton, InputAdornment, TextField, Typography, Button, Box, Card, CardMedia } from '@mui/material';
-import { PaddingOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ausercss from './css/auser.module.css';
 import lightLogo from '../../img/OtPishAI_light.png';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -188,9 +188,11 @@ const Login = () => {
             <Button
               className={ausercss.signupBtn}
               variant="contained"
+              component={Link}
+              to={'./sign-up'}
               startIcon={<GoogleIcon />}
             >
-              구글로 회원가입
+              구글로 회원가입 / 로그인
             </Button>
             <Button
               className={ausercss.addBtn}

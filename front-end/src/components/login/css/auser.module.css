@@ -141,7 +141,19 @@ div.cardFooter button {
   border-radius: 28px;
 }
 
-button.signupBtn {
+div.cardFooter button {
+  font-size: 14px;
+  border-radius: 28px;
+  height: 40px;
+}
+
+div.cardFooter a.signupBtn {
+  font-size: 14px;
+  border-radius: 28px;
+  height: 40px;
+}
+
+a.signupBtn {
   width: fit-content;
   color: white;
 }
