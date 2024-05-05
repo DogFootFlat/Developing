@@ -6,6 +6,7 @@ import UserHome from "../home/UserHome";
 import Loading from "../basic/Loading";
 import Login from "../login/LoginNew";
 import SNSLogin from "../login/SNSLogin";
+import SignUp from "../login/SignUp"
 import ProdList from "../product/ProdList";
 
 const BookList = React.lazy(() => import("../book/BookList"))
@@ -29,7 +30,7 @@ const AppRouter = () => {
           <Route path="/loan-count" element={<LoanCount />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<SNSLogin />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user" element={<EditUser />} />
           <Route path="/prod-list" element={<ProdList />} />
