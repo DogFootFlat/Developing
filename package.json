@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "cd front-end",
+    "build": "cd front-end",
+    "test": "cd front-end",
+    "eject": "cd front-end"
+  }
+}
