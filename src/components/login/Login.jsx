@@ -128,63 +128,6 @@ const Login = () => {
       </Card>
         <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
           <div>
-            <TextField
-              autoFocus
-              type="text"
-              name="id"
-              label="아이디"
-              error={!idIsValid}
-              helperText={idIsValid ? '' : '필수 작성란입니다.'}
-              ref={idInputRef}
-              sx={{ m: 1, width: '55ch' }}
-              variant="outlined"
-              value={user.id || ''}
-              onChange={onChangeHandler}
-              onBlur={validateIdHandler}
-            />
-          </div>
-          <div>
-            <TextField
-              type={showPassword ? 'text' : 'password'}
-              name="pw"
-              label="비밀번호"
-              error={!pwIsValid}
-              helperText={pwIsValid ? '' : '필수 작성란입니다.'}
-              ref={pwInputRef}
-              sx={{ m: 1, width: '55ch' }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      className={ausercss.iconCell}
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-              value={user.pw || ''}
-              onChange={onChangeHandler}
-              onBlur={validatePwHandler}
-            />
-          </div>
-          <div className={ausercss.linkDiv}>
-            <Link
-              className={ausercss.primaryDarkerFont}
-              to={'./sign-in'}
-            >
-              <div>아이디/비밀번호 찾기</div>
-            </Link>
-          </div>
-        </Card>
-        <Card className={`${ausercss.card} ${ausercss.cardFooter}`}>
-          <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
-          </Card>
-          <Card className={`${ausercss.card} ${ausercss.cardHalf}`}>
             <Button
               className={ausercss.signupBtn}
               variant="contained"
@@ -194,14 +137,7 @@ const Login = () => {
             >
               구글로 회원가입 / 로그인
             </Button>
-            <Button
-              className={ausercss.addBtn}
-              variant="contained"
-              type="submit"
-            >
-              다음
-            </Button>
-          </Card>
+          </div>
         </Card>
       </form>
     </Box>

@@ -132,42 +132,24 @@ h6.typo {
   font-size: 16px;
 }
 
-div.linkDiv a {
-  font-size: 14px;
-}
-
-div.cardFooter button {
+div.cardRight button {
   font-size: 14px;
   border-radius: 28px;
 }
 
-div.cardFooter button {
+div.cardRight a.signupBtn {
   font-size: 14px;
   border-radius: 28px;
-  height: 40px;
-}
-
-div.cardFooter a.signupBtn {
-  font-size: 14px;
-  border-radius: 28px;
-  height: 40px;
+  height: 50px;
+  width: 20em;
+  font-size: 16px;
+  padding: 1.6rem 0;
+  margin: 0.5rem 0;
 }
 
 a.signupBtn {
   width: fit-content;
   color: white;
-}
-
-button.addBtn {
-  width: 80px;
-  margin: 2em 0;
-  margin-left: 1em;
-  color: white;
-  font-weight: 500;
-  background-color: #e57971;
-}
-button.addBtn:hover {
-  background-color: #de544a;
 }
 
 .iconCell {
