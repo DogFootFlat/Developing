@@ -30,7 +30,7 @@ const AppRouter = () => {
           <Route path="/loan-count" element={<LoanCount />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<div>API 연결 필요</div>} /> // TODO: EJH API 연결 필요
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user" element={<EditUser />} />
           <Route path="/prod-list" element={<ProdList />} />

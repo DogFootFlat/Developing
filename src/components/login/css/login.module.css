@@ -132,45 +132,24 @@ h6.typo {
   font-size: 16px;
 }
 
-div.cardFooter button {
+div.cardRight button {
   font-size: 14px;
   border-radius: 28px;
 }
 
-div.cardFooter button {
+div.cardRight a.signupBtn {
   font-size: 14px;
   border-radius: 28px;
-  height: 40px;
+  height: 50px;
+  width: 20em;
+  font-size: 16px;
+  padding: 1.6rem 0;
+  margin: 0.5rem 0;
 }
 
-div.radioForm {
-  width: 25.4em;
-  border: 1px #c4c4c4 solid;
-  border-radius: 4px;
-  margin: 0.7em;
-  padding: 1em 2em;
-}
-
-div.radioForm label.radioLabel {
-  text-align: left;
-  color: #00000099;
-}
-
-div.outlined:hover {
-  border: 1px #212121 solid;
-}
-
-button.addBtn {
-  width: 80px;
-  margin: 2em 0;
-  margin-left: 1em;
+a.signupBtn {
+  width: fit-content;
   color: white;
-  font-weight: 500;
-  background-color: #e57971;
-}
-
-button.addBtn:hover {
-  background-color: #de544a;
 }
 
 .iconCell {

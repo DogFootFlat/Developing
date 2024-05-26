@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router';
 import ApiService from '../../ApiService';
 import AuthContext from '../../store/auth-context';
 import Loading from '../basic/Loading';
-import { IconButton, InputAdornment, TextField, Typography, Button, Box, Card, CardMedia } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import ausercss from './css/auser.module.css';
+import { Typography, Button, Box, Card, CardMedia } from '@mui/material';
+import logincss from './css/login.module.css';
 import lightLogo from '../../img/OtPishAI_light.png';
 import GoogleIcon from '@mui/icons-material/Google';
 
@@ -96,18 +95,18 @@ const Login = () => {
   };
 
   let content = (
-    <Box className={ausercss.box}>
-      <form className={ausercss.form} onSubmit={addUserHandler}>
-      <Card className={`${ausercss.card} ${ausercss.cardHeader}`}>
+    <Box className={logincss.box}>
+      <form className={logincss.form} onSubmit={addUserHandler}>
+      <Card className={`${logincss.card} ${logincss.cardHeader}`}>
         <CardMedia
-          className={ausercss.logo}
+          className={logincss.logo}
           component="img"
           image={lightLogo}
           alt="OtpishAI Light Logo"
         />
       </Card>
-      <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardLeft}`}>
-        <Typography className={ausercss.typo} variant="h4">
+      <Card className={`${logincss.card} ${logincss.cardHalf} ${logincss.cardLeft}`}>
+        <Typography className={logincss.typo} variant="h4">
           로그인
         </Typography>
         <Box
@@ -121,15 +120,15 @@ const Login = () => {
             borderLeft: '4px solid #12b9de6b',
           }}
         >
-          <Typography className={`${ausercss.typo} ${ausercss.primaryDarkerFont}`} variant="h6">
+          <Typography className={`${logincss.typo} ${logincss.primaryDarkerFont}`} variant="h6">
             Google 계정 사용
           </Typography>
         </Box>
       </Card>
-        <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
+        <Card className={`${logincss.card} ${logincss.cardHalf} ${logincss.cardRight}`}>
           <div>
             <Button
-              className={ausercss.signupBtn}
+              className={logincss.signupBtn}
               variant="contained"
               component={Link}
               to={'../sign-up'}
