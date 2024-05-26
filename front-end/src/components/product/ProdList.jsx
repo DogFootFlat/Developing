@@ -16,15 +16,6 @@ function ProdList() {
     setCartIsShown(false);
   };
 
-  const [shoes, setShoes] = useState([
-    {
-      src: '../../../img/book.jpg',
-      title: '1',
-      content: '일',
-      price: 10000,
-    },
-  ]);
-
   return (
     <CartProvider>
       {/* <Item shoes={shoes} /> */}
