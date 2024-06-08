@@ -5,7 +5,6 @@ import Home from "../home/Home";
 import UserHome from "../home/UserHome";
 import Loading from "../basic/Loading";
 import Login from "../login/Login";
-import SNSLogin from "../login/SNSLogin";
 import SignUp from "../login/SignUp"
 import ProdList from "../product/ProdList";
 

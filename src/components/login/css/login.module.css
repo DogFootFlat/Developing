@@ -6,19 +6,19 @@
 }
 
 .primary {
-  background-color: #76ddf4
+  background-color: #76ddf4;
 }
 
 .primaryDark {
-  background-color: #12b8de
+  background-color: #12b8de;
 }
 
 .primaryDarker {
-  background-color: #0f9dbd
+  background-color: #0f9dbd;
 }
 
 .primaryDarkerFont {
-  color: #0f9dbd
+  color: #0f9dbd;
 }
 
 .complemantary {
@@ -137,7 +137,9 @@ div.cardRight button {
   border-radius: 28px;
 }
 
-div.cardRight a.signupBtn {
+div.cardRight .signupBtn {
+  color: white;
+  font-weight: 540;
   font-size: 14px;
   border-radius: 28px;
   height: 50px;
@@ -145,6 +147,14 @@ div.cardRight a.signupBtn {
   font-size: 16px;
   padding: 1.6rem 0;
   margin: 0.5rem 0;
+}
+
+div.cardRight .googleBtn {
+  background-color: #12b8de;
+}
+
+div.cardRight .naverBtn {
+  background-color: #03c75a;
 }
 
 a.signupBtn {
