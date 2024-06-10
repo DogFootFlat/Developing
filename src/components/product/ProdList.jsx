@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
-import Cart from './cart/Cart';
-import Header from '../layout/Header';
-import Meals from './meals/Meals';
 import CartProvider from '../../store/CartProvider';
-import Item from './item/Item';
+import Header from '../layout/Header';
+import Cart from './cart/Cart';
+import Meals from './meals/Meals';
 
 function ProdList() {
   const [cartIsShown, setCartIsShown] = useState(false);
