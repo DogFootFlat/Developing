@@ -39,6 +39,8 @@ const SignUp = () => {
   }, []);
 
   useEffect(() => {
+    const user = getUserHandler();
+
     const identifier = setTimeout(() => {
       setFormIsValid(ageIsEntered && ageIsValid && phoneIsEntered && genderIsEntered);
     }, 500);
@@ -47,6 +49,25 @@ const SignUp = () => {
       clearTimeout(identifier);
     };
   }, [ageIsEntered, ageIsValid, phoneIsEntered, genderIsEntered]);
+
+  const getUserHandler = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await ApiService.fetchUsers();
+      console.log(response.data);
+
+      await ApiService.signIn(url?.data);
+      if (response.status < 200 || response.status > 299) {
+        throw new Error('Something went wrong!');
+      }
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  };
 
   const onChangeHandler = (event) => {
     setUser({

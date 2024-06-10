@@ -3,8 +3,16 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:8080';
 
 class ApiService {
-	signIn(site) {
+	getSignInUrl(site) {
 		return axios.get(API_BASE_URL + `/signin/${site}`);
+	}
+
+	signIn(url) {
+		window.location.href = url;
+	}
+
+	fetchUsers() {
+		return axios.get(API_BASE_URL + '/register', { withCredentials: true });
 	}
 
 	fetchProducts() {
@@ -33,10 +41,6 @@ class ApiService {
 
 	deleteBook(bookId) {
 		return axios.delete(API_BASE_URL + '/books/' + bookId);
-	}
-
-	fetchUsers() {
-		return axios.get(API_BASE_URL + '/users');
 	}
 
 	fetchUserByID(userId) {

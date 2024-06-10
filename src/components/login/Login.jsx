@@ -21,6 +21,7 @@ const Login = () => {
   useEffect(() => {
     ctx.setCurrentPage('add-user');
   }, []);
+
   const addUserHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -28,7 +29,8 @@ const Login = () => {
 
     const site_name = event.nativeEvent.submitter.name;
     try {
-      const response = await ApiService.signIn(site_name);
+      const url = await ApiService.getSignInUrl(site_name);
+      const response = await ApiService.signIn(url?.data);
       if (response.status < 200 || response.status > 299) {
         throw new Error('Something went wrong!');
       }
