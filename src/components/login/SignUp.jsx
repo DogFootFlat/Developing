@@ -15,8 +15,17 @@ const SignUp = () => {
 
   const [user, setUser] = useState({
     age: '',
-    phone: '',
+    addr: '',
+    birth: '',
+    email: '',
     gender: '',
+    name: '',
+    nickname: '',
+    preferGenre: '',
+    profile_img: '',
+    phone: '',
+    role: '',
+    username: '',
   });
 
   const [ageIsEntered, setAgeIsEntered] = useState(true);
@@ -39,7 +48,7 @@ const SignUp = () => {
   }, []);
 
   useEffect(() => {
-    const user = getUserHandler();
+    getUserHandler();
 
     const identifier = setTimeout(() => {
       setFormIsValid(ageIsEntered && ageIsValid && phoneIsEntered && genderIsEntered);
@@ -56,13 +65,25 @@ const SignUp = () => {
 
     try {
       const response = await ApiService.fetchUsers();
-      console.log(response.data);
+      const responseData = response?.data;
+      setUser({
+        age: responseData?.age,
+        addr: responseData?.addr,
+        birth: responseData?.birth,
+        email: responseData?.email,
+        gender: responseData?.gender,
+        name: responseData?.name,
+        nickname: responseData?.nickname,
+        preferGenre: responseData?.preferGenre,
+        profile_img: responseData?.profile_img,
+        phone: responseData?.phone,
+        role: responseData?.role,
+        username: responseData?.username,
+      })
 
-      await ApiService.signIn(url?.data);
       if (response.status < 200 || response.status > 299) {
         throw new Error('Something went wrong!');
       }
-      navigate('/');
     } catch (error) {
       setError(error.message);
     }
@@ -112,7 +133,7 @@ const SignUp = () => {
         if (response.status < 200 || response.status > 299) {
           throw new Error('Something went wrong!');
         }
-        navigate('/users');
+        navigate('/');
       } catch (error) {
         setError(error.message);
       }
@@ -153,6 +174,78 @@ const SignUp = () => {
           </Box>
         </Card>
         <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
+          <div>
+            <TextField
+              type="hidden"
+              name="addr"
+              label="주소"
+              value={user.addr || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="birth"
+              label="생년월일"
+              value={user.birth || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="email"
+              label="이메일"
+              value={user.email || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="name"
+              label="이름"
+              value={user.name || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="nickname"
+              label="닉네임"
+              value={user.nickname || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="preferGenre"
+              label="선호장르"
+              value={user.preferGenre || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="profile_img"
+              label="프로필이미지"
+              value={user.profile_img || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="role"
+              label="역할"
+              value={user.role || ''}
+            />
+          </div>
+          <div>
+            <TextField
+              type="hidden"
+              name="username"
+              label="유저명"
+              value={user.username || ''}
+            />
+          </div>
           <div>
             <TextField
               autoFocus

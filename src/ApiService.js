@@ -23,6 +23,10 @@ class ApiService {
 		return axios.get(API_BASE_URL + '/books');
 	}
 
+	addUser(user) {
+		return axios.post(API_BASE_URL + '/register', user, { withCredentials: true });
+	}
+
 	fetchBookByID(bookId) {
 		return axios.get(API_BASE_URL + '/books/' + bookId);
 	}
@@ -49,10 +53,6 @@ class ApiService {
 
 	editUser(user) {
 		return axios.put(API_BASE_URL + '/users/' + user.key, user);
-	}
-
-	addUser(user) {
-		return axios.post(API_BASE_URL + '/users', user);
 	}
 
 	deleteUser(userId) {
