@@ -14,11 +14,11 @@ const SignUp = () => {
   const ctx = useContext(AuthContext);
 
   const [user, setUser] = useState({
-    age: '',
+    age: 0,
     addr: '',
     birth: '',
     email: '',
-    gender: '',
+    gender: 0,
     name: '',
     nickname: '',
     preferGenre: '',
@@ -59,41 +59,10 @@ const SignUp = () => {
     };
   }, [ageIsEntered, ageIsValid, phoneIsEntered, genderIsEntered]);
 
-  const getUserHandler = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await ApiService.fetchUsers();
-      const responseData = response?.data;
-      setUser({
-        age: responseData?.age,
-        addr: responseData?.addr,
-        birth: responseData?.birth,
-        email: responseData?.email,
-        gender: responseData?.gender,
-        name: responseData?.name,
-        nickname: responseData?.nickname,
-        preferGenre: responseData?.preferGenre,
-        profile_img: responseData?.profile_img,
-        phone: responseData?.phone,
-        role: responseData?.role,
-        username: responseData?.username,
-      })
-
-      if (response.status < 200 || response.status > 299) {
-        throw new Error('Something went wrong!');
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  };
-
   const onChangeHandler = (event) => {
     setUser({
       ...user,
-      [event.target.name]: event.target.value,
+      [event.target.name]: ['age', 'gender'].includes(event.target.name) ? parseInt(event.target.value) : event.target.value,
     });
   };
 
@@ -121,19 +90,62 @@ const SignUp = () => {
   const ageInputRef = useRef();
   const phoneInputRef = useRef();
 
+  const getUserHandler = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await ApiService.fetchUsers();
+      const responseData = response?.data;
+      setUser({
+        email: responseData?.email,
+        username: responseData?.username,
+        name: responseData?.name,
+        nickname: responseData?.nickname,
+        addr: responseData?.addr,
+        birth: responseData?.birth,
+        phone: responseData?.phone,
+        age: parseInt(responseData?.age),
+        profile_img: responseData?.profile_img,
+        gender: parseInt(responseData?.gender),
+        preferGenre: responseData?.preferGenre,
+        role: responseData?.role,
+      })
+
+      if (response.status < 200 || response.status > 299) {
+        throw new Error('Something went wrong!');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  };
+
   const addUserHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
 
     if (formIsValid) {
-      const formData = new FormData();
       try {
-        const response = await ApiService.addUser(formData);
+        setUser({
+          email: user?.email,
+          username: user?.username,
+          name: user?.name,
+          nickname: user?.nickname,
+          addr: user?.addr,
+          birth: user?.birth,
+          phone: user?.phone,
+          age: parseInt(user?.age),
+          profile_img: user?.profile_img,
+          gender: parseInt(user?.gender),
+          preferGenre: user?.preferGenre,
+          role: user?.role,
+        })
+        const response = await ApiService.addUser(user);
         if (response.status < 200 || response.status > 299) {
           throw new Error('Something went wrong!');
         }
-        navigate('/');
       } catch (error) {
         setError(error.message);
       }
@@ -169,83 +181,65 @@ const SignUp = () => {
             }}
           >
             <Typography className={`${ausercss.typo} ${ausercss.primaryDarkerFont}`} variant="h6">
-              Google 계정 사용
+              {ctx.loginMethod} 계정 사용
             </Typography>
           </Box>
         </Card>
         <Card className={`${ausercss.card} ${ausercss.cardHalf} ${ausercss.cardRight}`}>
-          <div>
-            <TextField
-              type="hidden"
-              name="addr"
-              label="주소"
-              value={user.addr || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="birth"
-              label="생년월일"
-              value={user.birth || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="email"
-              label="이메일"
-              value={user.email || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="name"
-              label="이름"
-              value={user.name || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="nickname"
-              label="닉네임"
-              value={user.nickname || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="preferGenre"
-              label="선호장르"
-              value={user.preferGenre || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="profile_img"
-              label="프로필이미지"
-              value={user.profile_img || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="role"
-              label="역할"
-              value={user.role || ''}
-            />
-          </div>
-          <div>
-            <TextField
-              type="hidden"
-              name="username"
-              label="유저명"
-              value={user.username || ''}
-            />
-          </div>
+          <TextField
+            type="hidden"
+            name="addr"
+            label="주소"
+            value={user.addr || ''}
+          />
+          <TextField
+            type="hidden"
+            name="birth"
+            label="생년월일"
+            value={user.birth || ''}
+          />
+          <TextField
+            type="hidden"
+            name="email"
+            label="이메일"
+            value={user.email || ''}
+          />
+          <TextField
+            type="hidden"
+            name="name"
+            label="이름"
+            value={user.name || ''}
+          />
+          <TextField
+            type="hidden"
+            name="nickname"
+            label="닉네임"
+            value={user.nickname || ''}
+          />
+          <TextField
+            type="hidden"
+            name="preferGenre"
+            label="선호장르"
+            value={user.preferGenre || ''}
+          />
+          <TextField
+            type="hidden"
+            name="profile_img"
+            label="프로필이미지"
+            value={user.profile_img || ''}
+          />
+          <TextField
+            type="hidden"
+            name="role"
+            label="역할"
+            value={user.role || ''}
+          />
+          <TextField
+            type="hidden"
+            name="username"
+            label="유저명"
+            value={user.username || ''}
+          />
           <div>
             <TextField
               autoFocus
@@ -289,12 +283,12 @@ const SignUp = () => {
                 row
                 aria-labelledby="gender"
                 name="gender"
-                value={user.gender || ''}
+                value={user.gender || 0}
                 onChange={onChangeHandler}
                 onBlur={validateGenderHandler}
               >
                 <FormControlLabel
-                  value="male"
+                  value={3}
                   label="남자"
                   control={
                     <Radio
@@ -308,7 +302,7 @@ const SignUp = () => {
                   }
                 />
                 <FormControlLabel
-                  value="female"
+                  value={2}
                   label="여자"
                   control={
                     <Radio
@@ -322,7 +316,7 @@ const SignUp = () => {
                   }
                 />
                 <FormControlLabel
-                  value="other"
+                  value={1}
                   label="기타"
                   control={
                     <Radio
