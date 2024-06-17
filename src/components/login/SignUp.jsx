@@ -115,8 +115,6 @@ const SignUp = () => {
       if (response.status < 200 || response.status > 299) {
         throw new Error('Something went wrong!');
       }
-
-      navigate('/')
     } catch (error) {
       setError(error.message);
     }
@@ -148,6 +146,8 @@ const SignUp = () => {
         if (response.status < 200 || response.status > 299) {
           throw new Error('Something went wrong!');
         }
+
+        navigate('/')
       } catch (error) {
         setError(error.message);
       }

@@ -9,10 +9,13 @@ const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
-        <div className = {classes.logoImg}>
+        <div className={classes.logoImg}>
           <img src={logo} alt="OtpishAI logo" />
         </div>
+        <div></div>
+        <div></div>
         <HeaderCartButton onClick={props.onShowCart} />
+        <div></div>
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="A table full of delicous food!" />
