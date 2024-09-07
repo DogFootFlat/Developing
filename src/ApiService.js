@@ -18,15 +18,15 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		// return axios.get(API_BASE_URL + '/product');
-		// TODO: 테스트코드
-		return PRODUCT;
+		return axios.get(API_BASE_URL + '/product');
+		// // TODO: 테스트코드
+		// return PRODUCT;
 	}
 
 	fetchProductsByGenreCode(genreCode) {
-		// return axios.get(API_BASE_URL + `/product?genre=${genreCode}`);
-		// TODO: 테스트코드
-		return PRODUCT_GENRE;
+		return axios.get(API_BASE_URL + `/product?genre=${genreCode}`);
+		// // TODO: 테스트코드
+		// return PRODUCT_GENRE;
 	}
 
 	fetchBooks() {
