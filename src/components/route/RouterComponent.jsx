@@ -8,7 +8,7 @@ import Login from "../login/Login";
 import SignUp from "../login/SignUp"
 import ProdList from "../product/ProdList";
 import ChatBot from "../chatbot/ChatBot";
-import Detail from "../product/meals/mealItem/Detail";
+import Detail from "../product/products/productItem/Detail";
 
 const BookList = React.lazy(() => import("../book/BookList"))
 const AddBook = React.lazy(() => import("../book/AddBook"))
@@ -24,16 +24,16 @@ const AppRouter = () => {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/user-home" element={<UserHome />} />
+          {/* <Route exact path="/user-home" element={<UserHome />} />
           <Route path="/books" element={<BookList />} />
           <Route path="/add-book" element={<AddBook />} />
           <Route path="/edit-book" element={<EditBook />} />
           <Route path="/loan-count" element={<LoanCount />} />
-          <Route path="/users" element={<UserList />} />
+          <Route path="/users" element={<UserList />} /> */}
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/add-user" element={<AddUser />} />
-          <Route path="/edit-user" element={<EditUser />} />
+          {/* <Route path="/add-user" element={<AddUser />} />
+          <Route path="/edit-user" element={<EditUser />} /> */}
           <Route path="/prod-list" element={<ProdList />} />
           <Route path="/prod-detail" element={<Detail />} />
           <Route path="/chatbot" element={<ChatBot />} />

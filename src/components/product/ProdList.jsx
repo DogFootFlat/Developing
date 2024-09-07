@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CartProvider from '../../store/CartProvider';
 import Header from '../layout/Header';
 import Cart from './cart/Cart';
-import Meals from './meals/Meals';
+import Products from './products/Products'
 import { BottomNavigation, IconButton } from '@mui/material';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { useNavigate } from 'react-router';
@@ -26,7 +26,7 @@ function ProdList() {
       {cartIsShown && <Cart onClose={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <main>
-        <Meals />
+        <Products />
       </main>
       <BottomNavigation
         onClick={() => { navigate('/chatbot') }}

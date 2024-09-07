@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-
-import CartContext from '../../../../store/cart-context';
-import MealItemForm from './MealItemForm';
-import classes from './css/MealItem.module.css';
 import { Link } from 'react-router-dom';
 
-const MealItem = (props) => {
+import CartContext from '../../../../store/cart-context';
+import ProductItemForm from './ProductItemForm';
+import classes from './css/ProductItem.module.css';
+
+const ProductItem = (props) => {
 	const cartCtx = useContext(CartContext);
 	const price = `${props.price} 원`;
 
@@ -19,7 +19,7 @@ const MealItem = (props) => {
 	};
 
 	return (
-		<li className={classes.meal}>
+		<li className={classes.product}>
 			<div>
 				<h3>{props.name}</h3>
 				<div className={classes.description}>{props.genre}</div>
@@ -31,10 +31,10 @@ const MealItem = (props) => {
 				<div className={classes.price}>{price}</div>
 			</div>
 			<div>
-				<MealItemForm id={props.id} onAddToCart={addToCartHandler} />
+				<ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
 			</div>
 		</li>
 	);
 };
 
-export default MealItem;
+export default ProductItem;

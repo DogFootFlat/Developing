@@ -1,17 +1,17 @@
-.meals {
+.products {
 	max-width: 60rem;
 	width: 90%;
 	margin: 2rem auto;
-	animation: meals-appear 1s ease-out forwards;
+	animation: products-appear 1s ease-out forwards;
 }
 
-.meals ul {
+.products ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-@keyframes meals-appear {
+@keyframes products-appear {
 	from {
 		opacity: 0;
 		transform: translateY(3rem);

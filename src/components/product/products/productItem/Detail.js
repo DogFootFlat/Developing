@@ -341,10 +341,10 @@ const Select = styled.select`
 	border-radius: 4px;
 	font-size: 14px;
 
-	background-image: url(
+	/* background-image: url(
 		data:image/svg + xml,
 		%3Csvgxmlns='http://www.w3.org/2000/svg'width='12'height='6'viewBox='0 0 12 6'style='background:%23fff'%3E%3Cgfill='none'fill-rule='evenodd'transform='translate(-186 -365)'%3E%3Cpathfill='%23FFF'd='M0 0H375V2362H0z'/%3E%3Crectwidth='93'height='39'x='115.5'y='348.5'fill='%23FFF'stroke='%23ECECEC'rx='4'/%3E%3Cpathfill='%233B3B3B'fill-rule='nonzero'd='M196.145 365.15c.193-.197.509-.2.705-.007.197.193.2.51.007.707l-4.892 5c-.193.197-.508.2-.705.008l-5.11-5c-.197-.193-.2-.51-.008-.707.192-.198.508-.202.705-.009l4.754 4.652 4.544-4.644z'/%3E%3C/g%3E%3C/svg%3E
-	);
+	); */
 	background-position-x: calc(100% - 12px);
 `;
 const OptionGrid = styled.div`
