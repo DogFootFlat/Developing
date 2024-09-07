@@ -19,6 +19,10 @@ class ApiService {
 		return axios.get(API_BASE_URL + '/product');
 	}
 
+	fetchProductsByGenreCode(genreCode) {
+		return axios.get(API_BASE_URL + `/product?genre=${genreCode}`);
+	}
+
 	fetchBooks() {
 		return axios.get(API_BASE_URL + '/books');
 	}
