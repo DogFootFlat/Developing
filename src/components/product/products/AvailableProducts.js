@@ -2,6 +2,7 @@ import { FormControl, MenuItem, Select } from '@material-ui/core';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import ApiService from '../../../ApiService';
 import AuthContext from '../../../store/auth-context';
+import Loading from '../../basic/Loading';
 import Card from '../UI/Card';
 import classes from './css/AvailableProducts.module.css';
 import ProductItem from './productItem/ProductItem';
@@ -12,7 +13,7 @@ const AvailableProducts = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchMethod, setSearchMethod] = useState('옷 분류');
+  const [searchMethod, setSearchMethod] = useState('');
 
   const fetchProductsHandler = useCallback(async () => {
     setIsLoading(true);
@@ -31,12 +32,20 @@ const AvailableProducts = () => {
     setIsLoading(false);
   }, []);
 
+  const onSelectChange = (event) => {
+    setSearchMethod(event.target.value);
+
+    if (event.target.value && event.target.value !== '') {
+      fetchProductsHandlerByGenreCode(event.target.value);
+    }
+  };
+
   const fetchProductsHandlerByGenreCode = useCallback(async (genreCode) => {
     setIsLoading(true);
     setError(null);
     try {
       let response = {};
-      if (!genreCode && genreCode !== '') {
+      if (genreCode && genreCode !== '' && genreCode !== 'all') {
         response = await ApiService.fetchProductsByGenreCode(genreCode);
       } else {
         response = await ApiService.fetchProducts();
@@ -51,14 +60,6 @@ const AvailableProducts = () => {
     }
     setIsLoading(false);
   }, []);
-
-  const onSelectChange = (event) => {
-    setSearchMethod(event.target.value);
-
-    if (!event.target.value && event.target.value !== '') {
-      fetchProductsHandlerByGenreCode(event.target.value);
-    }
-  };
 
   useEffect(() => {
     fetchProductsHandler();
@@ -108,12 +109,16 @@ const AvailableProducts = () => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Genre"
+          displayEmpty
           value={searchMethod}
+          key={'all'}
+          defaultValue={'all'}
           onChange={onSelectChange}
           sx={{
             textAlign: 'right',
           }}
         >
+          <MenuItem value="">전체</MenuItem>
           <MenuItem value="0010106">니트 및 스웨터</MenuItem>
           <MenuItem value="0010104">후드티</MenuItem>
           <MenuItem value="0010105">맨투맨 및 스웨트셔츠</MenuItem>

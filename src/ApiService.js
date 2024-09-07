@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PRODUCT } from './PRODUCT';
+import { PRODUCT_GENRE } from './PRODUCT_GENRE';
 
 const API_BASE_URL = 'http://localhost:8080';
 
@@ -17,9 +18,7 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		// return axios.get(API_BASE_URL + '/product');
-		// TODO: 테스트코드
-		return PRODUCT;
+		return axios.get(API_BASE_URL + '/product');
 	}
 
 	fetchProductsByGenreCode(genreCode) {
