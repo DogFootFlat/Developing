@@ -7,6 +7,7 @@ import Loading from "../basic/Loading";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp"
 import ProdList from "../product/ProdList";
+import ChatBot from "../chatbot/ChatBot";
 
 const BookList = React.lazy(() => import("../book/BookList"))
 const AddBook = React.lazy(() => import("../book/AddBook"))
@@ -19,7 +20,7 @@ const EditUser = React.lazy(() => import("../user/EditUser"))
 const AppRouter = () => {
   return (
     <div style={style}>
-      <Suspense fallback={ <Loading /> }>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/user-home" element={<UserHome />} />
@@ -33,6 +34,7 @@ const AppRouter = () => {
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user" element={<EditUser />} />
           <Route path="/prod-list" element={<ProdList />} />
+          <Route path="/chatbot" element={<ChatBot />} />
         </Routes>
       </Suspense>
     </div>
