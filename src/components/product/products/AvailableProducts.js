@@ -1,4 +1,4 @@
-import { FormControl, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import ApiService from '../../../ApiService';
 import AuthContext from '../../../store/auth-context';
@@ -104,26 +104,36 @@ const AvailableProducts = () => {
 
   return (
     <Card className={classes.products}>
-      <FormControl fullWidth>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Genre"
-          displayEmpty
-          value={searchMethod}
-          key={'all'}
-          defaultValue={'all'}
-          onChange={onSelectChange}
-          sx={{
-            textAlign: 'right',
-          }}
-        >
+      {/* 장르 */}
+      <FormControl variant="filled" fullWidth>
+        <InputLabel htmlFor="uncontrolled-native">장르 선택</InputLabel>
+        <Select displayEmpty value={searchMethod} onChange={onSelectChange} sx={{ textAlign: 'right' }}>
           <MenuItem value="">전체</MenuItem>
           <MenuItem value="0010106">니트 및 스웨터</MenuItem>
           <MenuItem value="0010104">후드티</MenuItem>
           <MenuItem value="0010105">맨투맨 및 스웨트셔츠</MenuItem>
         </Select>
       </FormControl>
+      {/* 카테고리 */}
+      {/* <FormControl variant="filled" fullWidth>
+        <InputLabel htmlFor="uncontrolled-native">카테고리 선택</InputLabel>
+        <Select displayEmpty value={searchMethod} onChange={onSelectChange} sx={{ textAlign: 'right' }}>
+          <MenuItem value="">전체</MenuItem>
+          <MenuItem value="0010106">니트 및 스웨터</MenuItem>
+          <MenuItem value="0010104">후드티</MenuItem>
+          <MenuItem value="0010105">맨투맨 및 스웨트셔츠</MenuItem>
+        </Select>
+      </FormControl> */}
+      {/* 브랜드 */}
+      {/* <FormControl variant="filled" fullWidth>
+        <InputLabel htmlFor="uncontrolled-native">브랜드 선택</InputLabel>
+        <Select displayEmpty value={searchMethod} onChange={onSelectChange} sx={{ textAlign: 'right' }}>
+          <MenuItem value="">전체</MenuItem>
+          <MenuItem value="0010106">니트 및 스웨터</MenuItem>
+          <MenuItem value="0010104">후드티</MenuItem>
+          <MenuItem value="0010105">맨투맨 및 스웨트셔츠</MenuItem>
+        </Select>
+      </FormControl> */}
       <ul>{productsList}</ul>
     </Card>
   );
