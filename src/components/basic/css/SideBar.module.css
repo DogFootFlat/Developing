@@ -1,0 +1,20 @@
+.sidebar {
+  position: fixed;
+  top: 20vh; /* 위쪽에서 떨어진 거리 */
+  right: 20px; /* 오른쪽 여백 */
+  width: 90%; /* 기본 너비 */
+  max-width: 400px; /* 최대 너비 설정 */
+  background-color: white; /* 배경색 */
+  padding: 1rem; /* 내부 여백 */
+  border-radius: 14px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* 그림자 */
+  z-index: 30; /* 다른 요소 위에 표시 */
+  opacity: 0; /* 초기 상태: 투명 */
+  visibility: hidden; /* 초기 상태: 숨김 */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* 애니메이션 효과 */
+}
+
+.sidebar.visible {
+  opacity: 1; /* 나타나는 상태: 불투명 */
+  visibility: visible; /* 나타나는 상태: 보임 */
+}
