@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PRODUCT } from './PRODUCT';
 import { PRODUCT_GENRE } from './PRODUCT_GENRE';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'https://otpishai.shop';
 
 class ApiService {
 	getSignInUrl(site) {
