@@ -4,6 +4,7 @@
   right: 20px; /* 오른쪽 여백 */
   width: 90%; /* 기본 너비 */
   max-width: 400px; /* 최대 너비 설정 */
+  height: 800px; /* 세로 높이를 width의 2배로 설정 */
   background-color: white; /* 배경색 */
   padding: 1rem; /* 내부 여백 */
   border-radius: 14px; /* 모서리 둥글게 */
