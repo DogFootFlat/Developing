@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PRODUCT } from './PRODUCT';
 import { PRODUCT_GENRE } from './PRODUCT_GENRE';
 
-const API_BASE_URL = 'https://otpishai.shop';
+const API_BASE_URL = 'https://back.otpishai.shop';
 
 class ApiService {
 	getSignInUrl(site) {
@@ -18,13 +18,13 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		// return axios.get(`${API_BASE_URL}/product`);
+		return axios.get(`${API_BASE_URL}/product`);
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
 
 	fetchPrudctsByQueryString(queryString) {
-		// return axios.get(`${API_BASE_URL}/product?${queryString}`);
+		return axios.get(`${API_BASE_URL}/product?${queryString}`);
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
