@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "react-http-7be19"
-  }
+    "default": "otpishai",
+    "hosting": "otpishai"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
