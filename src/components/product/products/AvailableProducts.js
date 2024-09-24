@@ -221,6 +221,26 @@ const renderItems = [
       },
     ],
   },
+  {
+    id: 'category',
+    items: [
+      {
+        id: 'category',
+        name: '카테고리 선택',
+        list: [
+          { value: 'TWEE', label: 'TWEE' },
+          { value: 'GENERALIDEA', label: 'GENERALIDEA' },
+          { value: 'BLOND9', label: 'BLOND9' },
+          { value: 'AFTERPRAY', label: 'AFTERPRAY' },
+          { value: 'DRAWFIT WOMEN', label: 'DRAWFIT WOMEN' },
+          { value: 'BER DE NOIR', label: 'BER DE NOIR' },
+          { value: 'MONGDOL', label: 'MONGDOL' },
+          { value: 'MARITHÉ', label: 'MARITHÉ' },
+          { value: 'INTEMPOMOOD', label: 'INTEMPOMOOD' },
+        ],
+      },
+    ],
+  },
 ];
 
 export default AvailableProducts;
