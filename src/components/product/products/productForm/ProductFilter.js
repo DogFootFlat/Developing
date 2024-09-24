@@ -1,20 +1,21 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import React from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { useState } from 'react';
 import classes from './css/ProductFilter.module.css';
 
-const ProductFilter = ({ props: { filter_name, filter, setFilter, onChange, filter_list } }) => {
+const ProductFilter = ({ id, name, onChange, list }) => {
+  const [value, setValue] = useState('');
+
   const onChangeHandler = (event) => {
-    setFilter(event.target.value);
-    onChange();
+    onChange(id, event.target.value);
   };
 
   return (
     <span className={classes['form-div']}>
       <FormControl variant="outlined" className={classes['form-control']}>
-        <InputLabel htmlFor="uncontrolled-native">{filter_name}</InputLabel>
-        <Select displayEmpty id={filter_name} value={filter} onChange={onChangeHandler} sx={{ textAlign: 'right' }}>
+        <InputLabel id={`${name}-label`}>{name}</InputLabel>
+        <Select labelId={`${name}-label`} displayEmpty id={name} value={value} onChange={onChangeHandler} sx={{ textAlign: 'right' }}>
           <MenuItem value="">전체</MenuItem>
-          {filter_list?.map((menu_item) => (
+          {list.map((menu_item) => (
             <MenuItem key={menu_item.value} value={menu_item.value}>
               {menu_item.label}
             </MenuItem>

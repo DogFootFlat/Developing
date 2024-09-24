@@ -18,32 +18,33 @@ const AvailableProducts = () => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			let response = {};
-			if (queryString && queryString !== '' && queryString !== 'all') {
+			let response;
+			if (queryString?.trim() !== '') {
 				response = await ApiService.fetchPrudctsByQueryString(queryString);
 			} else {
 				response = await ApiService.fetchProducts();
 			}
-			if (response.status < 200 || response.status > 299) {
+			if (response.status < 200 || response.status >= 300) {
 				throw new Error('Something went wrong!');
 			}
-			const data = await response.data?.content;
+			const data = response.data?.content || [];
 			setProducts(data);
-		} catch (error) {
-			setError(error.message);
+		} catch (err) {
+			setError(err.message || 'Failed to fetch products');
+		} finally {
+			setIsLoading(false);
 		}
-		setIsLoading(false);
 	}, []);
 
 	useEffect(() => {
-		fetchProductsHandler();
+		fetchProductsHandler(); // 초기 로드 시 fetch
 		ctx.setCurrentPage('prod-list');
-	}, [fetchProductsHandler]);
+	}, [fetchProductsHandler, ctx]);
 
-	if (products.length <= 0) {
+	if (isLoading) {
 		return (
 			<Card className={classes.products}>
-				<h2>현재 상품 목록이 비어있습니다.</h2>
+				<Loading />
 			</Card>
 		);
 	}
@@ -57,10 +58,11 @@ const AvailableProducts = () => {
 			</Card>
 		);
 	}
-	if (isLoading) {
+
+	if (products.length === 0) {
 		return (
 			<Card className={classes.products}>
-				<Loading />;
+				<h2>현재 상품 목록이 비어있습니다.</h2>
 			</Card>
 		);
 	}
@@ -78,7 +80,7 @@ const AvailableProducts = () => {
 
 	return (
 		<Card className={classes.products}>
-			<ProductForm props={{ fetchProductsHandler }} />
+			<ProductForm fetchProducts={fetchProductsHandler} />
 			<ul>{productsList}</ul>
 		</Card>
 	);
