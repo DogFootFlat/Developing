@@ -2,20 +2,22 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react';
 import classes from './css/ProductFilters.module.css';
 
-const ProductFilters = ({ id, items, onChange }) => {
+const ProductFilters = ({ id, items, queryObj, onChange }) => {
   const majorKey = items?.find((x) => x.id?.includes('major'))?.id;
   const minorKey = items?.find((x) => x.id?.includes('minor'))?.id;
   const minorObj = items?.find((x) => x.id === minorKey)?.list_obj;
 
-  const [valueObj, setValueObj] = useState(items.reduce((acc, filter) => ({ ...acc, [filter.id]: '' }), {}));
+  const [query, setQuery] = useState(queryObj);
   const [minorFilter, setMinorFilter] = useState([]);
 
-  const onChangeHandler = (event, filter_id) => {
-    const param = { ...valueObj, [filter_id]: event.target.value };
-    setValueObj(param);
+  const onChangeHandler = (filter_id, event) => {
+    const tempQuery = query;
+    tempQuery[filter_id] = event.target.value;
+    setQuery(tempQuery);
     setMinorFilter(minorObj[event.target.value]);
 
-    valueObj[majorKey] && filter_id.includes('minor') && onChange(id, Object.values(param)?.join('0'));
+    onChange(filter_id, event.target.value);
+    query[majorKey] && filter_id === minorKey && onChange(id, `${tempQuery[majorKey]}0${tempQuery[minorKey]}`);
   };
 
   return (
@@ -27,8 +29,8 @@ const ProductFilters = ({ id, items, onChange }) => {
             labelId={`${filter.id}-label`}
             displayEmpty
             id={filter.id}
-            value={valueObj[filter.id]}
-            onChange={(event) => onChangeHandler(event, filter.id)}
+            value={query[filter.id]}
+            onChange={(event) => onChangeHandler(filter.id, event)}
             sx={{ textAlign: 'right' }}
           >
             <MenuItem value="">전체</MenuItem>

@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react';
 
-const ProductFilter = ({ id, items, onChange }) => {
-  const [value, setValue] = useState('');
+const ProductFilter = ({ id, items, queryObj, onChange }) => {
+  const [query] = useState(queryObj);
 
   const onChangeHandler = (event) => {
     onChange(id, event.target.value);
@@ -15,7 +15,7 @@ const ProductFilter = ({ id, items, onChange }) => {
         labelId={`${items[0]?.name}-label`}
         displayEmpty
         id={items[0]?.name}
-        value={value}
+        value={query[id]}
         onChange={onChangeHandler}
         sx={{ textAlign: 'right' }}
       >

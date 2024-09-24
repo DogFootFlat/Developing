@@ -11,15 +11,38 @@ const AvailableProducts = () => {
   const ctx = useContext(AuthContext);
 
   const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState({
+    genre_major: '',
+    genre_minor: '',
+    genre: '',
+    brand: '',
+    category: '',
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchProductsHandler = useCallback(async (queryString) => {
+  const fetchProductsHandler = useCallback(async (queryObj) => {
     setIsLoading(true);
     setError(null);
     try {
       let response;
-      if (queryString?.trim() !== '') {
+      if (Object.values(query).some(x => x !== '')) {
+        setQuery(queryObj);
+        const queryArray = [];
+        for (const [key, value] of Object.entries(queryObj)) {
+          switch (key) {
+            case 'genre':
+              queryArray.push(`genre=${value}`);
+              break;
+            case 'brand':
+              queryArray.push(`brand=${value}`);
+              break;
+            case 'category':
+              queryArray.push(`category=${value}`);
+              break;
+          }
+        }
+        const queryString = queryArray.join('&');
         response = await ApiService.fetchPrudctsByQueryString(queryString);
       } else {
         response = await ApiService.fetchProducts();
@@ -80,7 +103,7 @@ const AvailableProducts = () => {
 
   return (
     <Card className={classes.products}>
-      <ProductForm fetchProducts={fetchProductsHandler} renderItems={renderItems} />
+      <ProductForm queryObj={query} fetchProducts={fetchProductsHandler} renderItems={renderItems} />
       <ul>{productsList}</ul>
     </Card>
   );
