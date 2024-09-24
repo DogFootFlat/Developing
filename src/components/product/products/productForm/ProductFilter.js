@@ -1,8 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react';
-import classes from './css/ProductFilter.module.css';
 
-const ProductFilter = ({ id, name, onChange, list }) => {
+const ProductFilter = ({ id, items, onChange }) => {
   const [value, setValue] = useState('');
 
   const onChangeHandler = (event) => {
@@ -10,19 +9,24 @@ const ProductFilter = ({ id, name, onChange, list }) => {
   };
 
   return (
-    <span className={classes['form-div']}>
-      <FormControl variant="outlined" className={classes['form-control']}>
-        <InputLabel id={`${name}-label`}>{name}</InputLabel>
-        <Select labelId={`${name}-label`} displayEmpty id={name} value={value} onChange={onChangeHandler} sx={{ textAlign: 'right' }}>
-          <MenuItem value="">전체</MenuItem>
-          {list.map((menu_item) => (
-            <MenuItem key={menu_item.value} value={menu_item.value}>
-              {menu_item.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </span>
+    <FormControl variant="outlined" fullWidth style={{ marginBottom: '1em' }}>
+      <InputLabel id={`${items[0]?.name}-label`}>{items[0]?.name}</InputLabel>
+      <Select
+        labelId={`${items[0]?.name}-label`}
+        displayEmpty
+        id={items[0]?.name}
+        value={value}
+        onChange={onChangeHandler}
+        sx={{ textAlign: 'right' }}
+      >
+        <MenuItem value="">전체</MenuItem>
+        {items[0]?.list.map((menu_item) => (
+          <MenuItem key={menu_item.value} value={menu_item.value}>
+            {menu_item.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
