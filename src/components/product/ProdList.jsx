@@ -33,6 +33,18 @@ function ProdList() {
           // 3. <body>의 콘텐츠만 추출
           const bodyContent = doc.body.innerHTML;
           setHtmlContent(bodyContent);
+
+          // 4. <script> 태그 추출 및 실행
+          const scriptElements = doc.body.querySelectorAll('script');
+          scriptElements.forEach((script) => {
+            const newScript = document.createElement('script');
+            if (script.src) {
+              newScript.src = script.src;  // 외부 스크립트일 경우 src 복사
+            } else {
+              newScript.textContent = script.textContent;  // 인라인 스크립트일 경우 내용 복사
+            }
+            document.body.appendChild(newScript);  // 스크립트 실행
+          });
         })
         .catch(error => console.error('Failed to load chatbot.html:', error));
     }
