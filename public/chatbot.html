@@ -440,6 +440,8 @@
     </div>
 
     <script>
+        const CHATBOT_SERVICE_URL = 'https://kkjd129f1asg7l-5001.proxy.runpod.net'
+
         // 빠른 질문 기능
         function quickQuestion(question) {
             var input = document.getElementById('userInput');
@@ -462,16 +464,17 @@
                 button.style.backgroundColor = '#d0e1ff'; // 버튼 배경색 변경
                 button.style.color = '#fff'; // 버튼 텍스트 색 변경
     
-                fetch('/chat', {
+                fetch(CHATBOT_SERVICE_URL +'/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ question: message }),
+                    mode: 'cors'  // CORS 요청 허용
                 })
                 .then(response => response.json())
                 .then(data => {
-                    displayMessage(data.answer, 'bot', '/static/image/profile.png');
+                    displayMessage(data.answer, 'bot', CHATBOT_SERVICE_URL+'/static/image/profile.png');
                     input.placeholder = '궁금한 사항을 입력해주세요.'; // placeholder 원래대로
                     button.disabled = false; // 버튼 활성화
                     button.style.backgroundColor = '#81a5cd'; // 버튼 배경색 복원
@@ -479,7 +482,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    displayMessage('Error: 메시지를 보내는 중 문제가 발생했습니다.', 'bot', '/static/image/profile.png');
+                    displayMessage('Error: 메시지를 보내는 중 문제가 발생했습니다.', 'bot', CHATBOT_SERVICE_URL+'/static/image/profile.png');
                     input.placeholder = '궁금한 사항을 입력해주세요.'; // placeholder 원래대로
                     button.disabled = false; // 버튼 활성화
                     button.style.backgroundColor = '#81a5cd'; // 버튼 배경색 복원
@@ -496,7 +499,7 @@
 
             var profileImage = document.createElement('img');
             profileImage.classList.add('profile_image');
-            profileImage.src = sender === 'bot' ? '/static/image/profile.png' : '';
+            profileImage.src = sender === 'bot' ? CHATBOT_SERVICE_URL+'/static/image/profile.png' : '';
 
             var messageBox = document.createElement('div');
             messageBox.classList.add('message_box');
@@ -527,7 +530,7 @@
         // 접속 시 안내 메시지 띄우기
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
-                displayMessage('안녕하세요! 무엇이든 물어보세요.', 'bot', '/static/image/profile.png');
+                displayMessage('안녕하세요! 무엇이든 물어보세요.', 'bot', CHATBOT_SERVICE_URL+'/static/image/profile.png');
             }, 1200);
     
             // 드래그 앤 드롭 이벤트 리스너 추가
@@ -690,10 +693,11 @@
             var formData = new FormData();
             formData.append('file', file);
     
-            fetch('/upload', {
+            fetch(CHATBOT_SERVICE_URL+'/upload', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include'
+                credentials: 'include',
+                mode: 'cors'  // CORS 요청 허용
             })
             .then(response => response.json()) // JSON 응답으로 변경
             .then(data => {
