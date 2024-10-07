@@ -1,0 +1,8 @@
+.sidebar-content {
+	margin-top: 20px;
+	height: 800px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+	width: 100%;
+}

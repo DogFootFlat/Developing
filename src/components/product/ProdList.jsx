@@ -6,6 +6,7 @@ import Sidebar from '../basic/SideBar';
 import Header from '../layout/Header';
 import Cart from './cart/Cart';
 import Products from './products/Products';
+import classes from './css/ProdList.module.css';
 
 function ProdList() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -23,7 +24,7 @@ function ProdList() {
 
           // 1. <head>의 스타일 태그 및 링크 태그 추출
           const headElements = doc.head.querySelectorAll('style, link[rel="stylesheet"]');
-          
+
           // 2. 추출한 스타일 요소들을 <head>에 추가
           headElements.forEach(element => {
             document.head.appendChild(element.cloneNode(true));
@@ -35,12 +36,19 @@ function ProdList() {
         })
         .catch(error => console.error('Failed to load chatbot.html:', error));
     }
+
+    document.body.style.overflow = sidebarIsVisible ? 'hidden' : 'auto';
+
+    // Cleanup 함수에서 사이드바가 닫힐 때 스크롤 복원
+    return () => {
+      document.body.style.overflow = 'auto';  // 사이드바가 닫힐 때 스크롤 복원
+    };
   }, [sidebarIsVisible]);
 
   const showCartHandler = () => {
     setCartIsShown(true);
   };
-  
+
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
@@ -72,12 +80,16 @@ function ProdList() {
       </IconButton>
 
       {/* 사이드바 모달 */}
-      <Sidebar 
-        isVisible={sidebarIsVisible} 
-        content={<div dangerouslySetInnerHTML={{ __html: htmlContent }} />} 
-        onClose={toggleSidebar} 
+      <Sidebar
+        isVisible={sidebarIsVisible}
+        content={
+          <div className={classes['sidebar-content']} 
+          dangerouslySetInnerHTML={{ __html: htmlContent }}>
+          </div>
+        }
+        onClose={toggleSidebar}
       />
-    </CartProvider>
+    </CartProvider >
   );
 }
 

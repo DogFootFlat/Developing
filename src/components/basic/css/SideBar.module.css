@@ -1,21 +1,45 @@
 .sidebar {
-  position: fixed;
-  top: 20vh; /* 위쪽에서 떨어진 거리 */
-  right: 20px; /* 오른쪽 여백 */
-  width: 90%; /* 기본 너비 */
-  max-width: 400px; /* 최대 너비 설정 */
-  height: 800px; /* 세로 높이를 width의 2배로 설정 */
-  background-color: white; /* 배경색 */
-  padding: 1rem; /* 내부 여백 */
-  border-radius: 14px; /* 모서리 둥글게 */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* 그림자 */
-  z-index: 30; /* 다른 요소 위에 표시 */
-  opacity: 0; /* 초기 상태: 투명 */
-  visibility: hidden; /* 초기 상태: 숨김 */
-  transition: opacity 0.3s ease, visibility 0.3s ease; /* 애니메이션 효과 */
+	position: fixed;
+	top: 20vh; /* 위쪽에서 떨어진 거리 */
+	right: 20px; /* 오른쪽 여백 */
+	width: 90%; /* 기본 너비 */
+	max-width: 480px; /* 최대 너비 설정 */
+	height: 820px; /* 세로 높이 설정 */
+	background-color: white; /* 배경색 */
+	padding: 1rem; /* 내부 여백 */
+	border-radius: 14px; /* 모서리 둥글게 */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* 그림자 */
+	z-index: 30; /* 다른 요소 위에 표시 */
+	opacity: 0; /* 초기 상태: 투명 */
+	visibility: hidden; /* 초기 상태: 숨김 */
+	transition: opacity 0.3s ease, visibility 0.3s ease; /* 애니메이션 효과 */
+	display: flex;
+	flex-direction: column; /* 세로로 요소 배치 */
+	justify-content: space-between; /* 위, 아래로 공간 배분 */
+	overflow: hidden; /* 전체 오버플로 제거 */
+  overflow-y: auto; /* 내부 스크롤 허용 */
+}
+
+@media (max-width: 768px) {
+	.sidebar {
+		width: 100%; /* 작은 화면에서는 사이드바를 전체 너비로 설정 */
+		height: 100vh; /* 작은 화면에서는 세로로 전체를 덮도록 설정 */
+		top: 0;
+	}
 }
 
 .sidebar.visible {
-  opacity: 1; /* 나타나는 상태: 불투명 */
-  visibility: visible; /* 나타나는 상태: 보임 */
+	opacity: 1;
+	visibility: visible;
+}
+
+.sidebar-button {
+	text-align: right;
+}
+
+.sidebar-content {
+	min-height: 800px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
 }

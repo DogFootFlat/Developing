@@ -18,13 +18,13 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
 
 	fetchPrudctsByQueryString(queryString) {
-		return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCT;
 	}

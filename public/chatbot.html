@@ -87,7 +87,7 @@
             color: #fff;
             text-align: center;
             box-sizing: border-box;
-            font-size: 13px;
+            font-size: 12px;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -125,6 +125,8 @@
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+            width: 40px;
+            height: 40px;
         }
 
         .btn_input:hover {
@@ -237,6 +239,7 @@
         }
 
         .drop_area {
+            min-width: 100px;
             margin-top: 20px;
             border: 1px dashed #81a5cd;
             border-radius: 12px;
@@ -265,6 +268,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            cursor: pointer;
         }
 
         /* 이미지 미리보기 스타일 */
@@ -305,6 +309,7 @@
             border: none;
             border-radius: 12px;
             margin-bottom: 10px;
+            cursor: pointer;
         }
 
         /* 가상 피팅 모달 스타일 */
@@ -334,6 +339,7 @@
         }
 
         .right-pane {
+            min-width: 100px;
             flex: 1;
             display: flex;
             align-items: center;
@@ -361,11 +367,12 @@
 </head>
 <body>
     <div class="chatbot_container">
-        <!-- 헤더 섹션 -->
+        <!-- 헤더 섹션
         <div class="header">
             <img src="static/image/OtPishAI_dark.png" alt="Logo" class="logo">
             <button class="close-btn" onclick="closeChat()">✖</button>
         </div>
+        -->
 
         <!-- 채팅창 -->
         <div class="chat" id="chatWindow"></div>
@@ -391,8 +398,7 @@
                 <button class="close-btn" onclick="closeUploadModal()">✖</button>
             </div>
             <div class="drop_area" id="dropArea">
-                <span>여기로 드래그 앤 드롭 또는</span>
-                <span>클릭하여 파일을 선택하세요!</span>
+                <span>클릭 혹은 파일을 드롭하세요</span>
                 <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
             </div>
         </div>
@@ -419,9 +425,9 @@
             <div class="modal-content">
                 <div class="modal-content">
                     <div class="left-pane">
-                        <div class="drop_area" id="fittingDropArea" style="margin-top: 0px; border: none;">
-                            <span>여기로 드래그 앤 드롭 또는</span>
-                            <span>클릭하여 파일을 선택하세요!</span>
+                        <div class="drop_area" id="fittingDropArea" style="margin-top: 0px; border: none; width: 100px;">
+                            <span>&nbsp;클릭 혹은&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;파일을 드롭하세요&nbsp;&nbsp;</span>
                             <input type="file" id="fileInput" accept="image/*" onchange="handleFittingImageUpload(event)">
                         </div>
                     </div>
@@ -443,6 +449,7 @@
     
         // 채팅 서버에 메시지를 보내고, 답변을 받아와 UI를 업데이트하는 함수
         function sendMessage() {
+            closeAllModals(); // 모든 모달 닫기
             var input = document.getElementById('userInput');
             var button = document.querySelector('.btn_input'); // 버튼 선택
             var message = input.value.trim();
@@ -545,8 +552,16 @@
         }
     
         // 모달 제어
+        // 모달 닫고 시작하기
+        function closeAllModals() {
+            document.getElementById('uploadModal').style.display = 'none';
+            document.getElementById('colorPaletteModal').style.display = 'none';
+            document.getElementById('fittingModal').style.display = 'none';
+        }
+
         // 이미지 검색 열기
         function displayUploadModal() {
+            closeAllModals(); // 모든 모달 닫기
             displayMessage('이미지 검색', 'bot');
             var dropArea = document.getElementById('uploadDropArea');
             document.getElementById('uploadModal').style.display = 'block';
@@ -566,6 +581,7 @@
     
         // 색상 검색 열기
         function displayColorPaletteModal() {
+            closeAllModals(); // 모든 모달 닫기
             displayMessage('색상 검색', 'bot');
             document.getElementById('colorPaletteModal').style.display = 'block';
         }
@@ -577,6 +593,7 @@
     
         // 가상 피팅 열기
         function openFittingModal() {
+            closeAllModals(); // 모든 모달 닫기
             displayMessage('가상 피팅', 'bot');
             var fittingDropArea = document.getElementById('fittingDropArea');
             document.getElementById('fittingModal').style.display = 'block';
