@@ -1,14 +1,20 @@
 @charset "UTF-8";
-/* home css */
 
-.home {
-    margin-top: 37vh;
+/* 메인 컨테이너 */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+    min-height: 100vh;
+    padding: 2rem;
 }
 
+/* 로그인 섹션 */
 .login {
     position: absolute;
-    top: 5em;
-    right: 5em;
+    top: 2em;
+    right: 2em;
 }
 
 .login button {
@@ -16,9 +22,12 @@
     background-color: #aabee6cc;
     box-shadow: 0px 0px 20px 4px #aabee6cc;
     color: white;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     text-shadow: 0px 0px 5px black;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
 }
 
 .login button:hover {
@@ -26,41 +35,95 @@
     box-shadow: 0px 0px 20px 4px #9ab2e3cc;
 }
 
-.container__1 {
-    position: absolute;
-    width: 75em;
-}
-.container__2 {
-    position: absolute;
-    margin-top: 7em;
-    width: 75em;
-}
-
-.container__1 h1 {
-    float: left;
-    width: 6.1em;
-    margin-left: 0.5em;
-    margin-bottom: 0.7em;
-    color: white;
-    font-size: 80px;
-    text-align: left;
-    text-shadow: 1px 1px 8px #44444488;
-    background-color: #ffffff58;
+/* 배너 섹션 */
+.banner {
+    width: 100%;
+    height: 300px;
+    background: no-repeat center center/cover;
+    margin-bottom: 2rem;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-.title__link a {
-    margin-left: -6.5rem;
-    float: left;
-    font-size: 18px;
-    color: #d3e4ff;
+/* 카테고리 메뉴 */
+.category-menu {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.category-menu div {
+    padding: 1rem 2rem;
+    background-color: #ffffffaa;
+    border-radius: 10px;
+    font-size: 20px;
     font-weight: bold;
-    text-shadow: 0px 0px 4px black;
-    text-align: right;
-}
-.title__link a:hover {
-    color: #9ab2e3;
+    color: #333;
+    text-shadow: 0px 0px 5px #ddd;
+    cursor: pointer;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
+.category-menu div:hover {
+    transform: scale(1.05);
+    background-color: #eef2ff;
+}
+
+/* 추천 상품 섹션 */
+.featured-products {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.featured-products h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.product-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+}
+
+.product-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}
+
+.product-item img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.product-item div {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.product-item div:last-child {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* 시계 스타일 유지 */
 .clock {
     float: right;
     width: 10em;
@@ -75,37 +138,11 @@
     margin-top: -2.5rem;
     padding-right: 0;
 }
+
 .clock__caldr {
     font-size: 18px;
 }
+
 .clock__time {
     font-size: 30px;
-}
-
-.list {
-    position: relative;
-    float: right;
-    text-align: right;
-}
-
-.list p {
-    color: white;
-    margin-bottom: 0.1rem;
-    font-size: 18px;
-    font-weight: bold;
-    text-shadow: 1px 1px 8px #3b3b3b;
-    text-align: right;
-}
-
-.list a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1.5rem;
-    font-size: 25px;
-}
-
-.list a:hover {
-    color: #7f9ed7b1;
-    text-shadow: 1px 1px 2px #3b3b3b69;
-    text-decoration: underline;
 }
