@@ -30,7 +30,7 @@ class ApiService {
 	}
 
 	fetchProductByNum(productNum) {
-		return axios.get(`${API_BASE_URL}/product_detail?${productNum}`, { withCredentials: true });
+		return axios.get(`${API_BASE_URL}/product_detail/${productNum}`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
