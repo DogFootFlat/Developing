@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // 장바구니 아이콘 추가
 import Input from "../../UI/Input";
 import classes from "./css/ProductItemForm.module.css";
 
@@ -11,7 +11,7 @@ const ProductItemForm = (props) => {
     event.preventDefault();
 
     const enteredAmount = amountInputRef.current.value;
-    const enteredAmountNumber = +enteredAmount; // 숫자로 변환
+    const enteredAmountNumber = +enteredAmount;
 
     if (
       enteredAmount.trim().length === 0 ||
@@ -21,7 +21,7 @@ const ProductItemForm = (props) => {
       setAmountIsValid(false);
       return;
     }
-    
+
     props.onAddToCart(enteredAmountNumber);
   };
 
@@ -39,7 +39,9 @@ const ProductItemForm = (props) => {
           defaultValue: "1",
         }}
       />
-      <button>+ Add</button>
+      <button className={classes.cartButton} type="submit">
+        + <ShoppingCartIcon /> {/* 장바구니 아이콘 */}
+      </button>
       {!amountIsValid && <p>Please enter a valid amount (1-5).</p>}
     </form>
   );

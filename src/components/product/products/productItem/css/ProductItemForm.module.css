@@ -1,5 +1,11 @@
 .form {
-  text-align: right;
+  display: flex; /* Flexbox로 정렬 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.form input {
+  margin-right: 0.5rem; /* 버튼과의 간격 조정 */
 }
 
 .form button {
@@ -11,6 +17,10 @@
   border-radius: 20px;
   font-weight: bold;
   font-size: 15px;
+  width: auto; /* 너비를 자동으로 조정 */
+  padding: 0 1rem; /* 패딩을 제거하여 아이콘에 맞춤 */
+  display: flex; /* Flexbox로 정렬 */
+  align-items: center; /* 아이콘 중앙 정렬 */
 }
 
 .form button:hover,
