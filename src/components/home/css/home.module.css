@@ -92,36 +92,85 @@
     gap: 1.5rem;
 }
 
-.productItem {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+/* 상품 카드 스타일 */
+.productCard {
+    width: 100%;
+    max-width: 220px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
     transition: transform 0.3s ease;
 }
 
-.productItem:hover {
-    transform: scale(1.05);
+.productCard:hover {
+    transform: scale(1.03);
 }
 
-.productItem img {
-    width: 200px;
+.productContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.imageContainer {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 0.3rem;
+}
+
+.productImage {
+    width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 1rem;
 }
 
-.productItem div {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 0.5rem;
+.productName {
+    font-size: 1.2rem;
+    margin: 0.1rem 0;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
 }
 
-.productItem div:last-child {
-    font-size: 16px;
-    color: #999;
+.priceSection {
+    margin: 1rem 0;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.originalPrice {
+    font-size: 0.75rem;
     text-decoration: line-through;
+    color: gray;
+    line-height: 1.2;
+    margin-bottom: 0.1rem;
+}
+
+.discountWrapper {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;
+    margin-top: 0.1rem;
+}
+
+.discountPercentage {
+    font-weight: bold;
+    color: #ad4102; /* 할인율 강조 */
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-right: 0.5rem; /* rprice와의 가로 간격을 넓힘 */
+}
+
+.salePrice {
+    font-weight: bold;
+    color: #000; /* rprice는 검정색 */
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 /* 시계 */

@@ -1,92 +1,97 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ApiService from '../../ApiService';
-import styles from './css/home.module.css';  // 모듈 CSS 불러오기
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import ApiService from '../../ApiService'; // ApiService 경로에 맞게 조정
+import classes from './css/home.module.css'; // CSS 모듈 임포트
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-  // 상품을 가져오는 함수
-  const fetchProductsHandler = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await ApiService.fetchProducts();
-      if (response.status < 200 || response.status >= 300) {
-        throw new Error('Something went wrong!');
-      }
-      const data = response.data?.content || [];
-      setProducts(data);
+    const fetchProductsHandler = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await ApiService.fetchProducts(); // queryString 없이 fetch
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error('Something went wrong!');
+            }
+            const data = response.data?.content || [];
 
-      // judge가 높은 3개 상품만 필터링
-      const topProducts = data
-        .sort((a, b) => b.judge - a.judge) // judge 기준으로 내림차순 정렬
-        .slice(0, 3); // 상위 3개 선택
-      setFeaturedProducts(topProducts);
-    } catch (err) {
-      setError(err.message || 'Failed to fetch products');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+            let sortedProducts = [];
 
-  // 컴포넌트가 마운트될 때 상품을 가져옴
-  useEffect(() => {
-    fetchProductsHandler();
-  }, []);
+            // judge가 높은 상품을 찾기
+            const judgeProducts = data.filter(product => product.judge !== "NULL");
 
-  return (
-    <div className={styles.homeContainer}>
-      {/* 로그인 버튼 */}
-      <div className={styles.login}>
-        <Link to='/sign-in'><button>로그인</button></Link>
-      </div>
+            if (judgeProducts.length > 0) {
+                sortedProducts = judgeProducts
+                    .sort((a, b) => b.judge - a.judge) // judge 기준 내림차순 정렬
+                    .slice(0, 3); // 상위 3개 상품만 선택
+            } else {
+                // judge가 NULL인 상품을 맨 앞 3개로 선택
+                sortedProducts = data.slice(0, 3);
+            }
 
-      {/* 배너 섹션: judge가 높은 3개 상품 */}
-      <div className={styles.banner}>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {featuredProducts.length > 0 && (
-          <div className={styles.featuredBanner}>
-            {featuredProducts.map((product) => (
-              <div key={product.id} className={styles.featuredItem}>
-                <img src={product.imageUrl} alt={product.name} />
-                <div>{product.name}</div>
-                <div>₩{product.price.toLocaleString()}</div>
-                {product.discountPrice && (
-                  <div>
-                    <span className={styles.discountPrice}>₩{product.discountPrice.toLocaleString()}</span>
-                  </div>
+            setFeaturedProducts(sortedProducts);
+        } catch (err) {
+            setError(err.message || 'Failed to fetch products');
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchProductsHandler();
+    }, [fetchProductsHandler]);
+
+    return (
+        <div className={classes.homeContainer}>
+            <div className={classes.login}>
+                <Link to={'./sign-in'}>
+                    <button>로그인</button>
+                </Link>
+                <Link to={'./sign-up'}>
+                    <button>회원가입</button>
+                </Link>
+            </div>
+
+            {/* 배너 섹션 */}
+            <div className={classes.banner}>
+                {isLoading && <p>로딩 중...</p>}
+                {error && <p>{error}</p>}
+                {!isLoading && !error && featuredProducts.length > 0 && (
+                    <div className={classes.featuredProducts}>
+                        <h2>추천 상품</h2>
+                        <div className={classes.productList}>
+                            {featuredProducts.map(product => (
+                                <div key={product.productCode} className={classes.productItem}>
+                                    <Link to={`/products/${product.productCode}`} className={classes.imageContainer}>
+                                        <img src={product.productImg[0]} alt={product.productName} />
+                                    </Link>
+                                    <div>{product.productName}</div>
+                                    {product.rprice > 0 ? (
+                                        <>
+                                            <div className={classes.originalPrice}>
+                                                {product.oprice.toLocaleString()} 원
+                                            </div>
+                                            <div className={classes.discountWrapper}>
+                                                <span className={classes.discountPercentage}>
+                                                    {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%
+                                                </span>
+                                                <span className={classes.salePrice}>{product.rprice.toLocaleString()} 원</span>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className={classes.salePrice}>{product.oprice.toLocaleString()} 원</div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 나머지 콘텐츠 */}
-      <div className={styles.categoryMenu}>
-        <div>남성 의류</div>
-        <div>여성 의류</div>
-        <div>액세서리</div>
-      </div>
-
-      <div className={styles.featuredProducts}>
-        <h2>추천 상품</h2>
-        <div className={styles.productList}>
-          {/* 추가 상품 리스트 구현 */}
+            </div>
         </div>
-      </div>
-
-      {/* 시계 섹션 */}
-      <div className={styles.clock}>
-        {/* 시계 구현 */}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Home;
