@@ -7,42 +7,37 @@ import classes from './css/ProductItem.module.css';
 
 const ProductItem = (props) => {
 	const cartCtx = useContext(CartContext);
-	const price = `${props.oprice} 원`;
-	let discountDisplay = <div className={classes.salePrice}>{price}</div>;
-
-	if (props.rprice > 0) {
-		const discountPercentage = Math.round(((props.oprice - props.rprice) / props.oprice) * 100);
-		discountDisplay = (
-			<div className={classes.discount}>
-				<span className={classes.originalPrice}>{props.oprice} 원</span>
-				<span className={classes.discountPercentage}>{discountPercentage}% OFF</span>
-				<span className={classes.salePrice}>{props.rprice} 원</span>
-			</div>
-		);
-	}
 
 	const addToCartHandler = (amount) => {
 		cartCtx.addItem({
 			id: props.id,
 			name: props.name,
 			amount: amount,
-			price: props.oprice,
+			price: props.rprice > 0 ? props.rprice : props.oprice,
 		});
 	};
 
 	return (
-		<li className={classes.product}>
-			<div>
-				<h3>{props.name}</h3>
+		<li className={classes.productCard}>
+			<div className={classes.productContent}>
+				<Link to={`/products/${props.id}`} className={classes.imageContainer}>
+					<img src={props.img} alt={props.name} className={classes.productImage} />
+				</Link>
+				<h3 className={classes.productName}>{props.name}</h3>
 				{props.productInfo && <div className={classes.description}>{props.productInfo}</div>}
-				<div>
-					<Link>
-						<img src={props.img} alt={props.name} />
-					</Link>
+				<div className={classes.priceSection}>
+					{props.rprice > 0 ? (
+						<>
+							<div className={classes.originalPrice}>{props.oprice.toLocaleString()} 원</div>
+							<div className={classes.discount}>
+								<span className={classes.discountPercentage}>{Math.round(((props.oprice - props.rprice) / props.oprice) * 100)}%</span>
+								<span className={classes.salePrice}>{props.rprice.toLocaleString()} 원</span>
+							</div>
+						</>
+					) : (
+						<div className={classes.salePrice}>{props.oprice.toLocaleString()} 원</div>
+					)}
 				</div>
-				{discountDisplay}
-			</div>
-			<div>
 				<ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
 			</div>
 		</li>
