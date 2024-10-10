@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  padding: 1rem 2rem;
+  background-color: #fff; /* 배경색 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+}
+
+.logoImg img {
+  height: 50px; /* 로고 높이 조정 */
+}
+
+.nav {
+  display: flex;
+  gap: 1rem; /* 버튼 간격 */
+  align-items: center; /* 중앙 정렬 */
+}
+
+.nav a {
+  font-size: 1rem; /* 버튼 글자 크기 */
+  color: #333; /* 글자 색상 */
+  text-decoration: none; /* 밑줄 제거 */
+  padding: 0.5rem 1rem; /* 버튼 패딩 */
+  border-radius: 5px; /* 부드러운 모서리 */
+  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+.nav a:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 */
+}
