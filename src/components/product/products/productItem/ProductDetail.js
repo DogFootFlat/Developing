@@ -12,7 +12,8 @@ const ProductDetail = () => {
         const fetchProductDetails = async () => {
             try {
                 const response = await ApiService.fetchProductByNum(productNum);
-                setProduct(response);
+                const data = response.data;
+                setProduct(data);
             } catch (error) {
                 console.error("Error fetching product details:", error);
             } finally {
