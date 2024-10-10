@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom"; // Link import 추가
+import { Link } from "react-router-dom";
 import logo from "../../img/OtPishAI_light.png";
 import classes from "./css/homeheader.module.css";
 

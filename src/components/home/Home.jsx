@@ -55,7 +55,7 @@ const Home = () => {
       </div>
       {/* 카테고리 메뉴 */}
       <div className={classes.categoryMenu}>
-        <Link to="/category1">카테고리 1</Link>
+        <Link to="/prod-list">상품목록</Link>
         <Link to="/category2">카테고리 2</Link>
         <Link to="/category3">카테고리 3</Link>
         <Link to="/category4">카테고리 4</Link>
