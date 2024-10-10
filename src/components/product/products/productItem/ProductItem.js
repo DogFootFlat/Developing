@@ -19,7 +19,7 @@ const ProductItem = (props) => {
 
 	return (
 		<li className={classes.productCard}>
-			<Link to={`/products/${props.id}`} className={classes.productLink}>
+			<Link to={`/product/${props.num}`} className={classes.productLink}>
 				<div className={classes.productContent}>
 					<div className={classes.imageContainer}>
 						<img src={props.img} alt={props.name} className={classes.productImage} />

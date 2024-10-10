@@ -61,7 +61,7 @@ const AvailableProducts = () => {
 
 	useEffect(() => {
 		fetchProductsHandler(); // 초기 로드 시 fetch
-		ctx.setCurrentPage('prod-list');
+		ctx.setCurrentPage('products');
 	}, [fetchProductsHandler, ctx]);
 
 	if (isLoading) {
@@ -93,6 +93,7 @@ const AvailableProducts = () => {
 	const productsList = products.map((product) => (
 		<ProductItem
 			id={product.productCode}
+			num={product.productNum}
 			key={product.productCode}
 			name={product.productName}
 			genre={product.genreCode}

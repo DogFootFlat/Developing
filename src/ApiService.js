@@ -18,55 +18,21 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		// return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
+		return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
 
 	fetchPrudctsByQueryString(queryString) {
-		// return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
+		return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCT;
 	}
 
-	fetchBooks() {
-		return axios.get(`${API_BASE_URL}/books`);
-	}
-
-	addUser(user) {
-		return axios.post(`${API_BASE_URL}/register`, user, { withCredentials: true });
-	}
-
-	fetchBookByID(bookId) {
-		return axios.get(`${API_BASE_URL}/books/${bookId}`);
-	}
-
-	editBook(book) {
-		return axios.put(`${API_BASE_URL}/books/${book.key}`, book);
-	}
-
-	addBook(book) {
-		return axios.post(`${API_BASE_URL}/books`, book);
-	}
-
-	fileUpLoad(book) {
-		return axios.post(`${API_BASE_URL}/books`, book);
-	}
-
-	deleteBook(bookId) {
-		return axios.delete(`${API_BASE_URL}/books/${bookId}`);
-	}
-
-	fetchUserByID(userId) {
-		return axios.get(`${API_BASE_URL}/users/${userId}`);
-	}
-
-	editUser(user) {
-		return axios.put(`${API_BASE_URL}/users/${user.key}`, user);
-	}
-
-	deleteUser(userId) {
-		return axios.delete(`${API_BASE_URL}/users/${userId}`);
+	fetchProductByNum(productNum) {
+		return axios.get(`${API_BASE_URL}/product_detail?${productNum}`, { withCredentials: true });
+		// TODO: 테스트코드
+		return PRODUCT;
 	}
 }
 

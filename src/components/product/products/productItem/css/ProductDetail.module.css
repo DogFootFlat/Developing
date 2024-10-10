@@ -1,104 +1,22 @@
-/* 전체 컨테이너 */
-.container {
-  display: flex;
-  padding: 60px 0;
-  max-width: 950px;
+.productDetail {
+  padding: 20px;
+  max-width: 600px;
   margin: 0 auto;
+  text-align: center;
 }
 
-/* 이미지 섹션 */
-.imageSection {
-  flex: 1;
-  padding-right: 20px;
-}
-
-.image {
-  height: 406px;
+.productDetail img {
   width: 100%;
-  object-fit: cover;
+  height: auto;
+  margin-bottom: 15px;
 }
 
-/* 텍스트 섹션 */
-.textSection {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 상품 이름 및 정보 */
-.productName {
-  font-size: 24px;
+.price {
+  font-size: 1.5em;
   font-weight: bold;
-  margin: 0;
 }
 
-.productDescription {
-  margin: 10px 0;
-  font-size: 16px;
-}
-
-/* 옵션 선택 섹션 */
-.selectOption {
-  margin: 32px 0;
-}
-
-/* 옵션 박스 */
-.optionBox {
-  background-color: rgb(248, 248, 248);
-  padding: 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* 버튼 */
-.buttonContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-}
-
-.button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.addToCartButton {
-  background-color: rgb(255, 111, 97);
-  color: white;
-}
-
-.buyNowButton {
-  background-color: rgb(255, 240, 239);
-  color: rgb(255, 111, 97);
-}
-
-/* 합계 텍스트 */
-.total {
-  font-size: 18px;
+.discount {
+  color: red;
   font-weight: bold;
-  margin: 16px 0;
-}
-
-/* 상세 이미지 박스 */
-.imgBox {
-  margin: 100px auto 30px auto;
-  width: 57%;
-}
-
-/* 구분선 */
-.line {
-  border: solid 0.2px #ebebeb;
-  width: 92%;
-  margin: 16px 0;
-}
-
-/* 하이라이트 텍스트 */
-.highlight {
-  color: #ff6f61;
-  font-weight: 800;
 }

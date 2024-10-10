@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ProductDetail.module.css'; // CSS 모듈 가져오기
+import { useParams } from 'react-router-dom'; // useParams 가져오기
+import styles from './css/ProductDetail.module.css';
+import ApiService from '../../../../ApiService';
 
-const ProductDetail = ({ productId }) => {
+const ProductDetail = () => {
+    const { productNum } = useParams(); // URL 파라미터에서 productNum 가져오기
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // 데이터 가져오기 (가상의 API 호출)
         const fetchProductDetails = async () => {
             try {
-                const response = await fetch(`/api/products/${productId}`); // 실제 API 경로에 맞게 수정
+                const response = await ApiService.fetchProductByNum(productNum)
                 const data = await response.json();
                 setProduct(data);
             } catch (error) {
@@ -20,7 +22,7 @@ const ProductDetail = ({ productId }) => {
         };
 
         fetchProductDetails();
-    }, [productId]);
+    }, [productNum]);
 
     if (loading) {
         return <div>Loading...</div>;
