@@ -50,7 +50,7 @@ const Home = () => {
       {/* 배너 섹션 */}
       <div className={classes.banner}>
         <div className={classes.overlay}></div>
-        <h2>환영합니다! 다양한 상품을 만나보세요.</h2>
+        <h2>옷피셜. 세상에 없던 AI 쇼핑몰</h2>
         <img src={closetImage} alt="A table full of delicious food!" className={classes.bannerImage} />
       </div>
       {/* 카테고리 메뉴 */}
