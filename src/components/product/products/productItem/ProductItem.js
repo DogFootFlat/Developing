@@ -29,8 +29,10 @@ const ProductItem = (props) => {
 					{props.rprice > 0 ? (
 						<>
 							<div className={classes.originalPrice}>{props.oprice.toLocaleString()} 원</div>
-							<div className={classes.discount}>
-								<span className={classes.discountPercentage}>{Math.round(((props.oprice - props.rprice) / props.oprice) * 100)}%</span>
+							<div className={classes.discountWrapper}>
+								<span className={classes.discountPercentage}>
+									{Math.round(((props.oprice - props.rprice) / props.oprice) * 100)}%
+								</span>
 								<span className={classes.salePrice}>{props.rprice.toLocaleString()} 원</span>
 							</div>
 						</>
