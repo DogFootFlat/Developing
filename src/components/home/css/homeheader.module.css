@@ -8,8 +8,14 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }
 
-.logoImg img {
-  height: 50px; /* 로고 높이 조정 */
+.header .logoImg {
+	height: 4rem;
+	margin: 0.5rem;
+}
+
+.header .logoImg img {
+	height: 4rem;
+	transform: rotate(9deg);
 }
 
 .nav {

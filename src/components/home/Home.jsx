@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import HomeHeader from './HomeHeader'; // Header 컴포넌트 import
 import ApiService from '../../ApiService'; // ApiService 경로에 맞게 조정
 import closetImage from '../../assets/closet.jpg';
 import classes from './css/home.module.css'; // CSS 모듈 임포트
@@ -45,19 +46,13 @@ const Home = () => {
   return (
     <div className={classes.homeContainer}>
       {/* 헤더 */}
-      <header className={classes.header}>
-        <h1>옷피셜</h1>
-        <nav className={classes.nav}>
-          <Link to={'./sign-in'}>로그인</Link>
-          <Link to={'./sign-up'}>회원가입</Link>
-        </nav>
-      </header>
+      <HomeHeader /> {/* Header 컴포넌트 호출 */}
 
       {/* 배너 섹션 */}
       <div className={classes.banner}>
         <div className={classes.overlay}></div>
         <h2>환영합니다! 다양한 상품을 만나보세요.</h2>
-        <img src={closetImage} alt="A table full of delicous food!" className={classes.bannerImage} />
+        <img src={closetImage} alt="A table full of delicious food!" className={classes.bannerImage} />
       </div>
 
       {/* 카테고리 메뉴 */}
@@ -85,7 +80,9 @@ const Home = () => {
                   <>
                     <div className={classes.originalPrice}>{product.oprice.toLocaleString()} 원</div>
                     <div className={classes.discountWrapper}>
-                      <span className={classes.discountPercentage}>{Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%</span>
+                      <span className={classes.discountPercentage}>
+                        {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%
+                      </span>
                       <span className={classes.salePrice}>{product.rprice.toLocaleString()} 원</span>
                     </div>
                   </>
