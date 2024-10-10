@@ -97,7 +97,8 @@ const AvailableProducts = () => {
 			name={product.productName}
 			genre={product.genreCode}
 			img={product.productImg[0]}
-			price={product.oprice}
+			oprice={product.oprice}
+			rprice={product.rprice}
 		/>
 	));
 
