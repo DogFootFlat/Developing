@@ -47,14 +47,12 @@ const Home = () => {
     <div className={classes.homeContainer}>
       {/* 헤더 */}
       <HomeHeader /> {/* Header 컴포넌트 호출 */}
-
       {/* 배너 섹션 */}
       <div className={classes.banner}>
         <div className={classes.overlay}></div>
         <h2>환영합니다! 다양한 상품을 만나보세요.</h2>
         <img src={closetImage} alt="A table full of delicious food!" className={classes.bannerImage} />
       </div>
-
       {/* 카테고리 메뉴 */}
       <div className={classes.categoryMenu}>
         <Link to="/category1">카테고리 1</Link>
@@ -62,7 +60,6 @@ const Home = () => {
         <Link to="/category3">카테고리 3</Link>
         <Link to="/category4">카테고리 4</Link>
       </div>
-
       {/* 추천 상품 섹션 */}
       <div className={classes.featuredProducts}>
         <h2>추천 상품</h2>
@@ -71,30 +68,33 @@ const Home = () => {
         {!isLoading && !error && (
           <div className={classes.productList}>
             {featuredProducts.map((product) => (
-              <div key={product.productCode} className={classes.productItem}>
+              <div key={product.productCode} className={classes.productCard}>
                 <Link to={`/products/${product.productCode}`} className={classes.imageContainer}>
                   <img src={product.productImg[0]} alt={product.productName} className={classes.productImage} />
                 </Link>
-                <h3 className={classes.productName}>{product.productName}</h3>
-                {product.rprice > 0 ? (
-                  <>
-                    <div className={classes.originalPrice}>{product.oprice.toLocaleString()} 원</div>
-                    <div className={classes.discountWrapper}>
-                      <span className={classes.discountPercentage}>
-                        {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%
-                      </span>
-                      <span className={classes.salePrice}>{product.rprice.toLocaleString()} 원</span>
-                    </div>
-                  </>
-                ) : (
-                  <div className={classes.salePrice}>{product.oprice.toLocaleString()} 원</div>
-                )}
+                <div className={classes.productContent}>
+                  <h3 className={classes.productName}>{product.productName}</h3>
+                  <div className={classes.priceSection}>
+                    {product.rprice > 0 ? (
+                      <>
+                        <div className={classes.originalPrice}>{product.oprice.toLocaleString()} 원</div>
+                        <div className={classes.discountWrapper}>
+                          <span className={classes.discountPercentage}>
+                            {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%
+                          </span>
+                          <span className={classes.salePrice}>{product.rprice.toLocaleString()} 원</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className={classes.salePrice}>{product.oprice.toLocaleString()} 원</div>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
-
       {/* 푸터 */}
       <footer className={classes.footer}>
         <p>© 2024 옷피셜. All rights reserved.</p>

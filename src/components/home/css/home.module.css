@@ -1,12 +1,6 @@
-/* 홈 전체 컨테이너 */
 .homeContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f5f7fa; /* 단색 배경 */
-  min-height: 100vh;
-  padding: 2rem;
-  position: relative;
+  /* 필요에 따라 홈 컨테이너 스타일 추가 */
+  padding: 1rem;
 }
 
 /* 헤더 */
@@ -29,6 +23,7 @@
   display: flex;
   gap: 1rem; /* 버튼 간격 */
 }
+
 
 .nav a {
   font-size: 1rem; /* 버튼 글자 크기 */
@@ -79,7 +74,7 @@
   padding: 1rem 2rem;
   background-color: #ffffff; /* 흰색 배경 */
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: #333;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
@@ -99,58 +94,80 @@
 }
 
 .featuredProducts h2 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
+  text-align: left;
   color: #333;
-  margin-bottom: 2rem;
+  margin: 2rem;
 }
-
 .productList {
-  display: flex;
-  justify-content: space-around;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개씩 배치 */
+  gap: 1rem; /* 카드 사이 간격 */
+  justify-items: center; /* 중앙 정렬 */
+  max-width: 1200px; /* 전체 너비 설정 (원하는 값으로 조정) */
+  margin: 0 auto; /* 중앙 정렬을 위해 자동 여백 */
+  padding: 0 1rem; /* 좌우 패딩 추가 */
 }
 
 .productItem {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%; /* 전체 너비를 100%로 설정 */
+  max-width: calc((100% - 2rem) / 3); /* 카드 사이의 여백을 고려하여 너비 계산 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0.5rem; /* 카드 안의 패딩 */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
   transition: transform 0.3s ease;
 }
 
 .productItem:hover {
-  transform: scale(1.05);
+  transform: scale(1.03); /* 호버 시 확대 효과 */
 }
 
-.productItem img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 1rem;
+.productImage {
+  width: 100%;
+  height: 200px; /* 이미지 높이 설정 */
+  object-fit: contain; /* 이미지 비율 유지 */
 }
 
 .productName {
   font-size: 1.2rem;
   margin: 0.1rem 0;
+  overflow: hidden;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .originalPrice {
   font-size: 0.75rem;
   text-decoration: line-through;
   color: gray;
+  line-height: 1.2;
+  margin-bottom: 0.1rem;
+  text-align: left;
+}
+
+.discountWrapper {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  align-items: center;
+  margin-top: 0.1rem;
+}
+
+.discountPercentage {
+  font-weight: bold;
+  color: #ad4102; /* 할인율 강조 */
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-right: 0.5rem; /* rprice와의 가로 간격을 넓힘 */
 }
 
 .salePrice {
   font-weight: bold;
-  color: #000;
-}
-
-/* 푸터 */
-.footer {
-  width: 100%;
-  text-align: center;
-  padding: 1rem 0;
-  background-color: #f0f0f0; /* 배경색 */
+  color: #000; /* rprice는 검정색 */
+  font-size: 1rem;
+  line-height: 1.2;
 }
