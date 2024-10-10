@@ -1,16 +1,17 @@
 @charset "UTF-8";
 
-/* 메인 컨테이너 */
-.home-container {
+/* 홈 전체 컨테이너 */
+.homeContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
     min-height: 100vh;
     padding: 2rem;
+    position: relative;
 }
 
-/* 로그인 섹션 */
+/* 로그인 버튼 */
 .login {
     position: absolute;
     top: 2em;
@@ -46,14 +47,14 @@
 }
 
 /* 카테고리 메뉴 */
-.category-menu {
+.categoryMenu {
     display: flex;
     justify-content: center;
     gap: 2rem;
     margin-bottom: 3rem;
 }
 
-.category-menu div {
+.categoryMenu div {
     padding: 1rem 2rem;
     background-color: #ffffffaa;
     border-radius: 10px;
@@ -66,32 +67,32 @@
     transition: transform 0.3s ease;
 }
 
-.category-menu div:hover {
+.categoryMenu div:hover {
     transform: scale(1.05);
     background-color: #eef2ff;
 }
 
 /* 추천 상품 섹션 */
-.featured-products {
+.featuredProducts {
     width: 100%;
     max-width: 1200px;
     text-align: center;
     margin-bottom: 4rem;
 }
 
-.featured-products h2 {
+.featuredProducts h2 {
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 2rem;
 }
 
-.product-list {
+.productList {
     display: flex;
     justify-content: space-around;
     gap: 1.5rem;
 }
 
-.product-item {
+.productItem {
     background-color: white;
     padding: 1.5rem;
     border-radius: 10px;
@@ -99,11 +100,11 @@
     transition: transform 0.3s ease;
 }
 
-.product-item:hover {
+.productItem:hover {
     transform: scale(1.05);
 }
 
-.product-item img {
+.productItem img {
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -111,19 +112,19 @@
     margin-bottom: 1rem;
 }
 
-.product-item div {
+.productItem div {
     font-size: 18px;
     color: #555;
     margin-bottom: 0.5rem;
 }
 
-.product-item div:last-child {
+.productItem div:last-child {
     font-size: 16px;
     color: #999;
     text-decoration: line-through;
 }
 
-/* 시계 스타일 유지 */
+/* 시계 */
 .clock {
     float: right;
     width: 10em;
