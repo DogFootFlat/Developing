@@ -27,6 +27,7 @@
     "react-use-navigate": "^0.1.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
+    "sweetalert": "^2.1.2",
     "use-history": "^1.4.1",
     "use-location": "^0.0.1",
     "useref": "^1.4.4",
