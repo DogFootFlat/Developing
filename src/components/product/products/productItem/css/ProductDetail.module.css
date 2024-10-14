@@ -1,66 +1,130 @@
 .productDetail {
   padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
   background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.productName {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.productImageGallery {
+.productHeader {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+
+.backButton {
+  background-color: transparent;
+  border: none;
+  color: #12b8de;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.carouselContainer {
+  width: 100%;
+  height: 500px;
+  position: relative;
   margin-bottom: 20px;
 }
 
-.productImage {
+.productCarousel img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 500px;
+  object-fit: cover;
 }
 
 .productInfo {
-  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.productName {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.reviewLink {
+  font-size: 16px;
+  color: #12b8de;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .price {
-  font-size: 1.5rem;
-  color: #e91e63;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .originalPrice {
   text-decoration: line-through;
+  color: #777;
   margin-right: 10px;
-  color: gray;
 }
 
 .discountPrice {
-  color: #4caf50; /* 할인 가격은 초록색 */
+  color: #fd6155;
+  font-size: 22px;
+  font-weight: bold;
 }
 
-.brand,
-.category {
-  margin: 5px 0;
-  color: #666;
+.discountPercentage {
+  color: #12b8de;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
-.productDetails {
-  margin-bottom: 20px;
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border-top: 1px solid #eee;
 }
 
-.reviews {
-  margin-top: 30px;
+.starRating, .favoriteButton, .buyButton {
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
 }
 
-.review {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 10px;
-  margin-top: 10px;
+.buyButton {
+  background-color: #12b8de;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: #f6f3e4;
+  margin-top: 20px;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+}
+
+.navItem {
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  color: #777;
+}
+
+.navItem:hover {
+  color: #12b8de;
 }
