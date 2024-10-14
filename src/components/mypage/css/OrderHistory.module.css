@@ -1,0 +1,33 @@
+.orderHistory {
+  padding: 20px;
+}
+
+.order {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.orderItems {
+  margin-top: 10px;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid #eee;
+}
+
+.orderItem:first-child {
+  border-top: none;
+}

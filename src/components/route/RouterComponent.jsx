@@ -5,6 +5,7 @@ import Loading from "../basic/Loading";
 import Home from "../home/Home";
 import Login from "../login/Login";
 import SignUp from "../login/SignUp";
+import MyPage from "../mypage/MyPage";
 import ProdList from "../product/ProdList";
 import ProductDetail from "../product/products/productItem/ProductDetail";
 
@@ -16,6 +17,7 @@ const AppRouter = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/my-page" element={<MyPage />} />
           <Route path="/products" element={<ProdList />} />
           <Route path="/product/:productNum" element={<ProductDetail />} />
         </Routes>

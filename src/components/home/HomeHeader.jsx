@@ -1,9 +1,16 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/OtPishAI_light.png";
 import classes from "./css/homeheader.module.css";
+import AuthContext from "../../store/auth-context";
 
 const HomeHeader = (props) => {
+  const authCtx = useContext(AuthContext); // AuthContext 사용
+
+  const logoutHandler = () => {
+    authCtx.onLogout(); // 로그아웃 처리
+  };
+
   return (
     <Fragment>
       <header className={classes.header}>
@@ -11,8 +18,25 @@ const HomeHeader = (props) => {
           <img src={logo} alt="OtpishAI logo" />
         </div>
         <div className={classes.nav}>
-          <Link to={'./sign-in'}>로그인</Link>
-          <Link to={'./sign-up'}>회원가입</Link>
+          {!authCtx.isLoggedIn ? (
+            <>
+              <Link to="./sign-in">로그인</Link>
+              <Link to="./sign-up">회원가입</Link>
+              {/* FIXME: 임시로직 */}
+              <Link to="/my-page" className={classes.userIcon}>
+                <img src="/path/to/user-icon.png" alt="User Icon" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/my-page" className={classes.userIcon}>
+                <img src="/path/to/user-icon.png" alt="User Icon" />
+              </Link>
+              <button className={classes.logoutBtn} onClick={logoutHandler}>
+                로그아웃
+              </button>
+            </>
+          )}
         </div>
       </header>
     </Fragment>
