@@ -48,43 +48,46 @@ const ProductDetail = () => {
         <div className={styles.productDetail}>
             {/* Header */}
             <div className={styles.productHeader}>
-                <button className={styles.backButton} onClick={() => navigate('/prod-list')}>
+                <button className={styles.backButton} onClick={() => navigate('/products')}>
                     ← 상품 목록
                 </button>
             </div>
 
-            {/* Image Carousel */}
-            <div className={styles.carouselContainer}>
-                <div className={styles.productCarousel}>
-                    {product.productImg.map((img, index) => (
-                        <img key={index} src={img} alt={product.productName} className={styles.productImage} />
-                    ))}
+            {/* Image Carousel and Product Information in a flex container */}
+            <div className={styles.carouselAndInfo}>
+                {/* Image Carousel */}
+                <div className={styles.carouselContainer}>
+                    <div className={styles.productCarousel}>
+                        {product.productImg.map((img, index) => (
+                            <img key={index} src={img} alt={product.productName} className={styles.productImage} />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            {/* Product Information */}
-            <div className={styles.productInfo}>
-                <h1 className={styles.productName}>{product.productName}</h1>
-                <p className={styles.reviewLink}>리뷰 바로가기 ({product.review})</p>
+                {/* Product Information */}
+                <div className={styles.productInfo}>
+                    <h1 className={styles.productName}>{product.productName}</h1>
+                    <p className={styles.reviewLink}>리뷰 바로가기 ({product.review})</p>
 
-                <div className={styles.price}>
-                    {product.rprice > 0 && product.rprice < product.oprice ? (
-                        <>
-                            <span className={styles.originalPrice}>
+                    <div className={styles.price}>
+                        {product.rprice > 0 && product.rprice < product.oprice ? (
+                            <>
+                                <span className={styles.originalPrice}>
+                                    {product.oprice} 원
+                                </span>
+                                <span className={styles.discountPrice}>할인가: {product.rprice} 원</span>
+                                <span className={styles.discountPercentage}>(-{discountPercentage}%)</span>
+                            </>
+                        ) :
+                            <span className={styles.discountPrice}>
                                 {product.oprice} 원
                             </span>
-                            <span className={styles.discountPrice}>할인가: {product.rprice} 원</span>
-                            <span className={styles.discountPercentage}>(-{discountPercentage}%)</span>
-                        </>
-                    ) :
-                        <span className={styles.discountPrice}>
-                            {product.oprice} 원
-                        </span>
-                    }
-                </div>
+                        }
+                    </div>
 
-                <p className={styles.brand}>브랜드: {product.productBrand}</p>
-                <p className={styles.category}>카테고리: {product.category.join(', ')}</p>
+                    <p className={styles.brand}>브랜드: {product.productBrand}</p>
+                    <p className={styles.category}>카테고리: {product.category.join(', ')}</p>
+                </div>
             </div>
 
             {/* Footer (fixed at the bottom) */}

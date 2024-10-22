@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../img/OtPishAI_light.png";
 import classes from "./css/homeheader.module.css";
 import AuthContext from "../../store/auth-context";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const HomeHeader = (props) => {
   const authCtx = useContext(AuthContext); // AuthContext 사용
@@ -24,13 +25,13 @@ const HomeHeader = (props) => {
               <Link to="./sign-up">회원가입</Link>
               {/* FIXME: 임시로직 */}
               <Link to="/my-page" className={classes.userIcon}>
-                <img src="/path/to/user-icon.png" alt="User Icon" />
+                <AccountCircleIcon style={{marginTop: '10px'}} />
               </Link>
             </>
           ) : (
             <>
               <Link to="/my-page" className={classes.userIcon}>
-                <img src="/path/to/user-icon.png" alt="User Icon" />
+                <AccountCircleIcon style={{marginTop: '10px'}}/>
               </Link>
               <button className={classes.logoutBtn} onClick={logoutHandler}>
                 로그아웃

@@ -26,11 +26,15 @@
   font-size: 18px;
 }
 
-.carouselContainer {
-  width: 100%;
-  height: 500px;
-  position: relative;
+.carouselAndInfo {
+  display: flex;
+  gap: 40px;
   margin-bottom: 20px;
+}
+
+.carouselContainer {
+  flex: 1;
+  max-width: 60%;
 }
 
 .productCarousel img {
@@ -40,6 +44,7 @@
 }
 
 .productInfo {
+  flex: 1;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
@@ -78,6 +83,12 @@
   color: #12b8de;
   font-weight: bold;
   margin-left: 10px;
+}
+
+.brand, .category {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
 }
 
 .footer {
@@ -127,4 +138,17 @@
 
 .navItem:hover {
   color: #12b8de;
+}
+
+.productDetails {
+  margin-top: 20px;
+}
+
+.reviews {
+  margin-top: 20px;
+}
+
+.review {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
