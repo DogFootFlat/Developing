@@ -18,11 +18,34 @@ class ApiService {
 		return axios.get(`${API_BASE_URL}/register`, { withCredentials: true });
 	}
 
-	fetchProducts() {
-		// return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
-		// TODO: 테스트코드
-		return PRODUCTS;
-	}
+	fetchProducts(params = {}) {
+    let url = `${API_BASE_URL}/product`;
+    const queryParams = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value) {
+        if (Array.isArray(value)) {
+          queryParams.append(key, value.join(','));
+        } else {
+          queryParams.append(key, value);
+        }
+      }
+    }
+
+    if (queryParams.toString()) {
+      url += `?${queryParams.toString()}`;
+    }
+
+    return axios.get(url, { withCredentials: true });
+  }
+
+	searchProducts(keyword, genre = '') {
+    let url = `${API_BASE_URL}/search?keyword=${encodeURIComponent(keyword)}`;
+    if (genre) {
+      url += `&genre=${encodeURIComponent(genre)}`;
+    }
+    return axios.get(url, { withCredentials: true });
+  }
 
 	fetchPrudctsByQueryString(queryString) {
 		// return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
