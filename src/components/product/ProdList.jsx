@@ -6,6 +6,7 @@ import Sidebar from '../basic/SideBar';
 import Header from '../layout/Header';
 import Cart from './cart/Cart';
 import Products from './products/Products';
+import ProductsSummary from './products/ProductsSummary';
 import classes from './css/ProdList.module.css';
 
 function ProdList() {
@@ -73,7 +74,7 @@ function ProdList() {
     <CartProvider>
       {cartIsShown && <Cart onClose={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
-      <main>
+      <main className={classes.main}>
         <Products />
       </main>
 
