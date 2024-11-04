@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState, useMemo } from 'react';
 import { Pagination } from '@mui/material';
-import { debounce } from 'lodash';
 import ApiService from '../../../ApiService';
 import AuthContext from '../../../store/auth-context';
 import Loading from '../../basic/Loading';
@@ -54,12 +53,9 @@ const AvailableProducts = () => {
     }
   }, []);
 
-  const debouncedFetchProducts = useMemo(() => debounce(fetchProductsHandler, 300), [fetchProductsHandler]);
-
   useEffect(() => {
-    debouncedFetchProducts(query);
-    return () => debouncedFetchProducts.cancel();
-  }, [debouncedFetchProducts, query]);
+    fetchProductsHandler(query);
+  }, [fetchProductsHandler, query]);
 
   useEffect(() => {
     ctx.setCurrentPage('products');
@@ -77,7 +73,15 @@ const AvailableProducts = () => {
     <Card className={classes.products}>
       <ProductForm queryObj={query} fetchProducts={handleFilterChange} renderItems={CONSTANT.renderItems} />
       <ProductList isLoading={isLoading} error={error} products={products}/>
-      <Pagination count={totalPages} page={query.page} onChange={handlePageChange} color="primary" className={classes.pagination} />
+      <Pagination 
+        count={totalPages} 
+        page={query.page} 
+        onChange={handlePageChange} 
+        color="primary" 
+        className={classes.pagination}
+        siblingCount={1}
+        boundaryCount={1}
+      />
     </Card>
   );
 };
