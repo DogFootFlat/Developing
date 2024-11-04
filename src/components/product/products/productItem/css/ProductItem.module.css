@@ -34,14 +34,14 @@
 }
 
 .productName {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin: 0.1rem 0;
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.2;
-  color: darkblue;
+  color: #000000c1;
 }
 
 .description {

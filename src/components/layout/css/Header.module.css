@@ -1,40 +1,56 @@
 .header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 5rem;
-	background-color: #1cc1e6;
-	color: white;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	/* padding: 0 10%; */
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-	z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #000 !important;
 }
 
-.header .logoImg {
-	height: 4rem;
-	margin: 0.5rem;
-	padding: 0 10%;
+.backdropBlur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.header .logoImg img {
-	height: 4rem;
-	transform: rotate(9deg);
+.logo {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
-.main-image {
-	width: 100%;
-	height: 25rem;
-	z-index: 0;
-	overflow: hidden;
+.logoImage {
+  height: 40px;
+  margin-right: 10px;
 }
 
-.main-image img {
-	width: 110%;
-	height: 100%;
-	object-fit: cover;
-	transform: rotateZ(-5deg) translateY(-4rem) translateX(-1rem);
+.navLink {
+  color: #000 !important;
+  padding: 6px 16px !important;
+  min-width: 80px !important;
+}
+
+.searchInput {
+  background-color: #f5f5f5;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.iconButton {
+  color: #000 !important;
+}
+
+.badge {
+  background-color: #e57971;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 960px) {
+  .navLink {
+    display: none;
+  }
 }

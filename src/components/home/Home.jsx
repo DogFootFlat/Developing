@@ -106,7 +106,7 @@ const Home = () => {
                       <CardMedia component="img" className={styles.productImage} image={product.productImg[0]} alt={product.productName} />
                     </div>
                     <CardContent className={styles.productContent}>
-                      <Typography gutterBottom variant="h6" component="h3" className={styles.productName} color="text.secondary" paragraph>
+                      <Typography gutterBottom variant="h6" component="h4" className={styles.productName} color="text.secondary" paragraph>
                         {product.productName}
                       </Typography>
                       <div className={styles.productFooter}>
