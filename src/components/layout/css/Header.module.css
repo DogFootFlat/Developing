@@ -1,11 +1,12 @@
 .header {
   background-color: rgba(255, 255, 255, 0.8) !important;
   color: #000 !important;
+  z-index: 1000;
 }
 
 .backdropBlur {
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .nav {
