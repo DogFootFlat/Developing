@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import HomeHeader from './HomeHeader'; // Header 컴포넌트 import
-import ApiService from '../../ApiService'; // ApiService 경로에 맞게 조정
+import { AppBar, Toolbar, Typography, Button, IconButton, InputBase, Card, CardContent, CardMedia, Grid, Container, Box } from '@mui/material';
+import { ShoppingCart, Search, Menu } from '@mui/icons-material';
+import ApiService from '../../ApiService';
 import closetImage from '../../assets/closet.jpg';
-import classes from './css/home.module.css'; // CSS 모듈 임포트
+import styles from './css/home.module.css';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -14,26 +15,20 @@ const Home = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await ApiService.fetchProducts(); // queryString 없이 fetch
+      const response = await ApiService.fetchProducts();
       if (response.status < 200 || response.status >= 300) {
-        throw new Error('Something went wrong!');
+        throw new Error('상품을 불러오는 데 실패했습니다.');
       }
       const data = response.data?.content || [];
 
-      // judge가 높은 상품을 찾기
       const sortedProducts = data
-        .filter((product) => product.judge !== 'NULL') // judge가 NULL이 아닌 상품만 필터링
-        .sort((a, b) => b.judge - a.judge) // judge 기준 내림차순 정렬
-        .slice(0, 3); // 상위 3개 상품만 선택
+        .filter((product) => product.judge !== 'NULL')
+        .sort((a, b) => b.judge - a.judge)
+        .slice(0, 4);
 
-      if (sortedProducts.length === 0) {
-        // judge가 NULL인 경우 첫 3개 상품 선택
-        setFeaturedProducts(data.slice(0, 3));
-      } else {
-        setFeaturedProducts(sortedProducts);
-      }
+      setFeaturedProducts(sortedProducts.length > 0 ? sortedProducts : data.slice(0, 4));
     } catch (err) {
-      setError(err.message || 'Failed to fetch products');
+      setError(err.message || '상품을 불러오는 데 실패했습니다.');
     } finally {
       setIsLoading(false);
     }
@@ -44,61 +39,157 @@ const Home = () => {
   }, [fetchProductsHandler]);
 
   return (
-    <div className={classes.homeContainer}>
-      {/* 헤더 */}
-      <HomeHeader /> {/* Header 컴포넌트 호출 */}
-      {/* 배너 섹션 */}
-      <div className={classes.banner}>
-        <div className={classes.overlay}></div>
-        <h2>옷피셜. 세상에 없던 AI 쇼핑몰</h2>
-        <img src={closetImage} alt="A table full of delicious food!" className={classes.bannerImage} />
-      </div>
-      {/* 카테고리 메뉴 */}
-      <div className={classes.categoryMenu}>
-        <Link to="/products">상품목록</Link>
-        <Link to="/category2">카테고리 2</Link>
-        <Link to="/category3">카테고리 3</Link>
-        <Link to="/category4">카테고리 4</Link>
-      </div>
-      {/* 추천 상품 섹션 */}
-      <div className={classes.featuredProducts}>
-        <h2>추천 상품</h2>
-        {isLoading && <p>로딩 중...</p>}
-        {error && <p>{error}</p>}
-        {!isLoading && !error && (
-          <div className={classes.productList}>
-            {featuredProducts.map((product) => (
-              <div key={product.productCode} className={classes.productCard}>
-                <Link to={`/products/${product.productCode}`} className={classes.imageContainer}>
-                  <img src={product.productImg[0]} alt={product.productName} className={classes.productImage} />
-                </Link>
-                <div className={classes.productContent}>
-                  <h3 className={classes.productName}>{product.productName}</h3>
-                  <div className={classes.priceSection}>
-                    {product.rprice > 0 ? (
-                      <>
-                        <div className={classes.originalPrice}>{product.oprice.toLocaleString()} 원</div>
-                        <div className={classes.discountWrapper}>
-                          <span className={classes.discountPercentage}>
-                            {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}%
-                          </span>
-                          <span className={classes.salePrice}>{product.rprice.toLocaleString()} 원</span>
+    <div className={styles.homeContainer}>
+      <AppBar position="sticky" className={`${styles.header} ${styles.backdropBlur}`}>
+        <Toolbar>
+          <Typography variant="h6" component={Link} to="/" className={styles.logo}>
+            Otfficial
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Button color="inherit" component={Link} to="/" className={styles.navLink}>
+              홈
+            </Button>
+            <Button color="inherit" component={Link} to="/products" className={styles.navLink}>
+              제품
+            </Button>
+            <Button color="inherit" component={Link} to="/about" className={styles.navLink}>
+              소개
+            </Button>
+            <Button color="inherit" component={Link} to="/contact" className={styles.navLink}>
+              문의
+            </Button>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <InputBase placeholder="검색..." className={styles.searchInput} />
+            <IconButton color="inherit" className={styles.iconButton}>
+              <Search />
+            </IconButton>
+          </Box>
+          <IconButton color="inherit" className={styles.iconButton}>
+            <ShoppingCart />
+          </IconButton>
+          <IconButton color="inherit" sx={{ display: { md: 'none' } }} className={styles.iconButton}>
+            <Menu />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <main>
+        <Box className={styles.banner}>
+          <Box className={styles.bannerOverlay} />
+          <Box className={styles.bannerContent}>
+            <Typography variant="h2" component="h1" className={styles.bannerTitle}>
+              Otfficial에 오신 것을 환영합니다
+            </Typography>
+            <Typography variant="h5" component="p" sx={{ mb: 4 }}>
+              최신 컬렉션을 만나보세요
+            </Typography>
+            <Button variant="contained" size="large" className={styles.bannerButton}>
+              쇼핑하러 가기
+            </Button>
+          </Box>
+        </Box>
+
+        <Container maxWidth="lg" className={styles.featuredProducts}>
+          <Typography variant="h3" component="h2" align="center" gutterBottom className={styles.sectionTitle}>
+            추천 제품
+          </Typography>
+          {isLoading && <Typography>로딩 중...</Typography>}
+          {error && <Typography color="error">{error}</Typography>}
+          {!isLoading && !error && (
+            <Grid container spacing={4}>
+              {featuredProducts.map((product) => (
+                <Grid item key={product.productCode} xs={12} sm={6} md={3}>
+                  <Card className={styles.productCard}>
+                    <div className={styles.productImageContainer}>
+                      <CardMedia component="img" className={styles.productImage} image={product.productImg[0]} alt={product.productName} />
+                    </div>
+                    <CardContent className={styles.productContent}>
+                      <Typography gutterBottom variant="h6" component="h3" className={styles.productName} color="text.secondary" paragraph>
+                        {product.productName}
+                      </Typography>
+                      <div className={styles.productFooter}>
+                        <div>
+                          {product.rprice > 0 ? (
+                            <>
+                              <Typography variant="body2" color="text.secondary" className={styles.originalPrice}>
+                                {product.oprice.toLocaleString()} 원
+                              </Typography>
+                              <Typography variant="body2" className={styles.discountRate}>
+                                {Math.round(((product.oprice - product.rprice) / product.oprice) * 100)}% 할인
+                              </Typography>
+                              <Typography variant="h6" className={styles.productPrice}>
+                                {product.rprice.toLocaleString()}원
+                              </Typography>
+                            </>
+                          ) : (
+                            <Typography variant="h6" className={styles.productPrice}>
+                              {product.oprice.toLocaleString()}원
+                            </Typography>
+                          )}
                         </div>
-                      </>
-                    ) : (
-                      <div className={classes.salePrice}>{product.oprice.toLocaleString()} 원</div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      {/* 푸터 */}
-      <footer className={classes.footer}>
-        <p>© 2024 옷피셜. All rights reserved.</p>
-      </footer>
+                        <Button sx={{ width: '10px' }} variant="outlined" className={styles.addToCartButton}>
+                          <ShoppingCart />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Container>
+      </main>
+
+      <Box component="footer" className={styles.footer}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" gutterBottom>
+                회사 소개
+              </Typography>
+              <Typography variant="body2">Otfficial은 최신 패션 트렌드와 액세서리를 위한 원스톱 쇼핑몰입니다.</Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" gutterBottom>
+                빠른 링크
+              </Typography>
+              <ul className={styles.footerLinks}>
+                <li>
+                  <Link to="/faq">자주 묻는 질문</Link>
+                </li>
+                <li>
+                  <Link to="/shipping">배송 안내</Link>
+                </li>
+                <li>
+                  <Link to="/returns">반품 정책</Link>
+                </li>
+                <li>
+                  <Link to="/privacy">개인정보 처리방침</Link>
+                </li>
+              </ul>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" gutterBottom>
+                뉴스레터
+              </Typography>
+              <Typography variant="body2" paragraph>
+                최신 업데이트와 특별 할인 정보를 받아보세요.
+              </Typography>
+              <form className={styles.newsletterForm}>
+                <InputBase placeholder="이메일 주소" className={styles.newsletterInput} />
+                <Button variant="contained" type="submit" className={styles.subscribeButton}>
+                  구독하기
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
+          <Typography variant="body2" align="center" sx={{ mt: 4 }} className={styles.footerText}>
+            © 2024 Otfficial. 모든 권리 보유.
+          </Typography>
+        </Container>
+      </Box>
     </div>
   );
 };

@@ -1,172 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
 .homeContainer {
-  padding: 1rem; /* 홈 컨테이너 스타일 */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 헤더 */
 .header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-  padding: 1rem 2rem;
-  background-color: #fff; /* 배경색 */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #000 !important;
 }
 
-.header h1 {
-  font-size: 1.8rem; /* 상점 이름 */
-  color: #333;
+.backdropBlur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.nav {
-  display: flex;
-  gap: 1rem; /* 버튼 간격 */
-}
-
-.nav a {
-  font-size: 1rem; /* 버튼 글자 크기 */
-  color: #333; /* 글자 색상 */
-  text-decoration: none; /* 밑줄 제거 */
-  padding: 0.5rem 1rem; /* 버튼 패딩 */
-  border-radius: 5px; /* 부드러운 모서리 */
-  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
-}
-
-.nav a:hover {
-  background-color: #f0f0f0; /* 호버 시 배경색 */
-}
-
-/* 배너 섹션 */
-.banner {
-  width: 100%;
-  max-height: 400px; /* 배너의 최대 높이 */
-  position: relative; /* 자식 요소를 절대 위치에 맞출 수 있게 */
-  overflow: hidden; /* 이미지가 부모 요소를 벗어나지 않게 */
-}
-
-.banner h2 {
-  position: absolute; /* 텍스트를 배너 중앙에 위치 */
-  top: 40px;
-  left: 20px;
-  color: #fff;
-  background-color: #fd6155b3; /* 반투명 배경색 */
-  padding: 10px;
-  border-radius: 5px; /* 부드러운 모서리 */
-}
-
-.banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 이미지를 배너에 맞게 잘라냄 */
-}
-
-/* 카테고리 메뉴 */
-.categoryMenu {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
-.categoryMenu a {
-  padding: 1rem 2rem;
-  background-color: #acdce7; /* 흰색 배경 */
-  border-radius: 5px;
-  font-size: 17px;
+.logo {
+  text-decoration: none;
+  color: #000;
   font-weight: bold;
-  color: #333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-  transition: transform 0.3s ease;
 }
 
-.categoryMenu a:hover {
-  background-color: #94d5e4; /* 흰색 배경 */
-  transform: scale(1.05); /* 호버 시 약간 확대 */
+.navLink {
+  color: #000 !important;
+  padding: 6px 16px !important;
+  min-width: 80px !important;
 }
 
-/* 추천 상품 섹션 */
+.searchInput {
+  background-color: #f5f5f5;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.iconButton {
+  color: #000 !important;
+}
+
+.banner {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../../assets/closet.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.bannerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.bannerTitle {
+  font-size: 2.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.bannerButton {
+  width: auto;
+  background-color: #fff !important;
+  color: #000 !important;
+  padding: 10px 24px !important;
+  font-size: 1rem !important;
+}
+
 .featuredProducts {
-  width: 100%;
-  max-width: 1200px;
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.featuredProducts h2 {
-  font-size: 1.5rem;
-  text-align: left;
-  color: #333;
-  margin: 2rem;
-}
-
-.productList {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3개씩 배치 */
-  gap: 1rem; /* 카드 사이 간격 */
-  justify-items: center; /* 중앙 정렬 */
-  max-width: 1200px; /* 전체 너비 설정 */
-  margin: 0 auto; /* 중앙 정렬을 위해 자동 여백 */
-  padding: 0 1rem; /* 좌우 패딩 추가 */
-}
-
-.productItem {
-  width: 100%; /* 전체 너비를 100%로 설정 */
-  padding: 0.5rem; /* 카드 안의 패딩 */
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
+  padding: 4rem 0;
 }
 
-.productItem:hover {
-  transform: scale(1.03); /* 호버 시 확대 효과 */
+.sectionTitle {
+  color: #000;
+  margin-bottom: 2rem !important;
+}
+
+.productCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.productImageContainer {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
 }
 
 .productImage {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 400px; /* 이미지 높이 설정 */
-  object-fit: cover; /* 이미지 비율 유지 */
+  height: 100%;
+  object-fit: cover;
+}
+
+.productContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .productName {
-  font-size: 1.2rem;
-  margin: 0.1rem 0;
-  overflow: hidden; /* 넘치는 텍스트 숨기기 */
-  text-align: left;
-  text-overflow: ellipsis; /* 잘린 부분에 ... 표시 */
-  white-space: nowrap; /* 한 줄로 표시 */
-  line-height: 1.2;
-  max-width: 100%; /* 최대 너비를 100%로 설정 */
+  font-weight: 600;
+  margin-bottom: 0.5rem !important;
+}
+
+.productFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
 }
 
 .originalPrice {
-  font-size: 0.75rem;
   text-decoration: line-through;
-  color: gray;
-  line-height: 1.2;
-  margin-bottom: 0.1rem;
-  text-align: left;
+  color: #888;
 }
 
-.discountWrapper {
+.discountRate {
+  color: #a50019;
+  font-weight: bold;
+}
+
+.productPrice {
+  width: auto;
+  padding: 0.1rem;
+  font-weight: bold !important;
+  margin-top: 4px !important;
+}
+
+.addToCartButton {
+  padding: 6px 12px !important;
+  font-size: 0.875rem !important;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 2rem 0;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: -0.5rem;
+}
+
+.footerLinks a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.newsletterForm {
   display: flex;
-  justify-content: flex-start; /* 왼쪽 정렬 */
-  align-items: center;
-  margin-top: 0.1rem;
+  margin-top: 0.5rem;
 }
 
-.discountPercentage {
-  font-weight: bold;
-  color: #ad4102; /* 할인율 강조 */
-  font-size: 1rem;
-  line-height: 1.2;
-  margin-right: 0.5rem; /* rprice와의 가로 간격을 넓힘 */
+.newsletterInput {
+  flex-grow: 1;
+  margin-right: 0.5rem;
+  background-color: #fff;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
 
-.salePrice {
-  font-weight: bold;
-  color: #000; /* rprice는 검정색 */
-  font-size: 1rem;
-  line-height: 1.2;
+.subscribeButton {
+  background-color: #fff !important;
+  color: #000 !important;
+  padding: 6px 16px !important;
+}
+
+.footerText {
+  color: #fff;
+  margin-top: 1rem !important;
+}
+
+@media (max-width: 600px) {
+  .bannerTitle {
+    font-size: 2rem !important;
+  }
 }
