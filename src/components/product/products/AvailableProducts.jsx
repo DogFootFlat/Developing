@@ -81,6 +81,8 @@ const AvailableProducts = () => {
         className={classes.pagination}
         siblingCount={1}
         boundaryCount={1}
+        showFirstButton
+        showLastButton
       />
     </Card>
   );
