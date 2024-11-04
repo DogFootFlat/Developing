@@ -73,51 +73,10 @@ const AvailableProducts = () => {
     setQuery((prevQuery) => ({ ...prevQuery, [filterId]: value, page: 1 }));
   }, []);
 
-  const memoizedProductsList = useMemo(() => {
-    return products.map((product) => (
-      <ProductItem
-        id={product.productCode}
-        num={product.productNum}
-        key={product.productCode}
-        name={product.productName}
-        genre={product.genreCode}
-        img={product.productImg[0]}
-        oprice={product.oprice}
-        rprice={product.rprice}
-      />
-    ));
-  }, [products]);
-
-  if (isLoading) {
-    return (
-      <Card className={classes.products}>
-        <Loading />
-      </Card>
-    );
-  }
-
-  if (error) {
-    return (
-      <Card className={classes.products}>
-        <div>
-          <p>{error}</p>
-        </div>
-      </Card>
-    );
-  }
-
-  if (products.length === 0) {
-    return (
-      <Card className={classes.products}>
-        <h2>현재 상품 목록이 비어있습니다.</h2>
-      </Card>
-    );
-  }
-
   return (
     <Card className={classes.products}>
       <ProductForm queryObj={query} fetchProducts={handleFilterChange} renderItems={CONSTANT.renderItems} />
-      <ul className={classes['product-list']}>{memoizedProductsList}</ul>
+      <ProductList isLoading={isLoading} error={error} products={products}/>
       <Pagination count={totalPages} page={query.page} onChange={handlePageChange} color="primary" className={classes.pagination} />
     </Card>
   );
