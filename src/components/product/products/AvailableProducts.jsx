@@ -1,13 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState, useMemo } from 'react';
 import { Pagination } from '@mui/material';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import ApiService from '../../../ApiService';
 import AuthContext from '../../../store/auth-context';
-import Loading from '../../basic/Loading';
 import Card from '../UI/Card';
 import * as CONSTANT from './const';
 import classes from './css/AvailableProducts.module.css';
 import ProductForm from './productForm/ProductForm';
-import ProductItem from './productItem/ProductItem';
+import ProductList from './ProductList';
 
 const AvailableProducts = () => {
   const ctx = useContext(AuthContext);
