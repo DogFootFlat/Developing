@@ -1,0 +1,36 @@
+.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.paper {
+  padding: 2rem;
+}
+
+.stepper {
+  margin-bottom: 2rem;
+}
+
+.stepContent {
+  margin-bottom: 2rem;
+}
+
+.productImage {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  margin-left: 1rem;
+}
+
+.totalPrice {
+  margin-top: 2rem;
+  font-weight: bold;
+}

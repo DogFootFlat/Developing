@@ -8,6 +8,7 @@ import SignUp from "../login/SignUp";
 import MyPage from "../mypage/MyPage";
 import ProdList from "../product/ProdList";
 import ProductDetail from "../product/products/productItem/ProductDetail";
+import ProductPurchase from "../product/products/productPurchase/ProductPurchase";
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
           <Route path="/my-page" element={<MyPage />} />
           <Route path="/products" element={<ProdList />} />
           <Route path="/product/:productNum" element={<ProductDetail />} />
+          <Route path="/purchase/:productNum" element={<ProductPurchase />} />
         </Routes>
       </Suspense>
     </div>

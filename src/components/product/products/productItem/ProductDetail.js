@@ -87,16 +87,17 @@ const ProductDetail = () => {
 
                     <p className={styles.brand}>브랜드: {product.productBrand}</p>
                     <p className={styles.category}>카테고리: {product.category.join(', ')}</p>
+                    <p className={styles.category}></p>
                 </div>
             </div>
 
             {/* Footer (fixed at the bottom) */}
             <div className={styles.footer}>
-                <div className={styles.starRating}>⭐ 4.5/5</div>
+                <div className={styles.starRating}>⭐⭐⭐⭐⭐ 4.5/5</div>
                 <Button className={styles.favoriteButton} variant="outlined" color="primary">
                     관심상품 등록
                 </Button>
-                <Button className={styles.buyButton} variant="contained" color="primary">
+                <Button className={styles.buyButton} variant="contained" color="primary" onClick={() => navigate(`/purchase/${productNum}`)}>
                     구매하기
                 </Button>
             </div>
@@ -111,7 +112,19 @@ const ProductDetail = () => {
 
             {/* Product Details */}
             <div className={styles.productDetails}>
+                <div style={{ alignItems: 'left' }}>
+                    {product.productImg.map((img, index) => {
+                        if (index === 0) return;
+                        return <img key={index} src={img} alt={product.productName} className={styles.productImage} />
+                    })}
+                </div>
                 <h2>상세 정보</h2>
+                <p>최고급 면소재를 사용하여 제작된 울트라 소프트 후드티는 편안함과 스타일을 동시에 제공합니다. 부드러운 촉감과 우수한 보온성으로 사계절 내내 즐길 수 있습니다.</p>
+                <ul>
+                    <li>재질: 100% 면</li>
+                    <li>세탁 방법: 30도 이하 물에서 중성세제로 단독 세탁</li>
+                    <li>제조국: 대한민국</li>
+                </ul>
                 <ul>
                     {product.productDetails.map((detail, index) => (
                         <li key={index}>
