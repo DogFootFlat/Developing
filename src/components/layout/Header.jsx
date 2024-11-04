@@ -1,24 +1,19 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton, 
-  InputBase, 
-  Box
-} from '@mui/material';
-import { ShoppingCart, Search, Menu } from '@mui/icons-material';
+import { Link, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, IconButton, InputBase, Box } from '@mui/material';
+import { ShoppingCart, Search, Menu, AccountCircle } from '@mui/icons-material';
 import CartContext from '../../store/cart-context';
-import logo from '../../img/OtPishAI_dark.png';
+import logo from '../../img/OtPishAI_light.png';
 import classes from './css/Header.module.css';
 
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
+  const location = useLocation();
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0);
+
+  const isHomePage = location.pathname === '/';
 
   return (
     <AppBar position="sticky" className={`${classes.header} ${classes.backdropBlur}`}>
@@ -41,19 +36,29 @@ const Header = (props) => {
             문의
           </Button>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <InputBase
-            placeholder="검색..."
-            className={classes.searchInput}
-          />
-          <IconButton color="inherit" className={classes.iconButton}>
-            <Search />
-          </IconButton>
-        </Box>
-        <IconButton color="inherit" className={classes.iconButton} onClick={props.onShowCart}>
-          <ShoppingCart />
-          <span className={classes.badge}>{numberOfCartItems}</span>
-        </IconButton>
+
+        {isHomePage ? (
+          <div className={classes.nav}>
+            <Link to="./sign-in">로그인</Link>
+            <Link to="./sign-up">회원가입</Link>
+            <Link to="/my-page" className={classes.userIcon}>
+              <AccountCircle style={{ marginTop: '10px' }} />
+            </Link>
+          </div>
+        ) : (
+          <>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <InputBase placeholder="검색..." className={classes.searchInput} />
+              <IconButton color="inherit" className={classes.iconButton}>
+                <Search />
+              </IconButton>
+            </Box>
+            <IconButton color="inherit" className={classes.iconButton} onClick={props.onShowCart}>
+              <ShoppingCart />
+              <span className={classes.badge}>{numberOfCartItems}</span>
+            </IconButton>
+          </>
+        )}
         <IconButton color="inherit" sx={{ display: { md: 'none' } }} className={classes.iconButton}>
           <Menu />
         </IconButton>

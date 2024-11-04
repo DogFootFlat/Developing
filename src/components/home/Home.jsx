@@ -5,6 +5,7 @@ import { ShoppingCart, Search, Menu } from '@mui/icons-material';
 import ApiService from '../../ApiService';
 import closetImage from '../../assets/closet.jpg';
 import styles from './css/home.module.css';
+import Header from '../layout/Header';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -40,40 +41,7 @@ const Home = () => {
 
   return (
     <div className={styles.homeContainer}>
-      <AppBar position="sticky" className={`${styles.header} ${styles.backdropBlur}`}>
-        <Toolbar>
-          <Typography variant="h6" component={Link} to="/" className={styles.logo}>
-            Otfficial
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Button color="inherit" component={Link} to="/" className={styles.navLink}>
-              홈
-            </Button>
-            <Button color="inherit" component={Link} to="/products" className={styles.navLink}>
-              제품
-            </Button>
-            <Button color="inherit" component={Link} to="/about" className={styles.navLink}>
-              소개
-            </Button>
-            <Button color="inherit" component={Link} to="/contact" className={styles.navLink}>
-              문의
-            </Button>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <InputBase placeholder="검색..." className={styles.searchInput} />
-            <IconButton color="inherit" className={styles.iconButton}>
-              <Search />
-            </IconButton>
-          </Box>
-          <IconButton color="inherit" className={styles.iconButton}>
-            <ShoppingCart />
-          </IconButton>
-          <IconButton color="inherit" sx={{ display: { md: 'none' } }} className={styles.iconButton}>
-            <Menu />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <Header />
 
       <main>
         <Box className={styles.banner}>
