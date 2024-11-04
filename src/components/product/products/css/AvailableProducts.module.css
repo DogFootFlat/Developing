@@ -94,13 +94,13 @@
 }
 
 .pagination > ul > li {
-  margin: 0 0.25rem;
+  margin: 0;
   cursor: pointer;
 }
 
 .pagination > ul > li > button {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  padding: 1rem;
+  border: 1px solid #ccca;
   background-color: #fff;
   color: #333;
   width: 1rem;
@@ -113,6 +113,5 @@
 }
 
 .pagination > ul > li > button[aria-current="true"] {
-  background-color: #1976d2;
   color: #fff;
 }
