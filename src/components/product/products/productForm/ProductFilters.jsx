@@ -1,41 +1,45 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import classes from './css/ProductFilters.module.css';
 
-const ProductFilters = ({ id, items, queryObj, onChange }) => {
+const ProductFilters = React.memo(({ id, items, queryObj, onChange }) => {
   const majorKey = items?.find((x) => x.id?.includes('major'))?.id;
   const minorKey = items?.find((x) => x.id?.includes('minor'))?.id;
-  const selfKey = majorKey.split('_')?.[0];
   const minorObj = items?.find((x) => x.id === minorKey)?.list_obj;
 
-  const [query, setQuery] = useState(queryObj);
+  const [localQuery, setLocalQuery] = useState(queryObj);
   const [minorFilter, setMinorFilter] = useState([]);
 
   useEffect(() => {
-    if (query[majorKey]) {
-      setMinorFilter(minorObj[query[majorKey]] || []);
+    setLocalQuery(queryObj);
+  }, [queryObj]);
+
+  useEffect(() => {
+    if (localQuery[majorKey] || localQuery[majorKey] === '') {
+      setMinorFilter(minorObj[localQuery[majorKey]] || []);
     }
-  }, [query, majorKey, minorObj]);
+  }, [localQuery, majorKey, minorObj]);
 
-  const onChangeHandler = (filter_id, event) => {
-    const newValue = event.target.value;
-    setQuery((prevQuery) => {
-      const updatedQuery = { ...prevQuery, [filter_id]: newValue };
-
-      if (filter_id === majorKey) {
-        updatedQuery[minorKey] = ''; // Reset minor category when major changes
+  const onChangeHandler = useCallback(
+    (filter_id, event) => {
+      const value = event.target.value;
+      setLocalQuery((prevQuery) => {
+        const updatedQuery = { ...prevQuery, [filter_id]: value };
+        if (filter_id === majorKey) {
+          updatedQuery[minorKey] = '';
+        }
+        return updatedQuery;
+      });
+      onChange(filter_id, value);
+      if (localQuery[majorKey] && filter_id === minorKey) {
+        onChange(id, value === '' ? '' : `${localQuery[majorKey]}0${value}`);
       }
-
-      onChange(filter_id, newValue);
-
-      if (updatedQuery[majorKey] && filter_id === minorKey) {
-        onChange(id, `${updatedQuery[majorKey]}0${newValue}`);
+      if (filter_id === majorKey && value === '') {
+        onChange(id, '');
       }
-
-      updateQuery[selfKey] = `${updatedQuery[majorKey]}0${updatedQuery[minorKey]}`;
-      return updatedQuery;
-    });
-  };
+    },
+    [localQuery, majorKey, minorKey, id, onChange]
+  );
 
   return (
     <div className={classes['form-div']} style={{ marginBottom: '1em' }}>
@@ -46,7 +50,7 @@ const ProductFilters = ({ id, items, queryObj, onChange }) => {
             labelId={`${filter.id}-label`}
             displayEmpty
             id={filter.id}
-            value={query[filter.id] || ''}
+            value={localQuery[filter.id] || ''}
             onChange={(event) => onChangeHandler(filter.id, event)}
             sx={{ textAlign: 'right' }}
           >
@@ -61,6 +65,6 @@ const ProductFilters = ({ id, items, queryObj, onChange }) => {
       ))}
     </div>
   );
-};
+});
 
 export default ProductFilters;

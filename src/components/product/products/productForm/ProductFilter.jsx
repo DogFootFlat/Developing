@@ -1,12 +1,18 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-const ProductFilter = ({ id, items, queryObj, onChange }) => {
-  const [query] = useState(queryObj);
+const ProductFilter = React.memo(({ id, items, queryObj, onChange }) => {
+  const [localQuery, setLocalQuery] = useState(queryObj[id] || '');
 
-  const onChangeHandler = (event) => {
-    onChange(id, event.target.value);
-  };
+  useEffect(() => {
+    setLocalQuery(queryObj[id] || '');
+  }, [queryObj, id]);
+
+  const onChangeHandler = useCallback((event) => {
+    const newValue = event.target.value;
+    setLocalQuery(newValue);
+    onChange(id, newValue);
+  }, [id, onChange]);
 
   return (
     <FormControl variant="outlined" fullWidth style={{ marginBottom: '1em' }}>
@@ -15,7 +21,7 @@ const ProductFilter = ({ id, items, queryObj, onChange }) => {
         labelId={`${items[0]?.name}-label`}
         displayEmpty
         id={items[0]?.name}
-        value={query[id]}
+        value={localQuery}
         onChange={onChangeHandler}
         sx={{ textAlign: 'right' }}
       >
@@ -28,6 +34,6 @@ const ProductFilter = ({ id, items, queryObj, onChange }) => {
       </Select>
     </FormControl>
   );
-};
+});
 
 export default ProductFilter;
