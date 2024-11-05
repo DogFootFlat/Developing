@@ -22,10 +22,10 @@ const AvailableProducts = () => {
     page: 1,
   });
 
-  const [search, setSearch] = useState({
-    genre: '',
-    keyword: '',
-  });
+  // const [search, setSearch] = useState({
+  //   genre: '',
+  //   keyword: '',
+  // });
 
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,40 +59,40 @@ const AvailableProducts = () => {
     }
   }, []);
 
-  const searchProductsHandler = useCallback(async (queryObj) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      let response;
-      if (Object.values(queryObj).some((x) => x !== '')) {
-        const queryArray = Object.entries(queryObj)
-          .filter(([key, value]) => value !== '')
-          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`);
-        const queryString = queryArray.join('&');
-        response = await ApiService.searchProductsByQueryString(queryString);
-      } else {
-        response = await ApiService.fetchProducts();
-      }
-      if (response.status < 200 || response.status >= 300) {
-        throw new Error('Something went wrong!');
-      }
-      const data = response.data;
-      setProducts(data.content);
-      setTotalPages(data.totalPages);
-    } catch (err) {
-      setError(err.message || 'Failed to fetch products');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  // const searchProductsHandler = useCallback(async (queryObj) => {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     let response;
+  //     if (Object.values(queryObj).some((x) => x !== '')) {
+  //       const queryArray = Object.entries(queryObj)
+  //         .filter(([key, value]) => value !== '')
+  //         .map(([key, value]) => `${key}=${encodeURIComponent(value)}`);
+  //       const queryString = queryArray.join('&');
+  //       response = await ApiService.searchProductsByQueryString(queryString);
+  //     } else {
+  //       response = await ApiService.fetchProducts();
+  //     }
+  //     if (response.status < 200 || response.status >= 300) {
+  //       throw new Error('Something went wrong!');
+  //     }
+  //     const data = response.data;
+  //     setProducts(data.content);
+  //     setTotalPages(data.totalPages);
+  //   } catch (err) {
+  //     setError(err.message || 'Failed to fetch products');
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }, []);
 
   useEffect(() => {
     fetchProductsHandler(query);
   }, [fetchProductsHandler, query]);
 
-  useEffect(() => {
-    searchProductsHandler(search);
-  }, [searchProductsHandler, search]);
+  // useEffect(() => {
+  //   searchProductsHandler(search);
+  // }, [searchProductsHandler, search]);
 
   useEffect(() => {
     ctx.setCurrentPage('products');
@@ -104,16 +104,16 @@ const AvailableProducts = () => {
 
   const handleFilterChange = useCallback((filterId, value) => {
     setQuery((prevQuery) => ({ ...prevQuery, [filterId]: value }));
-    filterId === 'genre' && setSearch((prevSearch) => ({ ...prevSearch, genre: value }));
+    // filterId === 'genre' && setSearch((prevSearch) => ({ ...prevSearch, genre: value }));
   }, []);
 
-  const handleSearch = useCallback((searchTerm) => {
-    setSearch((prevSearch) => ({ ...prevSearch, keyword: searchTerm }));
-  }, []);
+  // const handleSearch = useCallback((searchTerm) => {
+  //   setSearch((prevSearch) => ({ ...prevSearch, keyword: searchTerm }));
+  // }, []);
 
   return (
     <Card className={classes.products}>
-      <ProductSearch onSearch={handleSearch} />
+      <ProductSearch onSearch={() => {}} />
       <ProductForm queryObj={query} fetchProducts={handleFilterChange} renderItems={CONSTANT.renderItems} />
       <Pagination
         count={totalPages}
