@@ -1,156 +1,162 @@
-/* src/components/ProductDetail.module.css */
-
 .productDetail {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  background-color: #fff;
+  font-family: 'Arial', sans-serif;
 }
 
-.productHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-  position: sticky;
+.imageContainer {
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mainImage {
+  position: absolute;
   top: 0;
-  background-color: #fff;
-  z-index: 10;
-}
-
-.backButton {
-  background-color: transparent;
-  border: none;
-  color: #12b8de;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.carouselAndInfo {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-}
-
-.carouselContainer {
-  flex: 1;
-  max-width: 60%;
-}
-
-.productCarouselImage {
+  left: 0;
   width: 100%;
-  height: 500px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnailContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail:hover {
+  border-color: #12b8de;
+}
+
+.thumbnailActive {
+  border-color: #12b8de;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .productInfo {
-  flex: 1;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 16px;
 }
 
 .productName {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.reviewLink {
-  font-size: 16px;
-  color: #12b8de;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.price {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.originalPrice {
-  text-decoration: line-through;
-  color: #777;
-  margin-right: 10px;
-}
-
-.discountPrice {
-  color: #fd6155;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.discountPercentage {
-  color: #12b8de;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.brand, .category {
-  font-size: 16px;
-  color: #555;
   margin-bottom: 8px;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff;
-  border-top: 1px solid #eee;
-}
-
-.starRating, .favoriteButton, .buyButton {
+.brandName {
   font-size: 16px;
-  padding: 10px;
-  cursor: pointer;
+  color: #666;
+  margin-bottom: 16px;
 }
 
-.buyButton {
-  background-color: #12b8de;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-}
-
-.navbar {
+.ratingContainer {
   display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  background-color: #f6f3e4;
-  margin-top: 20px;
-  border-bottom: 1px solid #eee;
-  position: sticky;
-  top: 60px;
-  z-index: 10;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.navItem {
-  font-size: 16px;
-  padding: 10px;
-  cursor: pointer;
-  color: #777;
+.reviewCount {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #666;
 }
 
-.navItem:hover {
+.priceContainer {
+  margin-bottom: 16px;
+}
+
+.discountPrice {
+  font-size: 24px;
+  font-weight: bold;
   color: #12b8de;
 }
 
-.productDetails {
-  margin-top: 20px;
+.originalPrice {
+  font-size: 16px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 8px;
 }
 
-.reviews {
-  margin-top: 20px;
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
 }
 
-.review {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+.optionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.optionContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 16px;
+}
+
+.tabContainer {
+  margin-top: 32px;
+}
+
+.tabContent {
+  padding: 24px 0;
+}
+
+.featureList {
+  list-style-type: disc;
+  padding-left: 24px;
+}
+
+.featureItem {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .productName {
+    font-size: 20px;
+  }
+
+  .discountPrice {
+    font-size: 20px;
+  }
+
+  .originalPrice {
+    font-size: 14px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
 }
