@@ -1,0 +1,9 @@
+.form-div input {
+  padding: 1rem;
+}
+
+.form-div button {
+  color: white;
+  height: fit-content;
+  padding: 1rem;
+}

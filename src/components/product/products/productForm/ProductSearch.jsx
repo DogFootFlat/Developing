@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import { Search } from '@mui/icons-material';
+import classes from './css/ProductSearch.module.css';
 
 const ProductSearch = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +12,7 @@ const ProductSearch = ({ onSearch }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSearch} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+    <Box className={classes['form-div']} component="form" onSubmit={handleSearch} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
       <TextField
         variant="outlined"
         size="small"
