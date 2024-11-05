@@ -33,7 +33,7 @@ const AvailableProducts = () => {
       if (Object.values(queryObj).some((x) => x !== '')) {
         const queryArray = Object.entries(queryObj)
           .filter(([key, value]) => !['genre_major', 'genre_minor'].includes(key) && value !== '')
-          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`);
+          .map(([key, value]) => `${key}=${encodeURIComponent(key === 'page' ? value - 1 : value)}`);
         const queryString = queryArray.join('&');
         response = await ApiService.fetchPrudctsByQueryString(queryString);
       } else {
