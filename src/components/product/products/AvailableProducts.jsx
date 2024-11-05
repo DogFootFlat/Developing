@@ -71,18 +71,18 @@ const AvailableProducts = () => {
   return (
     <Card className={classes.products}>
       <ProductForm queryObj={query} fetchProducts={handleFilterChange} renderItems={CONSTANT.renderItems} />
-      <ProductList isLoading={isLoading} error={error} products={products}/>
-      <Pagination 
-        count={totalPages} 
-        page={query.page} 
-        onChange={handlePageChange} 
-        color="primary" 
+      <Pagination
+        count={totalPages}
+        page={query.page}
+        onChange={handlePageChange}
+        color="primary"
         className={classes.pagination}
         siblingCount={1}
         boundaryCount={1}
         showFirstButton
         showLastButton
       />
+      <ProductList isLoading={isLoading} error={error} products={products} />
     </Card>
   );
 };
