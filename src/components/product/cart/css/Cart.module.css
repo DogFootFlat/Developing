@@ -23,24 +23,43 @@
   font: inherit;
   cursor: pointer;
   background-color: transparent;
-  border: 1px solid #8a2b06;
+  border: 1px solid #e57971;
   padding: 0.5rem 2rem;
   border-radius: 25px;
   margin-left: 1rem;
+  transition: all 0.3s ease;
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #5a1a01;
-  border-color: #5a1a01;
+  background-color: #e57971;
+  border-color: #e57971;
+  color: white;
+}
+
+.actions button.button--alt {
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #12b8de;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.actions button.button--alt:hover,
+.actions button.button--alt:active {
+  background-color: #12b8de;
+  border-color: #12b8de;
   color: white;
 }
 
 .actions .button--alt {
-  color: #8a2b06;
+  color: #12b8de;
 }
 
 .actions .button {
-  background-color: #8a2b06;
+  background-color: #e57971;
   color: white;
 }

@@ -1,15 +1,35 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import {
-  Container,
-  Typography,
-  Button,
-  IconButton,
+  Check,
+  DryCleaningOutlined,
+  ExpandMore,
+  Favorite,
+  FavoriteBorder,
+  Iron,
+  RemoveCircleOutline,
+  Share,
+  ShoppingCartOutlined,
+  Star,
+  StarBorder,
+  ThumbUpOutlined,
+  VerifiedUser,
+  Wash,
+} from '@mui/icons-material';
+import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Container,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
   Rating,
-  Tabs,
   Tab,
   Table,
   TableBody,
@@ -17,36 +37,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Avatar,
-  Chip,
-  Box,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  Tabs,
+  Typography,
 } from '@mui/material';
-import {
-  ExpandMore,
-  Favorite,
-  FavoriteBorder,
-  Share,
-  Star,
-  StarBorder,
-  ShoppingCartOutlined,
-  ThumbUpOutlined,
-  VerifiedUser,
-  Check,
-  Wash,
-  RemoveCircleOutline,
-  Iron,
-  DryCleaningOutlined,
-} from '@mui/icons-material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ApiService from '../../../../ApiService';
+import CartContext from '../../../../store/cart-context';
 import { TabPanel } from '../../../layout';
 import Header from '../../../layout/Header';
 import styles from './css/ProductDetail.module.css';
-import ApiService from '../../../../ApiService';
-import CartContext from '../../../../store/cart-context';
 import { care, colors, details, fabricInfo, features, reviews, sizeChart, sizeGuide, sizes } from './data';
 
 export default function ProductDetail() {
@@ -226,7 +226,7 @@ export default function ProductDetail() {
                   key={size}
                   variant={selectedSize === size ? 'contained' : 'outlined'}
                   onClick={() => handleSizeSelect(size)}
-                  className={styles.sizeButton}
+                  className={`${styles.sizeButton} ${selectedSize === size ? styles.selected : ''}`}
                 >
                   {size}
                 </Button>
