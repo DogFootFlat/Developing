@@ -19,27 +19,27 @@ class ApiService {
 	}
 
 	fetchProducts() {
-		return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/product`, { withCredentials: true });
 		// TODO: 테스트코드
 		return PRODUCTS;
 	}
 
 	fetchProductsByQueryString(queryString) {
-		return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/product?${queryString}`, { withCredentials: true });
 		// TODO: 테스트코드
 		console.log(queryString);
 		return PRODUCTS;
 	}
 
 	searchProductsByQueryString(queryString) {
-		return axios.get(`${API_BASE_URL}/search?${queryString}`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/search?${queryString}`, { withCredentials: true });
 		// TODO: 테스트코드
 		console.log(queryString);
 		return PRODUCTS;
 	}
 
 	fetchProductByNum(productNum) {
-		return axios.get(`${API_BASE_URL}/product_detail/${productNum}`, { withCredentials: true });
+		// return axios.get(`${API_BASE_URL}/product_detail/${productNum}`, { withCredentials: true });
 		// TODO: 테스트코드
 		return {
 			data: {

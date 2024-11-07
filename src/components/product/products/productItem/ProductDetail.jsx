@@ -170,22 +170,42 @@ export default function ProductDetail() {
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
             <div ref={carouselRef} className={styles.mainImage} onScroll={handleScroll}>
-              {product.productImg.map((img, index) => (
-                <div key={index} className={styles.imageWrapper}>
-                  <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
-                </div>
-              ))}
+              {product.productImg
+                .concat([
+                  'https://picsum.photos/400/400?random=100',
+                  'https://picsum.photos/400/400?random=101',
+                  'https://picsum.photos/400/400?random=102',
+                  'https://picsum.photos/400/400?random=103',
+                  'https://picsum.photos/400/400?random=104',
+                  'https://picsum.photos/400/400?random=105',
+                  'https://picsum.photos/400/400?random=106',
+                ])
+                .map((img, index) => (
+                  <div key={index} className={styles.imageWrapper}>
+                    <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
+                  </div>
+                ))}
             </div>
             <div ref={thumbnailsRef} className={styles.thumbnails}>
-              {product.productImg.map((img, index) => (
-                <div
-                  key={index}
-                  onClick={() => scrollToImage(index)}
-                  className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
-                >
-                  <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
-                </div>
-              ))}
+              {product.productImg
+                .concat([
+                  'https://picsum.photos/400/400?random=100',
+                  'https://picsum.photos/400/400?random=101',
+                  'https://picsum.photos/400/400?random=102',
+                  'https://picsum.photos/400/400?random=103',
+                  'https://picsum.photos/400/400?random=104',
+                  'https://picsum.photos/400/400?random=105',
+                  'https://picsum.photos/400/400?random=106',
+                ])
+                .map((img, index) => (
+                  <div
+                    key={index}
+                    onClick={() => scrollToImage(index)}
+                    className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
+                  >
+                    <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
+                  </div>
+                ))}
             </div>
           </div>
 
