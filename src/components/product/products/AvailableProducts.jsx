@@ -103,7 +103,7 @@ const AvailableProducts = () => {
   }, []);
 
   const handleFilterChange = useCallback((filterId, value) => {
-    setQuery((prevQuery) => ({ ...prevQuery, [filterId]: value }));
+    setQuery((prevQuery) => ({ ...prevQuery, [filterId]: value, page: 1 }));
     // filterId === 'genre' && setSearch((prevSearch) => ({ ...prevSearch, genre: value }));
   }, []);
 
