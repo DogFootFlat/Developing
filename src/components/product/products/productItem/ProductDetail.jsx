@@ -41,8 +41,6 @@ import {
   RemoveCircleOutline,
   Iron,
   DryCleaningOutlined,
-  ChevronLeft,
-  ChevronRight,
 } from '@mui/icons-material';
 import { TabPanel } from '../../../layout';
 import Header from '../../../layout/Header';
@@ -122,16 +120,6 @@ export default function ProductDetail() {
     };
   }, []);
 
-  const scrollToImage = (index) => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollTo({
-        left: index * carouselRef.current.clientWidth,
-        behavior: 'smooth',
-      });
-    }
-    setCurrentImageIndex(index);
-  };
-
   const handleRatingChange = (event, newValue) => {
     setRating(newValue);
   };
@@ -179,9 +167,6 @@ export default function ProductDetail() {
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
             <div className={styles.mainImageContainer}>
-              <IconButton className={`${styles.carouselButton} ${styles.prevButton}`} onClick={() => scrollToImage(currentImageIndex - 1)}>
-                <ChevronLeft />
-              </IconButton>
               <div ref={carouselRef} className={styles.mainImage}>
                 {product.productImg.map((img, index) => (
                   <div key={index} className={styles.imageWrapper}>
@@ -189,15 +174,19 @@ export default function ProductDetail() {
                   </div>
                 ))}
               </div>
-              <IconButton className={`${styles.carouselButton} ${styles.nextButton}`} onClick={() => scrollToImage(currentImageIndex + 1)}>
-                <ChevronRight />
-              </IconButton>
             </div>
             <div ref={thumbnailsRef} className={styles.thumbnails}>
               {product.productImg.map((img, index) => (
                 <div
                   key={index}
-                  onClick={() => scrollToImage(index)}
+                  onClick={() => {
+                    if (carouselRef.current) {
+                      carouselRef.current.scrollTo({
+                        left: index * carouselRef.current.clientWidth,
+                        behavior: 'smooth',
+                      });
+                    }
+                  }}
                   className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
                 >
                   <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
