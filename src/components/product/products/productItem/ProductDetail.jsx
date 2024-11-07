@@ -55,12 +55,13 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [expandedMaterial, setExpandedMaterial] = useState(true);
-  const [expandedCare, setExpandedCare] = useState(true);
+  const [expandedCare, setExpandedCare] = useState(false);
   const [images, setImages] = useState([]);
   const [rating, setRating] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const carouselRef = useRef(null);
+  const mainImageRef = useRef(null);
 
   const dummyProduct = {
     name: '플리츠 스트레이트 팬츠',
@@ -161,11 +162,20 @@ export default function ProductDetail() {
   };
 
   const handleScroll = () => {
-    if (carouselRef.current) {
-      const scrollPosition = carouselRef.current.scrollTop;
-      const imageHeight = carouselRef.current.clientHeight;
+    if (mainImageRef.current) {
+      const scrollPosition = mainImageRef.current.scrollTop;
+      const imageHeight = mainImageRef.current.clientHeight;
       const newIndex = Math.round(scrollPosition / imageHeight);
       setCurrentImageIndex(newIndex);
+
+      // 캐러셀 스크롤
+      if (carouselRef.current) {
+        const thumbnailWidth = carouselRef.current.children[0].offsetWidth;
+        carouselRef.current.scrollTo({
+          left: newIndex * thumbnailWidth,
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
@@ -178,9 +188,9 @@ export default function ProductDetail() {
   };
 
   const scrollToImage = (index) => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollTo({
-        top: index * carouselRef.current.clientHeight,
+    if (mainImageRef.current) {
+      mainImageRef.current.scrollTo({
+        top: index * mainImageRef.current.clientHeight,
         behavior: 'smooth',
       });
     }
@@ -204,18 +214,14 @@ export default function ProductDetail() {
 
       <div className={styles.productGrid}>
         <div className={styles.imageCarousel}>
-          <div ref={carouselRef} className={styles.mainImage} onScroll={handleScroll}>
+          <div ref={mainImageRef} className={styles.mainImage} onScroll={handleScroll}>
             {images.map((img, index) => (
               <div key={index} className={styles.imageWrapper}>
-                <img
-                  src={img}
-                  alt={`${dummyProduct.name} - 이미지 ${index + 1}`}
-                  className={`${styles.image} ${currentImageIndex !== index ? styles.imageBlur : ''}`}
-                />
+                <img src={img} alt={`${dummyProduct.name} - 이미지 ${index + 1}`} className={styles.image} />
               </div>
             ))}
           </div>
-          <div className={styles.thumbnails}>
+          <div ref={carouselRef} className={styles.thumbnails}>
             {images.map((img, index) => (
               <div
                 key={index}
@@ -301,7 +307,7 @@ export default function ProductDetail() {
             <AccordionDetails>
               <ul>
                 {dummyProduct.care.map((item, index) => (
-                  <li key={index} className={styles.accordionDetail}>{item}</li>
+                  <li key={index}>{item}</li>
                 ))}
               </ul>
             </AccordionDetails>
@@ -326,17 +332,7 @@ export default function ProductDetail() {
             옆면 포켓과 뒷면 파이핑 포켓이 실용성을 높여주며, 앞면 지퍼와 내부 버튼, 금속 후크 여밈으로 안정적인 착용감을 제공합니다. 다양한 톱과
             매치하여 오피스룩부터 캐주얼한 주말 스타일까지 폭넓게 활용할 수 있는 만능 아이템입니다.
           </Typography>
-        </TabPanel>
 
-        <TabPanel value={tabValue} index={1}>
-          <Typography variant="h6" gutterBottom>
-            제품 특징
-          </Typography>
-          <ul>
-            {dummyProduct.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
           <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
             사이즈 정보
           </Typography>
@@ -364,6 +360,30 @@ export default function ProductDetail() {
               </TableBody>
             </Table>
           </TableContainer>
+
+          <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
+            사이즈 추천
+          </Typography>
+          <Typography paragraph>
+            평소 착용하시는 바지 사이즈를 선택하시는 것이 좋습니다. 허리둘레가 64-68cm인 경우 XS, 68-72cm인 경우 S, 72-76cm인 경우 M을 추천드립니다.
+            허리둘레가 76-80cm인 경우 L, 80cm 이상인 경우 XL을 선택하시면 됩니다.
+          </Typography>
+          <Typography paragraph>
+            키가 160cm 미만이신 경우, 총장이 길 수 있으므로 S 사이즈 이하를 추천드립니다. 키가 170cm 이상이신 경우, M 사이즈 이상을 선택하시면 적당한
+            길이감을 느끼실 수 있습니다.
+          </Typography>
+          <Typography paragraph>체형에 따라 사이즈 선택이 달라질 수 있으므로, 상세 사이즈표를 참고하여 선택하시는 것이 가장 정확합니다.</Typography>
+        </TabPanel>
+
+        <TabPanel value={tabValue} index={1}>
+          <Typography variant="h6" gutterBottom>
+            제품 특징
+          </Typography>
+          <ul>
+            {dummyProduct.features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
         </TabPanel>
 
         <TabPanel value={tabValue} index={2}>
