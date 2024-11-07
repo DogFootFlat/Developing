@@ -1,35 +1,15 @@
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import {
-  Check,
-  DryCleaningOutlined,
-  ExpandMore,
-  Favorite,
-  FavoriteBorder,
-  Iron,
-  RemoveCircleOutline,
-  Share,
-  ShoppingCartOutlined,
-  Star,
-  StarBorder,
-  ThumbUpOutlined,
-  VerifiedUser,
-  Wash,
-} from '@mui/icons-material';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Avatar,
-  Box,
-  Button,
-  Chip,
   Container,
+  Typography,
+  Button,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Rating,
+  Tabs,
   Tab,
   Table,
   TableBody,
@@ -37,31 +17,48 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Tabs,
-  Typography,
+  Paper,
+  Avatar,
+  Chip,
+  Box,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ApiService from '../../../../ApiService';
-import CartContext from '../../../../store/cart-context';
+import {
+  ExpandMore,
+  Favorite,
+  FavoriteBorder,
+  Share,
+  Star,
+  StarBorder,
+  ShoppingCartOutlined,
+  ThumbUpOutlined,
+  VerifiedUser,
+  Check,
+  Wash,
+  RemoveCircleOutline,
+  Iron,
+  DryCleaningOutlined,
+} from '@mui/icons-material';
 import { TabPanel } from '../../../layout';
 import Header from '../../../layout/Header';
 import styles from './css/ProductDetail.module.css';
+import ApiService from '../../../../ApiService';
+import CartContext from '../../../../store/cart-context';
 import { care, colors, details, fabricInfo, features, reviews, sizeChart, sizeGuide, sizes } from './data';
 
 export default function ProductDetail() {
   const { productNum } = useParams();
 
   const [cartIsShown, setCartIsShown] = useState(false);
-
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const [selectedSize, setSelectedSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [expandedMaterial, setExpandedMaterial] = useState(true);
   const [expandedCare, setExpandedCare] = useState(false);
-
   const [rating, setRating] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [tabValue, setTabValue] = useState(0);
@@ -85,33 +82,30 @@ export default function ProductDetail() {
     fetchProductDetails();
   }, [productNum]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (carouselRef.current) {
+        const scrollPosition = carouselRef.current.scrollLeft;
+        const imageWidth = carouselRef.current.clientWidth;
+        const newIndex = Math.round(scrollPosition / imageWidth);
+        setCurrentImageIndex(newIndex);
+      }
+    };
+
+    const carouselElement = carouselRef.current;
+    if (carouselElement) {
+      carouselElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (carouselElement) {
+        carouselElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
-  };
-
-  const handleScroll = (e) => {
-    if (carouselRef.current) {
-      const scrollPosition = e.target.scrollLeft;
-      const imageWidth = carouselRef.current.clientWidth;
-      const newIndex = Math.round(scrollPosition / imageWidth);
-      setCurrentImageIndex(newIndex);
-
-      if (thumbnailsRef.current) {
-        const thumbnailWidth = thumbnailsRef.current.children[0].offsetWidth;
-        thumbnailsRef.current.scrollTo({
-          left: newIndex * thumbnailWidth,
-          behavior: 'smooth',
-        });
-      }
-    }
-  };
-
-  const handleMaterialAccordionChange = (event, isExpanded) => {
-    setExpandedMaterial(isExpanded);
-  };
-
-  const handleCareAccordionChange = (event, isExpanded) => {
-    setExpandedCare(isExpanded);
   };
 
   const scrollToImage = (index) => {
@@ -121,6 +115,7 @@ export default function ProductDetail() {
         behavior: 'smooth',
       });
     }
+    setCurrentImageIndex(index);
   };
 
   const handleRatingChange = (event, newValue) => {
@@ -169,9 +164,8 @@ export default function ProductDetail() {
       <Container className={styles.container}>
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
-            <div ref={carouselRef} className={styles.mainImage} onScroll={handleScroll}>
-              {product.productImg
-                .concat([
+            <div ref={carouselRef} className={styles.mainImage}>
+              {product.productImg.concat([
                   'https://picsum.photos/400/400?random=100',
                   'https://picsum.photos/400/400?random=101',
                   'https://picsum.photos/400/400?random=102',
@@ -179,16 +173,14 @@ export default function ProductDetail() {
                   'https://picsum.photos/400/400?random=104',
                   'https://picsum.photos/400/400?random=105',
                   'https://picsum.photos/400/400?random=106',
-                ])
-                .map((img, index) => (
-                  <div key={index} className={styles.imageWrapper}>
-                    <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
-                  </div>
-                ))}
+                ]).map((img, index) => (
+                <div key={index} className={styles.imageWrapper}>
+                  <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
+                </div>
+              ))}
             </div>
             <div ref={thumbnailsRef} className={styles.thumbnails}>
-              {product.productImg
-                .concat([
+              {product.productImg.concat([
                   'https://picsum.photos/400/400?random=100',
                   'https://picsum.photos/400/400?random=101',
                   'https://picsum.photos/400/400?random=102',
@@ -196,16 +188,15 @@ export default function ProductDetail() {
                   'https://picsum.photos/400/400?random=104',
                   'https://picsum.photos/400/400?random=105',
                   'https://picsum.photos/400/400?random=106',
-                ])
-                .map((img, index) => (
-                  <div
-                    key={index}
-                    onClick={() => scrollToImage(index)}
-                    className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
-                  >
-                    <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
-                  </div>
-                ))}
+                ]).map((img, index) => (
+                <div
+                  key={index}
+                  onClick={() => scrollToImage(index)}
+                  className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
+                >
+                  <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -287,7 +278,7 @@ export default function ProductDetail() {
               </IconButton>
             </Box>
 
-            <Accordion expanded={expandedMaterial} onChange={handleMaterialAccordionChange} className={styles.accordion}>
+            <Accordion expanded={expandedMaterial} onChange={(event, isExpanded) => setExpandedMaterial(isExpanded)} className={styles.accordion}>
               <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography>소재</Typography>
               </AccordionSummary>
@@ -296,7 +287,7 @@ export default function ProductDetail() {
               </AccordionDetails>
             </Accordion>
 
-            <Accordion expanded={expandedCare} onChange={handleCareAccordionChange} className={styles.accordion}>
+            <Accordion expanded={expandedCare} onChange={(event, isExpanded) => setExpandedCare(isExpanded)} className={styles.accordion}>
               <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography>관리</Typography>
               </AccordionSummary>
@@ -311,212 +302,212 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        <Box className={styles.tabsContainer}>
-          <Tabs className={styles.tabs} value={tabValue} onChange={handleTabChange} aria-label="product info tabs">
-            <Tab label="상세설명" />
-            <Tab label="특징" />
-            <Tab label="리뷰" />
-          </Tabs>
+<Box className={styles.tabsContainer}>
+  <Tabs className={styles.tabs} value={tabValue} onChange={handleTabChange} aria-label="product info tabs">
+    <Tab label="상세설명" />
+    <Tab label="특징" />
+    <Tab label="리뷰" />
+  </Tabs>
 
-          <TabPanel value={tabValue} index={0}>
-            <Box className={styles.detailContent}>
-              <Typography variant="h6" component="h2" gutterBottom>
-                사이즈 측정 방법
-              </Typography>
+  <TabPanel value={tabValue} index={0}>
+    <Box className={styles.detailContent}>
+      <Typography variant="h6" component="h2" gutterBottom>
+        사이즈 측정 방법
+      </Typography>
 
-              <List>
-                {sizeGuide?.measurements?.map((item, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={item.label} secondary={item.description} />
-                  </ListItem>
-                ))}
-              </List>
+      <List>
+        {sizeGuide?.measurements?.map((item, index) => (
+          <ListItem key={index}>
+            <ListItemText primary={item.label} secondary={item.description} />
+          </ListItem>
+        ))}
+      </List>
 
-              <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
-                사이즈 정보
-              </Typography>
-              <TableContainer component={Paper}>
-                <Table aria-label="size chart">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>사이즈</TableCell>
-                      <TableCell align="right">허리단면</TableCell>
-                      <TableCell align="right">힙단면</TableCell>
-                      <TableCell align="right">밑위</TableCell>
-                      <TableCell align="right">허벅지단면</TableCell>
-                      <TableCell align="right">총장</TableCell>
-                      <TableCell align="right">밑단</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {sizeChart?.map((row) => (
-                      <TableRow key={row.size}>
-                        <TableCell component="th" scope="row">
-                          {row.size}
-                        </TableCell>
-                        <TableCell align="right">{row.waist}</TableCell>
-                        <TableCell align="right">{row.hip}</TableCell>
-                        <TableCell align="right">{row.rise}</TableCell>
-                        <TableCell align="right">{row.thigh}</TableCell>
-                        <TableCell align="right">{row.length}</TableCell>
-                        <TableCell align="right">{row.legOpening}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+      <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
+        사이즈 정보
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table aria-label="size chart">
+          <TableHead>
+            <TableRow>
+              <TableCell>사이즈</TableCell>
+              <TableCell align="right">허리단면</TableCell>
+              <TableCell align="right">힙단면</TableCell>
+              <TableCell align="right">밑위</TableCell>
+              <TableCell align="right">허벅지단면</TableCell>
+              <TableCell align="right">총장</TableCell>
+              <TableCell align="right">밑단</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sizeChart?.map((row) => (
+              <TableRow key={row.size}>
+                <TableCell component="th" scope="row">
+                  {row.size}
+                </TableCell>
+                <TableCell align="right">{row.waist}</TableCell>
+                <TableCell align="right">{row.hip}</TableCell>
+                <TableCell align="right">{row.rise}</TableCell>
+                <TableCell align="right">{row.thigh}</TableCell>
+                <TableCell align="right">{row.length}</TableCell>
+                <TableCell align="right">{row.legOpening}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-              <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
-                원단 정보
-              </Typography>
-              <Typography variant="body1" component="div">
-                {fabricInfo?.main}
-              </Typography>
-              <List>
-                {fabricInfo?.details.map((detail, index) => (
-                  <ListItem key={index}>
-                    <ListItemIcon>
-                      <Check />
-                    </ListItemIcon>
-                    <ListItemText primary={detail} />
-                  </ListItem>
-                ))}
-              </List>
+      <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
+        원단 정보
+      </Typography>
+      <Typography variant="body1" component="div">
+        {fabricInfo?.main}
+      </Typography>
+      <List>
+        {fabricInfo?.details.map((detail, index) => (
+          <ListItem key={index}>
+            <ListItemIcon>
+              <Check />
+            </ListItemIcon>
+            <ListItemText primary={detail} />
+          </ListItem>
+        ))}
+      </List>
 
-              <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
-                세탁 및 관리
-              </Typography>
-              <List>
-                {fabricInfo?.care.map((instruction, index) => (
-                  <ListItem key={index}>
-                    <ListItemIcon>
-                      {instruction.icon === 'Wash' && <Wash />}
-                      {instruction.icon === 'RemoveCircleOutline' && <RemoveCircleOutline />}
-                      {instruction.icon === 'Iron' && <Iron />}
-                      {instruction.icon === 'DryCleaningOutlined' && <DryCleaningOutlined />}
-                    </ListItemIcon>
-                    <ListItemText primary={instruction.text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          </TabPanel>
+      <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 4 }}>
+        세탁 및 관리
+      </Typography>
+      <List>
+        {fabricInfo?.care.map((instruction, index) => (
+          <ListItem key={index}>
+            <ListItemIcon>
+              {instruction.icon === 'Wash' && <Wash />}
+              {instruction.icon === 'RemoveCircleOutline' && <RemoveCircleOutline />}
+              {instruction.icon === 'Iron' && <Iron />}
+              {instruction.icon === 'DryCleaningOutlined' && <DryCleaningOutlined />}
+            </ListItemIcon>
+            <ListItemText primary={instruction.text} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  </TabPanel>
 
-          <TabPanel value={tabValue} index={1}>
-            <Typography variant="h6" component="h2" gutterBottom>
-              제품 특징
-            </Typography>
-            <ul>
-              {features?.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-          </TabPanel>
+  <TabPanel value={tabValue} index={1}>
+    <Typography variant="h6" component="h2" gutterBottom>
+      제품 특징
+    </Typography>
+    <ul>
+      {features?.map((feature, index) => (
+        <li key={index}>{feature}</li>
+      ))}
+    </ul>
+  </TabPanel>
 
-          <TabPanel value={tabValue} index={2}>
-            <Box className={styles.reviewSection}>
-              <Box className={styles.reviewHeader}>
-                <Typography variant="h5" component="h2">
-                  리뷰 {reviews?.reviews?.length}
-                </Typography>
-                <Box className={styles.averageRating}>{product.rating}</Box>
-                <Rating value={product.rating} precision={0.1} readOnly size="large" />
-              </Box>
-            </Box>
+  <TabPanel value={tabValue} index={2}>
+    <Box className={styles.reviewSection}>
+      <Box className={styles.reviewHeader}>
+        <Typography variant="h5" component="h2">
+          리뷰 {reviews?.reviews?.length}
+        </Typography>
+        <Box className={styles.averageRating}>{product.rating}</Box>
+        <Rating value={product.rating} precision={0.1} readOnly size="large" />
+      </Box>
+    </Box>
 
-            <Box className={styles.bestReviews}>
-              <Typography variant="h6" component="h3" gutterBottom>
-                베스트 리뷰
-              </Typography>
-              {reviews?.reviews?.slice(0, 3).map((review) => (
-                <Box key={review.id} className={styles.reviewCard}>
-                  <Box className={styles.reviewUser}>
-                    <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>
-                    <Typography variant="subtitle2">{review.user}</Typography>
-                    {review.verified && <VerifiedUser sx={{ width: 16, height: 16, color: 'primary.main' }} />}
-                  </Box>
-                  <Rating value={review.rating} size="small" readOnly />
-                  <Typography variant="body2" className={styles.reviewContent}>
-                    {review.content}
-                  </Typography>
-                  {review.images && review.images.length > 0 && (
-                    <Box className={styles.reviewImages}>
-                      {review.images.map((img, index) => (
-                        <img key={index} src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.reviewImage} />
-                      ))}
-                    </Box>
-                  )}
-                  <Box className={styles.reviewMeta}>
-                    <Box>
-                      <Chip size="small" label={`${review.size} 구매`} />
-                      <Chip size="small" label={review.height} />
-                    </Box>
-                    <Box className={styles.helpfulButton}>
-                      <ThumbUpOutlined sx={{ width: 16, height: 16 }} />
-                      <Typography variant="caption">{review.helpful}</Typography>
-                    </Box>
-                  </Box>
-                </Box>
+    <Box className={styles.bestReviews}>
+      <Typography variant="h6" component="h3" gutterBottom>
+        베스트 리뷰
+      </Typography>
+      {reviews?.reviews?.slice(0, 3).map((review) => (
+        <Box key={review.id} className={styles.reviewCard}>
+          <Box className={styles.reviewUser}>
+            <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>
+            <Typography variant="subtitle2">{review.user}</Typography>
+            {review.verified && <VerifiedUser sx={{ width: 16, height: 16, color: 'primary.main' }} />}
+          </Box>
+          <Rating value={review.rating} size="small" readOnly />
+          <Typography variant="body2" className={styles.reviewContent}>
+            {review.content}
+          </Typography>
+          {review.images && review.images.length > 0 && (
+            <Box className={styles.reviewImages}>
+              {review.images.map((img, index) => (
+                <img key={index} src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.reviewImage} />
               ))}
             </Box>
-
-            <Box className={styles.reviewPhotos}>
-              <Typography variant="h6" component="h3" gutterBottom>
-                리뷰 사진
-              </Typography>
-              <Box className={styles.photoGrid}>
-                {reviews?.reviews
-                  .filter((review) => review.images && review.images.length > 0)
-                  .flatMap((review) => review.images)
-                  .map((img, index) => (
-                    <Box key={index} className={styles.photoGridItem}>
-                      <img src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.photoGridImage} />
-                    </Box>
-                  ))}
-              </Box>
-            </Box>
-
+          )}
+          <Box className={styles.reviewMeta}>
             <Box>
-              <Typography variant="h6" component="h3" gutterBottom>
-                전체 리뷰
-              </Typography>
-              {reviews?.reviews?.map((review) => (
-                <Box key={review.id} className={styles.reviewCard}>
-                  <Box className={styles.reviewUser}>
-                    <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>
-                    <Typography variant="subtitle2">{review.user}</Typography>
-                    {review.verified && <VerifiedUser sx={{ width: 16, height: 16, color: 'primary.main' }} />}
-                    <Typography variant="caption" sx={{ ml: 'auto' }}>
-                      {review.date}
-                    </Typography>
-                  </Box>
-                  <Rating value={review.rating} size="small" readOnly />
-                  <Typography variant="body2" className={styles.reviewContent}>
-                    {review.content}
-                  </Typography>
-                  {review.images && review.images.length > 0 && (
-                    <Box className={styles.reviewImages}>
-                      {review.images.map((img, index) => (
-                        <img key={index} src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.reviewImage} />
-                      ))}
-                    </Box>
-                  )}
-                  <Box className={styles.reviewMeta}>
-                    <Box>
-                      <Chip size="small" label={`${review.size} 구매`} />
-                      <Chip size="small" label={review.height} />
-                    </Box>
-                    <Box className={styles.helpfulButton}>
-                      <ThumbUpOutlined sx={{ width: 16, height: 16 }} />
-                      <Typography variant="caption">{review.helpful}</Typography>
-                    </Box>
-                  </Box>
-                </Box>
+              <Chip size="small" label={`${review.size} 구매`} />
+              <Chip size="small" label={review.height} />
+            </Box>
+            <Box className={styles.helpfulButton}>
+              <ThumbUpOutlined sx={{ width: 16, height: 16 }} />
+              <Typography variant="caption">{review.helpful}</Typography>
+            </Box>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+
+    <Box className={styles.reviewPhotos}>
+      <Typography variant="h6" component="h3" gutterBottom>
+        리뷰 사진
+      </Typography>
+      <Box className={styles.photoGrid}>
+        {reviews?.reviews
+          .filter((review) => review.images && review.images.length > 0)
+          .flatMap((review) => review.images)
+          .map((img, index) => (
+            <Box key={index} className={styles.photoGridItem}>
+              <img src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.photoGridImage} />
+            </Box>
+          ))}
+      </Box>
+    </Box>
+
+    <Box>
+      <Typography variant="h6" component="h3" gutterBottom>
+        전체 리뷰
+      </Typography>
+      {reviews?.reviews?.map((review) => (
+        <Box key={review.id} className={styles.reviewCard}>
+          <Box className={styles.reviewUser}>
+            <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>
+            <Typography variant="subtitle2">{review.user}</Typography>
+            {review.verified && <VerifiedUser sx={{ width: 16, height: 16, color: 'primary.main' }} />}
+            <Typography variant="caption" sx={{ ml: 'auto' }}>
+              {review.date}
+            </Typography>
+          </Box>
+          <Rating value={review.rating} size="small" readOnly />
+          <Typography variant="body2" className={styles.reviewContent}>
+            {review.content}
+          </Typography>
+          {review.images && review.images.length > 0 && (
+            <Box className={styles.reviewImages}>
+              {review.images.map((img, index) => (
+                <img key={index} src={img} alt={`리뷰 이미지 ${index + 1}`} className={styles.reviewImage} />
               ))}
             </Box>
-          </TabPanel>
+          )}
+          <Box className={styles.reviewMeta}>
+            <Box>
+              <Chip size="small" label={`${review.size} 구매`} />
+              <Chip size="small" label={review.height} />
+            </Box>
+            <Box className={styles.helpfulButton}>
+              <ThumbUpOutlined sx={{ width: 16, height: 16 }} />
+              <Typography variant="caption">{review.helpful}</Typography>
+            </Box>
+          </Box>
         </Box>
-      </Container>
-    </>
-  );
+      ))}
+    </Box>
+  </TabPanel>
+</Box>
+</Container>
+</>
+);
 }
