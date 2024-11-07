@@ -4,10 +4,10 @@
 }
 
 .productGrid {
-  margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .imageCarousel {
@@ -31,11 +31,29 @@
   display: none; /* Chrome, Safari, and Opera */
 }
 
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .thumbnails {
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.thumbnails::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }
 
 .thumbnail {
@@ -69,9 +87,29 @@
   margin-bottom: 0.5rem;
 }
 
-.productPrice {
-  font-size: 1.5rem;
+.priceSection {
+  margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.discountPercentage {
+  color: #ad4102;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.salePrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.25rem;
+}
+
+.originalPrice {
+  font-size: 1rem;
+  color: #888;
+  text-decoration: line-through;
 }
 
 .colorInfo {
@@ -130,12 +168,16 @@
 .accordionDetail {
   margin-top: 2rem;
   font-size: 1rem;
-  line-height: 0%;
+  line-height: 1.5;
   margin-bottom: 1rem;
 }
 
 .tabsContainer {
   margin-top: 2rem !important;
+}
+
+.tabs {
+  margin-bottom: 2rem;
 }
 
 .description {
@@ -234,9 +276,12 @@
     flex-direction: column;
   }
 
+  .mainImage {
+    height: 400px;
+  }
+
   .thumbnails {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    padding-bottom: 0.5rem;
   }
 
   .thumbnail {
