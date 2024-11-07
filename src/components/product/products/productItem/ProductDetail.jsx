@@ -41,6 +41,8 @@ import {
   RemoveCircleOutline,
   Iron,
   DryCleaningOutlined,
+  ChevronLeft,
+  ChevronRight,
 } from '@mui/icons-material';
 import { TabPanel } from '../../../layout';
 import Header from '../../../layout/Header';
@@ -94,28 +96,6 @@ export default function ProductDetail() {
     fetchProductDetails();
   }, [productNum]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (carouselRef.current) {
-        const scrollPosition = carouselRef.current.scrollLeft;
-        const imageWidth = carouselRef.current.clientWidth;
-        const newIndex = Math.round(scrollPosition / imageWidth);
-        setCurrentImageIndex(newIndex);
-      }
-    };
-
-    const carouselElement = carouselRef.current;
-    if (carouselElement) {
-      carouselElement.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (carouselElement) {
-        carouselElement.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
   };
@@ -128,6 +108,16 @@ export default function ProductDetail() {
       });
     }
     setCurrentImageIndex(index);
+  };
+
+  const handlePrevImage = () => {
+    const newIndex = (currentImageIndex - 1 + product.productImg.length) % product.productImg.length;
+    scrollToImage(newIndex);
+  };
+
+  const handleNextImage = () => {
+    const newIndex = (currentImageIndex + 1) % product.productImg.length;
+    scrollToImage(newIndex);
   };
 
   const handleRatingChange = (event, newValue) => {
@@ -176,12 +166,20 @@ export default function ProductDetail() {
       <Container className={styles.container}>
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
-            <div ref={carouselRef} className={styles.mainImage}>
-              {product.productImg.map((img, index) => (
-                <div key={index} className={styles.imageWrapper}>
-                  <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
-                </div>
-              ))}
+            <div className={styles.mainImageContainer}>
+              <IconButton className={`${styles.carouselButton} ${styles.prevButton}`} onClick={handlePrevImage}>
+                <ChevronLeft />
+              </IconButton>
+              <div ref={carouselRef} className={styles.mainImage}>
+                {product.productImg.map((img, index) => (
+                  <div key={index} className={styles.imageWrapper}>
+                    <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
+                  </div>
+                ))}
+              </div>
+              <IconButton className={`${styles.carouselButton} ${styles.nextButton}`} onClick={handleNextImage}>
+                <ChevronRight />
+              </IconButton>
             </div>
             <div ref={thumbnailsRef} className={styles.thumbnails}>
               {product.productImg.map((img, index) => (

@@ -18,21 +18,28 @@
   min-width: 300px;
 }
 
-.mainImage {
+.mainImageContainer {
+  position: relative;
   width: 100%;
   height: 600px;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .mainImage::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
+  display: none;
 }
 
 .imageWrapper {
-  width: 100%;
+  flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
 }
@@ -43,18 +50,34 @@
   object-fit: cover;
 }
 
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  z-index: 1;
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
 .thumbnails {
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding: 10px 0;
 }
 
 .thumbnails::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
+  display: none;
 }
 
 .thumbnail {
@@ -63,13 +86,12 @@
   height: 80px;
   cursor: pointer;
   opacity: 0.5;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-  filter: blur(2px);
+  transition: opacity 0.3s ease;
 }
 
 .thumbnailActive {
   opacity: 1;
-  filter: blur(0);
+  border: 2px solid #e57971;
 }
 
 .thumbnailImage {
@@ -77,7 +99,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 .productInfo {
   flex: 1;
   min-width: 300px;
