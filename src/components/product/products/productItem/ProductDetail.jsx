@@ -69,15 +69,6 @@ export default function ProductDetail() {
   const thumbnailsRef = useRef(null);
   const cartCtx = useContext(CartContext);
 
-  const handleScroll = () => {
-    if (carouselRef.current) {
-      const scrollPosition = carouselRef.current.scrollTop;
-      const imageHeight = carouselRef.current.clientHeight;
-      const newIndex = Math.round(scrollPosition / imageHeight);
-      setCurrentImageIndex(newIndex);
-    }
-  };
-
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -103,7 +94,20 @@ export default function ProductDetail() {
     };
 
     fetchProductDetails();
-  }, []);
+  }, [productNum]);
+
+  const handleSizeSelect = (size) => {
+    setSelectedSize(size);
+  };
+
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      const scrollPosition = carouselRef.current.scrollLeft;
+      const imageWidth = carouselRef.current.clientWidth;
+      const newIndex = Math.round(scrollPosition / imageWidth);
+      setCurrentImageIndex(newIndex);
+    }
+  };
 
   useEffect(() => {
     const carouselElement = carouselRef.current;
@@ -121,7 +125,7 @@ export default function ProductDetail() {
   const scrollToImage = (index) => {
     if (carouselRef.current) {
       carouselRef.current.scrollTo({
-        top: index * carouselRef.current.clientHeight,
+        left: index * carouselRef.current.clientWidth,
         behavior: 'smooth',
       });
     }
@@ -144,7 +148,7 @@ export default function ProductDetail() {
     setCartIsShown(true);
   };
 
-  const addToCartHandler = (amount) => {
+  const addToCartHandler = () => {
     if (!selectedSize || !product) {
       alert('사이즈를 선택해주세요.');
       return;
@@ -152,7 +156,7 @@ export default function ProductDetail() {
     cartCtx.addItem({
       id: product.productNum,
       name: product.productName,
-      amount: amount,
+      amount: 1,
       price: product.rprice > 0 ? product.rprice : product.oprice,
       size: selectedSize,
     });
@@ -174,14 +178,22 @@ export default function ProductDetail() {
       <Container className={styles.container}>
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
-            <div ref={carouselRef} className={styles.mainImage}>
-              {product.productImg.map((img, index) => (
-                <div key={index} className={`${styles.imageWrapper} ${currentImageIndex === index ? styles.activeImage : ''}`}>
-                  <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
-                </div>
-              ))}
+            <div className={styles.mainImageContainer}>
+              <IconButton className={`${styles.carouselButton} ${styles.prevButton}`} onClick={() => scrollToImage(currentImageIndex - 1)}>
+                <ChevronLeft />
+              </IconButton>
+              <div ref={carouselRef} className={styles.mainImage}>
+                {product.productImg.map((img, index) => (
+                  <div key={index} className={styles.imageWrapper}>
+                    <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
+                  </div>
+                ))}
+              </div>
+              <IconButton className={`${styles.carouselButton} ${styles.nextButton}`} onClick={() => scrollToImage(currentImageIndex + 1)}>
+                <ChevronRight />
+              </IconButton>
             </div>
-            <div className={styles.thumbnails}>
+            <div ref={thumbnailsRef} className={styles.thumbnails}>
               {product.productImg.map((img, index) => (
                 <div
                   key={index}
@@ -242,7 +254,7 @@ export default function ProductDetail() {
               fullWidth
               startIcon={<ShoppingCartOutlined />}
               className={styles.addToCartButton}
-              onClick={() => addToCartHandler(1)}
+              onClick={addToCartHandler}
               disabled={!selectedSize}
             >
               장바구니 추가
