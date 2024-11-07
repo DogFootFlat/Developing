@@ -69,6 +69,15 @@ export default function ProductDetail() {
   const thumbnailsRef = useRef(null);
   const cartCtx = useContext(CartContext);
 
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      const scrollPosition = carouselRef.current.scrollTop;
+      const imageHeight = carouselRef.current.clientHeight;
+      const newIndex = Math.round(scrollPosition / imageHeight);
+      setCurrentImageIndex(newIndex);
+    }
+  };
+
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -94,30 +103,29 @@ export default function ProductDetail() {
     };
 
     fetchProductDetails();
-  }, [productNum]);
+  }, []);
 
-  const handleSizeSelect = (size) => {
-    setSelectedSize(size);
-  };
+  useEffect(() => {
+    const carouselElement = carouselRef.current;
+    if (carouselElement) {
+      carouselElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (carouselElement) {
+        carouselElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   const scrollToImage = (index) => {
     if (carouselRef.current) {
       carouselRef.current.scrollTo({
-        left: index * carouselRef.current.clientWidth,
+        top: index * carouselRef.current.clientHeight,
         behavior: 'smooth',
       });
     }
     setCurrentImageIndex(index);
-  };
-
-  const handlePrevImage = () => {
-    const newIndex = (currentImageIndex - 1 + product.productImg.length) % product.productImg.length;
-    scrollToImage(newIndex);
-  };
-
-  const handleNextImage = () => {
-    const newIndex = (currentImageIndex + 1) % product.productImg.length;
-    scrollToImage(newIndex);
   };
 
   const handleRatingChange = (event, newValue) => {
@@ -166,22 +174,14 @@ export default function ProductDetail() {
       <Container className={styles.container}>
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
-            <div className={styles.mainImageContainer}>
-              <IconButton className={`${styles.carouselButton} ${styles.prevButton}`} onClick={handlePrevImage}>
-                <ChevronLeft />
-              </IconButton>
-              <div ref={carouselRef} className={styles.mainImage}>
-                {product.productImg.map((img, index) => (
-                  <div key={index} className={styles.imageWrapper}>
-                    <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
-                  </div>
-                ))}
-              </div>
-              <IconButton className={`${styles.carouselButton} ${styles.nextButton}`} onClick={handleNextImage}>
-                <ChevronRight />
-              </IconButton>
+            <div ref={carouselRef} className={styles.mainImage}>
+              {product.productImg.map((img, index) => (
+                <div key={index} className={`${styles.imageWrapper} ${currentImageIndex === index ? styles.activeImage : ''}`}>
+                  <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
+                </div>
+              ))}
             </div>
-            <div ref={thumbnailsRef} className={styles.thumbnails}>
+            <div className={styles.thumbnails}>
               {product.productImg.map((img, index) => (
                 <div
                   key={index}
