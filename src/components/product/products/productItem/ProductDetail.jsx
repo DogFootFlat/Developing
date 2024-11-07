@@ -214,7 +214,7 @@ const _ProductDetail = function ProductDetail() {
             <Typography variant="subtitle1" className={styles.sizeSelection}>
               사이즈 선택
             </Typography>
-            <Box>
+            <Box className={styles.sizeButtonContainer}>
               {sizes.map((size) => (
                 <Button
                   key={size}
@@ -226,6 +226,7 @@ const _ProductDetail = function ProductDetail() {
                 </Button>
               ))}
             </Box>
+
             <Button
               variant="contained"
               fullWidth
@@ -244,14 +245,19 @@ const _ProductDetail = function ProductDetail() {
               <Typography variant="subtitle1" gutterBottom>
                 상품 평가
               </Typography>
-              <Rating
-                name="product-rating"
-                value={rating}
-                precision={0.5}
-                onChange={handleRatingChange}
-                emptyIcon={<StarBorder style={{ opacity: 0.55 }} fontSize="inherit" />}
-                icon={<Star fontSize="inherit" />}
-              />
+              <Box display="flex" alignItems="center">
+                <Rating
+                  name="product-rating"
+                  value={rating}
+                  precision={0.5}
+                  onChange={handleRatingChange}
+                  emptyIcon={<StarBorder style={{ opacity: 0.55 }} fontSize="inherit" />}
+                  icon={<Star fontSize="inherit" />}
+                />
+                <Typography variant="body2" ml={1}>
+                  {rating ? `${rating * 2}/10` : '0/10'}
+                </Typography>
+              </Box>
             </Box>
 
             <Box className={styles.iconButtons}>

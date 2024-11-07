@@ -122,15 +122,25 @@
   margin-bottom: 1rem !important;
 }
 
+.sizeButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .sizeSelection {
   margin-bottom: 1rem !important;
 }
 
 .sizeButton {
-  width: 20px !important;
-  padding: 0 !important;
-  margin-right: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+  width: 3.5rem;
+  height: auto;
+  min-width: unset !important;
+  padding: auto;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .sizeButton.selected {
@@ -160,6 +170,8 @@
 
 .ratingSection {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .iconButtons {
