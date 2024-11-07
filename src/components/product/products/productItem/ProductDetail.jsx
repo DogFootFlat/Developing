@@ -183,7 +183,7 @@ export default function ProductDetail() {
                 ))}
               </div>
             </div>
-            <div ref={thumbnailsRef} className={styles.thumbnails}>
+            <div className={styles.thumbnails}>
               {product.productImg.map((img, index) => (
                 <div
                   key={index}
