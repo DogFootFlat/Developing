@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Container,
@@ -49,7 +49,7 @@ import ApiService from '../../../../ApiService';
 import CartContext from '../../../../store/cart-context';
 import { care, colors, details, fabricInfo, features, reviews, sizeChart, sizeGuide, sizes } from './data';
 
-export default function ProductDetail() {
+const _ProductDetail = function ProductDetail() {
   const { productNum } = useParams();
   const [cartIsShown, setCartIsShown] = useState(false);
   const [product, setProduct] = useState(null);
@@ -97,36 +97,23 @@ export default function ProductDetail() {
     setSelectedSize(size);
   };
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (carouselRef.current) {
       const scrollPosition = carouselRef.current.scrollTop;
       const imageHeight = carouselRef.current.clientHeight;
       const newIndex = Math.round(scrollPosition / imageHeight);
       setCurrentImageIndex(newIndex);
     }
-  };
-
-  useEffect(() => {
-    const carouselElement = carouselRef.current;
-    if (carouselElement) {
-      carouselElement.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (carouselElement) {
-        carouselElement.removeEventListener('scroll', handleScroll);
-      }
-    };
   }, []);
 
-  const scrollToImage = (index) => {
+  const scrollToImage = useCallback((index) => {
     if (carouselRef.current) {
       carouselRef.current.scrollTo({
         top: index * carouselRef.current.clientHeight,
         behavior: 'smooth',
       });
     }
-  };
+  }, []);
 
   const handleRatingChange = (event, newValue) => {
     setRating(newValue);
@@ -175,7 +162,7 @@ export default function ProductDetail() {
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
             <div className={styles.mainImageContainer}>
-              <div ref={carouselRef} className={styles.mainImage}>
+              <div ref={carouselRef} className={styles.mainImage} onScroll={handleScroll}>
                 {product.productImg.map((img, index) => (
                   <div key={index} className={`${styles.imageWrapper} ${currentImageIndex === index ? styles.activeImage : ''}`}>
                     <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
@@ -506,4 +493,6 @@ export default function ProductDetail() {
       </Container>
     </>
   );
-}
+};
+
+export default memo(_ProductDetail);
