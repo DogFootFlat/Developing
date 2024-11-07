@@ -4,7 +4,7 @@ const CartContext = React.createContext({
   items: [],
   totalAmount: 0,
   addItem: (item) => {},
-  removeItem: (id) => {},
+  removeItem: (id, size) => {}, // size 매개변수 추가
 });
 
 export default CartContext;

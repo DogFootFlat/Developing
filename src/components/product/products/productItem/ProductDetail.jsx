@@ -47,19 +47,25 @@ import Header from '../../../layout/Header';
 import styles from './css/ProductDetail.module.css';
 import ApiService from '../../../../ApiService';
 import CartContext from '../../../../store/cart-context';
-import { care, colors, details, fabricInfo, features, sizeChart, sizeGuide, sizes } from './data';
+import { care, colors, details, fabricInfo, features, reviews, sizeChart, sizeGuide, sizes } from './data';
 
 export default function ProductDetail() {
   const { productNum } = useParams();
+
+  const [cartIsShown, setCartIsShown] = useState(false);
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const [selectedSize, setSelectedSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [expandedMaterial, setExpandedMaterial] = useState(true);
   const [expandedCare, setExpandedCare] = useState(false);
+
   const [rating, setRating] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [tabValue, setTabValue] = useState(0);
+
   const carouselRef = useRef(null);
   const thumbnailsRef = useRef(null);
   const cartCtx = useContext(CartContext);
@@ -129,15 +135,22 @@ export default function ProductDetail() {
     setTabValue(newValue);
   };
 
-  const addToCartHandler = () => {
-    if (product) {
-      cartCtx.addItem({
-        id: product.productNum,
-        name: product.productName,
-        amount: 1,
-        price: product.rprice > 0 ? product.rprice : product.oprice,
-      });
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
+
+  const addToCartHandler = (amount) => {
+    if (!selectedSize || !product) {
+      alert('사이즈를 선택해주세요.');
+      return;
     }
+    cartCtx.addItem({
+      id: product.productNum,
+      name: product.productName,
+      amount: amount,
+      price: product.rprice > 0 ? product.rprice : product.oprice,
+      size: selectedSize,
+    });
   };
 
   if (loading) {
@@ -152,7 +165,7 @@ export default function ProductDetail() {
 
   return (
     <>
-      <Header />
+      <Header cartIsShown={cartIsShown} setCartIsShown={setCartIsShown} onShowCart={showCartHandler} />
       <Container className={styles.container}>
         <div className={styles.productGrid}>
           <div className={styles.imageCarousel}>
@@ -219,11 +232,16 @@ export default function ProductDetail() {
                 </Button>
               ))}
             </Box>
-
-            <Button variant="contained" fullWidth startIcon={<ShoppingCartOutlined />} className={styles.addToCartButton} onClick={addToCartHandler}>
+            <Button
+              variant="contained"
+              fullWidth
+              startIcon={<ShoppingCartOutlined />}
+              className={styles.addToCartButton}
+              onClick={() => addToCartHandler(1)}
+              disabled={!selectedSize}
+            >
               장바구니 추가
             </Button>
-
             <Typography variant="body2" className={styles.shippingInfo}>
               배송 및 반품 무료
             </Typography>
@@ -379,7 +397,7 @@ export default function ProductDetail() {
             <Box className={styles.reviewSection}>
               <Box className={styles.reviewHeader}>
                 <Typography variant="h5" component="h2">
-                  리뷰 {product.reviews.length}
+                  리뷰 {reviews?.reviews?.length}
                 </Typography>
                 <Box className={styles.averageRating}>{product.rating}</Box>
                 <Rating value={product.rating} precision={0.1} readOnly size="large" />
@@ -390,7 +408,7 @@ export default function ProductDetail() {
               <Typography variant="h6" component="h3" gutterBottom>
                 베스트 리뷰
               </Typography>
-              {product.reviews.slice(0, 3).map((review) => (
+              {reviews?.reviews?.slice(0, 3).map((review) => (
                 <Box key={review.id} className={styles.reviewCard}>
                   <Box className={styles.reviewUser}>
                     <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>
@@ -427,7 +445,7 @@ export default function ProductDetail() {
                 리뷰 사진
               </Typography>
               <Box className={styles.photoGrid}>
-                {product.reviews
+                {reviews?.reviews
                   .filter((review) => review.images && review.images.length > 0)
                   .flatMap((review) => review.images)
                   .map((img, index) => (
@@ -442,7 +460,7 @@ export default function ProductDetail() {
               <Typography variant="h6" component="h3" gutterBottom>
                 전체 리뷰
               </Typography>
-              {product.reviews.map((review) => (
+              {reviews?.reviews?.map((review) => (
                 <Box key={review.id} className={styles.reviewCard}>
                   <Box className={styles.reviewUser}>
                     <Avatar sx={{ width: 24, height: 24 }}>{review.user[0]}</Avatar>

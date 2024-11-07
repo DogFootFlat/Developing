@@ -4,24 +4,46 @@
   z-index: 1000;
 }
 
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .backdropBlur {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .nav {
-	display: flex;
-	gap: 1rem; /* 버튼 간격 통일 */
-	padding-left: 12%; /* 패딩 통일 */
+  display: flex;
+  gap: 1rem; /* 버튼 간격 통일 */
+  padding-left: 12%; /* 패딩 통일 */
 }
 
 .nav a {
-	font-size: 0.9rem; /* 버튼 글자 크기 통일 */
-	color: #333; /* 글자 색상 */
-	text-decoration: none; /* 밑줄 제거 */
-	padding: 0.4rem 1rem 0 0rem; /* 버튼 패딩 */
-	border-radius: 5px; /* 부드러운 모서리 */
-	transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+  font-size: 0.9rem; /* 버튼 글자 크기 통일 */
+  color: #333; /* 글자 색상 */
+  text-decoration: none; /* 밑줄 제거 */
+  padding: 0.4rem 1rem 0 0rem; /* 버튼 패딩 */
+  border-radius: 5px; /* 부드러운 모서리 */
+  transition: background-color 0.3s ease; /* 배경색 전환 효과 */
 }
 
 .logo {
@@ -52,8 +74,8 @@
 
 .iconButton {
   color: #000 !important;
-	width: auto;
-	padding: 0 0.5rem;
+  width: auto;
+  padding: 0 0.5rem;
 }
 
 .badge {
