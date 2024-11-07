@@ -301,7 +301,7 @@ export default function ProductDetail() {
             <AccordionDetails>
               <ul>
                 {dummyProduct.care.map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <li key={index} className={styles.accordionDetail}>{item}</li>
                 ))}
               </ul>
             </AccordionDetails>
@@ -316,7 +316,7 @@ export default function ProductDetail() {
           <Tab label="리뷰" />
         </Tabs>
 
-        <TabPanel value={tabValue} index={0}>
+        <TabPanel className={styles.description} value={tabValue} index={0}>
           <Typography paragraph>{dummyProduct.description}</Typography>
           <Typography paragraph>
             이 플리츠 스트레이트 팬츠는 현대적인 여성의 다양한 스타일링에 완벽하게 어울리는 제품입니다. 하이웨이스트 디자인과 와이드 레그 실루엣이

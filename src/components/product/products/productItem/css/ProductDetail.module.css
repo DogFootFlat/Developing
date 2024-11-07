@@ -91,18 +91,18 @@
 }
 
 .colorInfo {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .sizeSelection {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .sizeButton {
   width: auto;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-right: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .addToCartButton {
@@ -120,8 +120,8 @@
 }
 
 .shippingInfo {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
   font-size: 0.9rem;
 }
 
@@ -130,9 +130,9 @@
 }
 
 .iconButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-top: 1rem !important;
 }
 
 .iconButtons button {
@@ -143,12 +143,23 @@
   margin-top: 2rem;
 }
 
-.tabsContainer {
+.accordionDetail {
   margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 0%;
+  margin-bottom: 1rem;
+}
+
+.tabsContainer {
+  margin-top: 2rem !important;
+}
+
+.description {
+  margin-top: 2rem !important;
 }
 
 .reviewSection {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
 
 .reviewHeader {
