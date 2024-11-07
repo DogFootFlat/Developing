@@ -51,7 +51,6 @@ import { care, colors, details, fabricInfo, features, reviews, sizeChart, sizeGu
 
 export default function ProductDetail() {
   const { productNum } = useParams();
-
   const [cartIsShown, setCartIsShown] = useState(false);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -74,13 +73,13 @@ export default function ProductDetail() {
         response.data = {
           ...response.data,
           productImg: response.data.productImg.concat([
-            'https://picsum.photos/400/400?random=100',
-            'https://picsum.photos/400/400?random=101',
-            'https://picsum.photos/400/400?random=102',
-            'https://picsum.photos/400/400?random=103',
-            'https://picsum.photos/400/400?random=104',
-            'https://picsum.photos/400/400?random=105',
-            'https://picsum.photos/400/400?random=106',
+            'https://picsum.photos/2000/3000?random=100',
+            'https://picsum.photos/2000/3000?random=101',
+            'https://picsum.photos/2000/3000?random=102',
+            'https://picsum.photos/2000/3000?random=103',
+            'https://picsum.photos/2000/3000?random=104',
+            'https://picsum.photos/2000/3000?random=105',
+            'https://picsum.photos/2000/3000?random=106',
           ]),
         };
         setProduct(response.data);
@@ -100,9 +99,9 @@ export default function ProductDetail() {
 
   const handleScroll = () => {
     if (carouselRef.current) {
-      const scrollPosition = carouselRef.current.scrollLeft;
-      const imageWidth = carouselRef.current.clientWidth;
-      const newIndex = Math.round(scrollPosition / imageWidth);
+      const scrollPosition = carouselRef.current.scrollTop;
+      const imageHeight = carouselRef.current.clientHeight;
+      const newIndex = Math.round(scrollPosition / imageHeight);
       setCurrentImageIndex(newIndex);
     }
   };
@@ -119,6 +118,15 @@ export default function ProductDetail() {
       }
     };
   }, []);
+
+  const scrollToImage = (index) => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({
+        top: index * carouselRef.current.clientHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const handleRatingChange = (event, newValue) => {
     setRating(newValue);
@@ -169,7 +177,7 @@ export default function ProductDetail() {
             <div className={styles.mainImageContainer}>
               <div ref={carouselRef} className={styles.mainImage}>
                 {product.productImg.map((img, index) => (
-                  <div key={index} className={styles.imageWrapper}>
+                  <div key={index} className={`${styles.imageWrapper} ${currentImageIndex === index ? styles.activeImage : ''}`}>
                     <img src={img} alt={`${product.productName} - 이미지 ${index + 1}`} className={styles.image} />
                   </div>
                 ))}
@@ -179,14 +187,7 @@ export default function ProductDetail() {
               {product.productImg.map((img, index) => (
                 <div
                   key={index}
-                  onClick={() => {
-                    if (carouselRef.current) {
-                      carouselRef.current.scrollTo({
-                        left: index * carouselRef.current.clientWidth,
-                        behavior: 'smooth',
-                      });
-                    }
-                  }}
+                  onClick={() => scrollToImage(index)}
                   className={`${styles.thumbnail} ${currentImageIndex === index ? styles.thumbnailActive : ''}`}
                 >
                   <img src={img} alt={`Thumbnail ${index + 1}`} className={styles.thumbnailImage} />
